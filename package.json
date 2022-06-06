@@ -1,0 +1,50 @@
+{
+  "name": "javascript-development-environment",
+  "version": "1.0.0",
+  "description": "JavaScript development environment",
+  "scripts": {
+    "prestart": "node buildScripts/startMessage.js",
+    "start": "node buildScripts/srcServer.js",
+    "localtunnel": "lt --port 3000",
+    "share": "npm-run-all --parallel start localtunnel"
+  },
+  "author": "Mark Hazleton",
+  "license": "MIT",
+  "dependencies": {
+    "whatwg-fetch": "3.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.17.10",
+    "@babel/core": "7.18.2",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "7.18.2",
+    "@babel/register": "7.17.7",
+    "babel-loader": "8.2.5",
+    "chai": "4.3.6",
+    "chalk": "5.0.1",
+    "cheerio": "1.0.0-rc.11",
+    "compression": "1.7.4",
+    "cross-env": "7.0.3",
+    "css-loader": "6.7.1",
+    "eslint": "8.17.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-watch": "8.0.0",
+    "express": "4.18.1",
+    "faker": "^6.6.6",
+    "html-webpack-plugin": "5.5.0",
+    "jsdom": "^19.0.0",
+    "json-schema-faker": "0.5.0-rcv.42",
+    "json-server": "0.17.0",
+    "localtunnel": "2.0.2",
+    "mini-css-extract-plugin": "^2.6.0",
+    "mocha": "10.0.0",
+    "npm-run-all": "4.1.5",
+    "numeral": "2.0.6",
+    "open": "8.4.0",
+    "rimraf": "3.0.2",
+    "style-loader": "3.3.1",
+    "surge": "0.23.1",
+    "webpack": "5.73.0",
+    "webpack-dev-middleware": "5.3.3"
+  }
+}
