@@ -1,8 +1,8 @@
 import express from "express";
 import path from "path";
-import open from "open";
 import webpack from "webpack";
 import config from "../webpack.config.dev";
+import { exec } from "child_process";
 
 /* eslint-disable no-console */
 
@@ -21,35 +21,37 @@ app.get("/", function (req, res) {
 });
 
 app.get("/users", function (req, res) {
-  {
-    // Hard Codeing
-    res.json([
-      {
-        id: 1,
-        firstName: "Bob",
-        lastName: "Smith",
-        email: "bob@gmail.com",
-      },
-      {
-        id: 2,
-        firstName: "John",
-        lastName: "Doe",
-        email: "john@gmail.com",
-      },
-      {
-        id: 3,
-        firstName: "Mark",
-        lastName: "Hazleton",
-        email: "mark@gmail.com",
-      },
-    ]);
-  }
+  // Hard Coding
+  res.json([
+    {
+      id: 1,
+      firstName: "Bob",
+      lastName: "Smith",
+      email: "bob@gmail.com",
+    },
+    {
+      id: 2,
+      firstName: "John",
+      lastName: "Doe",
+      email: "john@gmail.com",
+    },
+    {
+      id: 3,
+      firstName: "Mark",
+      lastName: "Hazleton",
+      email: "mark@gmail.com",
+    },
+  ]);
 });
 
 app.listen(port, function (err) {
   if (err) {
     console.log(err);
   } else {
-    open("http://localhost:" + port);
+    exec(`start http://localhost:${port}`, (error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
   }
 });
