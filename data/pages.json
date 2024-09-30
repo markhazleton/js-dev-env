@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Home",
+    "url": "/",
+    "template": "index",
+    "content": {
+      "heading": "Welcome to My Bootstrap 5 Website",
+      "text": "This is the home page."
+    }
+  },
+  {
+    "title": "About",
+    "url": "/about",
+    "template": "about",
+    "content": {
+      "heading": "About Us",
+      "text": "This is the about page. Learn more about us here."
+    }
+  },
+  {
+    "title": "Contact",
+    "url": "/contact",
+    "template": "contact",
+    "content": {
+      "heading": "Contact Us",
+      "text": "Get in touch with us using the form below."
+    }
+  }
+]
