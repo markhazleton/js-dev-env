@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 
 // Set the default layout
-app.set('layout', 'layout');  // This ensures that views will use layout.ejs by default
+app.set('layout', 'layout');  // This ensures views use layout.ejs by default
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,12 +28,23 @@ const topLevelPages = pagesData.filter(page => (page.url.match(/\//g) || []).len
 pagesData.forEach(page => {
   app.get(page.url, (req, res) => {
     res.render(page.template, {
-      title: page.title,
-      heading: page.content.heading,
-      text: page.content.text,
-      body: page.content.body,
-      pages: topLevelPages  // Pass navigation items to the layout
+      title: page.title,            // Pass page title for the <title> tag
+      content: page.content,        // Pass the entire content object to the view
+      pages: topLevelPages          // Pass top-level pages for navigation
     });
+  });
+});
+
+// 404 handler for undefined routes
+app.use((req, res) => {
+  res.status(404).render('page', {
+    title: '404 - Page Not Found',
+    content: {
+      heading: '<i class="bi bi-exclamation-circle"></i> Page Not Found',
+      text: 'Sorry, the page you are looking for does not exist.',
+      body: '<p>Please check the URL or go back to the <a href="/">home page</a>.</p>'
+    },
+    pages: topLevelPages
   });
 });
 

@@ -4,9 +4,9 @@
     "url": "/",
     "template": "page",
     "content": {
-      "heading": "Welcome to My Bootstrap 5 Website",
-      "text": "A simple CMS.",
-      "body": "<p>This is the home page.</p>"
+      "heading": "<i class=\"bi bi-house\"></i> Welcome to My Bootstrap 5 Website",
+      "text": "A simple CMS with icons.",
+      "body": "<p><i class=\"bi bi-lightbulb\"></i> This is the home page, enriched with Bootstrap Icons.</p>"
     }
   },
   {
@@ -14,9 +14,9 @@
     "url": "/about",
     "template": "page",
     "content": {
-      "heading": "About Us",
-      "text": "This is the about page.",
-      "body": "<p>Learn more about us here.</p>"
+      "heading": "<i class=\"bi bi-info-circle\"></i> About Us",
+      "text": "This is the about page with a unique icon.",
+      "body": "<p><i class=\"bi bi-people\"></i> Learn more about us here and how we can help you.</p>"
     }
   },
   {
@@ -24,9 +24,9 @@
     "url": "/contact",
     "template": "page",
     "content": {
-      "heading": "Contact Us",
-      "text": "A page to reach out to us.",
-      "body": "<p>Get in touch with us using the form below.</p><form><div class=\"mb-3\"><label for=\"name\" class=\"form-label\">Name</label><input type=\"text\" class=\"form-control\" id=\"name\" required></div><div class=\"mb-3\"><label for=\"email\" class=\"form-label\">Email</label><input type=\"email\" class=\"form-control\" id=\"email\" required></div><div class=\"mb-3\"><label for=\"message\" class=\"form-label\">Message</label><textarea class=\"form-control\" id=\"message\" required></textarea></div><button type=\"submit\" class=\"btn btn-primary\">Submit</button></form>"
+      "heading": "<i class=\"bi bi-envelope\"></i> Contact Us",
+      "text": "Reach out to us with ease.",
+      "body": "<p><i class=\"bi bi-chat\"></i> Get in touch with us using the form below.</p><form><div class=\"mb-3\"><label for=\"name\" class=\"form-label\"><i class=\"bi bi-person\"></i> Name</label><input type=\"text\" class=\"form-control\" id=\"name\" required></div><div class=\"mb-3\"><label for=\"email\" class=\"form-label\"><i class=\"bi bi-envelope-open\"></i> Email</label><input type=\"email\" class=\"form-control\" id=\"email\" required></div><div class=\"mb-3\"><label for=\"message\" class=\"form-label\"><i class=\"bi bi-pencil\"></i> Message</label><textarea class=\"form-control\" id=\"message\" required></textarea></div><button type=\"submit\" class=\"btn btn-primary\"><i class=\"bi bi-send\"></i> Submit</button></form>"
     }
   }
 ]

@@ -1,56 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-  <style>
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    main {
-      flex: 1;
-    }
-  </style>
-</head>
-<body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">My Site</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <% pages.forEach(function(page) { %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">My Site</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <% pages.forEach(function(page) { %>
             <li class="nav-item">
               <a class="nav-link" href="<%= page.url %>"><%= page.title %></a>
             </li>
-          <% }); %>
-        </ul>
+            <% }); %>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Main content area -->
-  <main class="container mt-5">
-    <h1><%= heading %></h1>
-    <p><%= text %></p>
-    <%- body %> <!-- This is where each view's content will be injected -->
-  </main>
+    <!-- Main content area -->
+    <main class="container mt-5 flex-main">
+      <h1><%- content.heading %></h1>
+      <p><%- content.text %></p>
+      <div><%- content.body %></div>
+    </main>
+    
 
-  <!-- Fixed Footer -->
-  <footer class="footer mt-auto py-3 bg-light fixed-bottom">
-    <div class="container">
-      <span class="text-muted">© 2024 My Site. All rights reserved.</span>
-    </div>
-  </footer>
+    <!-- Fixed Footer -->
+    <footer class="footer mt-auto py-3 bg-light fixed-bottom">
+      <div class="container">
+        <span class="text-muted">© 2024 My Site. All rights reserved.</span>
+      </div>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

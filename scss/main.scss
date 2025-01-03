@@ -1,0 +1,7 @@
+// Use Bootstrap SCSS
+@use "bootstrap/scss/bootstrap" as *;
+
+// Your overrides and custom styles
+@use "./variables";
+@use "./custom";
+

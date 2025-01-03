@@ -5,19 +5,25 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build-css": "sass --load-path=node_modules scss/main.scss public/css/styles.css",
+    "watch-css": "sass --watch --load-path=node_modules scss/main.scss:public/css/styles.css",
+    "copy-icons": "xcopy node_modules\\bootstrap-icons\\font public\\fonts\\bootstrap-icons /E /I /Y",
+    "start:dev": "npm-run-all copy-icons build-css --parallel watch-css dev"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "eslint": "^9.13.0",
-    "globals": "^15.11.0",
-    "nodemon": "^3.1.7"
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "nodemon": "^3.1.9",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.83.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "ejs": "^3.1.10",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1"
   }
 }
