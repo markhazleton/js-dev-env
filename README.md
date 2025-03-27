@@ -1,84 +1,115 @@
-# Basic Web CMS Starter
+# Bootstrap 5 + Express.js Starter Kit
 
-## Description
+A simple, lightweight starter kit for building websites with Bootstrap 5, Express.js, and EJS templates.
 
-A starter project for a basic web CMS built with Express and Express EJS layouts. It includes Bootstrap 5 and Bootstrap Icons for styling and ESLint for linting.
+## Features
 
-## Installation
+- 🚀 **Express.js Backend** - Fast, unopinionated, minimalist web framework for Node.js
+- 📝 **EJS Templates** - Simple templating language for generating HTML
+- 🎨 **Bootstrap 5** - Powerful, responsive front-end framework
+- 💅 **SASS Support** - For more organized and maintainable CSS
+- 🖌️ **Bootstrap Icons** - Over 1,800 high-quality icons
+- 🔄 **Live Reload** - Automatically refresh your browser on code changes
+- 📱 **Mobile-First** - Responsive design that works on all devices
+- 🎛️ **Content Management** - Simple JSON-based content management
 
-Clone the repository:
+## Quick Start
+
+### Prerequisites
+
+- Node.js (v14 or newer)
+- npm (comes with Node.js)
+
+### Installation
 
 ```bash
-git clone https://github.com/markhazleton/js-dev-env.git
-```
+# Clone the repository (or download the ZIP file)
+git clone https://github.com/yourusername/bootstrap-express-starter.git
+cd bootstrap-express-starter
 
-Navigate to the project directory:
-
-```bash
-cd js-dev-env
-```
-
-Install dependencies:
-
-```bash
+# Install dependencies
 npm install
+
+# Start the development server
+npm run start:dev
+
+# Open your browser and navigate to http://localhost:3000
 ```
 
-Start the development server:
+## Project Structure
 
-```bash
-npm start dev
+```
+project-root/
+├── data/
+│   └── pages.json             # Content definitions for pages
+├── public/                    # Static files served to the client
+│   ├── css/                   # Compiled CSS files
+│   └── fonts/                 # Font files including Bootstrap Icons
+├── scss/                      # SASS source files
+│   ├── _custom.scss           # Custom styles
+│   ├── _variables.scss        # Bootstrap variable overrides
+│   └── main.scss              # Main SASS file
+├── scripts/                   # Utility scripts
+│   └── copy-icons.js          # Script to copy Bootstrap Icons
+├── views/                     # EJS template files
+│   ├── partials/              # Reusable template parts
+│   ├── layout.ejs             # Main layout template
+│   └── page.ejs               # Page template
+├── index.js                   # Main server file
+├── package.json               # Project dependencies and scripts
+└── README.md                  # Project documentation
 ```
 
-## Usage
-This starter project is designed to help developers new to Express, EJS, and npm get up and running quickly. Once you have the project set up, you can modify the existing code to experiment with and expand your understanding of these technologies.
+## Available Scripts
 
-Here are some steps to help you get started:
+- `npm start` - Start the server in production mode
+- `npm run dev` - Start the server with nodemon for auto-reloading
+- `npm run build-css` - Compile SASS to CSS once
+- `npm run watch-css` - Watch SASS files and compile on changes
+- `npm run copy-icons` - Copy Bootstrap Icons to the public directory
+- `npm run start:dev` - Do all of the above at once (recommended for development)
+- `npm run lint` - Run ESLint to check code quality
 
-- Navigate to the Views: Modify the EJS templates located in the views directory to customize your web pages.
-- Update Styling: Use Bootstrap 5 classes and Bootstrap Icons to style your site. Modify the CSS as needed in the public folder.
-- Experiment with Routes: Add or update Express routes in the routes directory to create new pages or API endpoints.
-- Lint Your Code: Run npm run lint to check your code for linting errors using ESLint.
+## Adding New Pages
+
+To add a new page, add an entry to `data/pages.json`:
+
+```json
+{
+  "title": "Page Title",
+  "url": "/page-url",
+  "template": "page",
+  "content": {
+    "heading": "Page Heading",
+    "text": "Page description text",
+    "body": "Page content in HTML format"
+  }
+}
+```
+
+The server automatically creates routes for all pages defined in the JSON file.
+
+## Customizing Bootstrap
+
+To customize Bootstrap variables, edit `scss/_variables.scss`. For example:
+
+```scss
+$primary: #ff5733; // Change primary color
+$font-size-base: 1.1rem; // Change base font size
+```
+
+## Deployment
+
+This starter kit can be deployed to various hosting platforms:
+
+- **Heroku**: Add a `Procfile` with `web: node index.js`
+- **Vercel/Netlify**: Configure as a Node.js application
+- **Traditional Hosting**: Build the site and upload via FTP
 
 ## Contributing
 
-We welcome contributions from the community! If you would like to contribute to this project, please follow these guidelines:
-
-Fork the Repository: Fork the repository to your GitHub account.
-
-Create a Branch: Create a new branch for your feature or bug fix:
-
-```sh
-git checkout -b feature/your-feature-name
-```
-
-Make Your Changes: Make your changes to the codebase, ensuring that you follow established code conventions and comments where necessary.
-Commit Your Changes: Commit your changes with a clear and concise commit message:
-
-```bash
-git commit -m "Add feature: your-feature-name"
-
-```
-
-Push Your Changes: Push your changes to your forked repository:
-
-```bash
-git push origin feature/your-feature-name
-```
-
-Open a Pull Request: Open a pull request on the original repository, describing the changes you have made and why they are beneficial.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-## Contact Information
-
-For support or inquiries, please use the Issue feature on the GitHub repository.
-
-## Acknowledgments
-
-- Bootstrap 5 and Bootstrap Icons for styling elements of the project.
-- Express and Express EJS layouts as the backbone of the CMS.
-- ESLint for ensuring code quality and consistency.
-- OpenAI's ChatGPT for general code assistance
+This project is licensed under the MIT License - see the LICENSE file for details.

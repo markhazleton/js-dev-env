@@ -1,0 +1,9 @@
+<!-- Page header section -->
+<div class="page-header mb-4">
+  <h1><%- content.heading %></h1>
+  <p class="lead"><%- content.text %></p>
+  <% if (typeof content.headerImage !== 'undefined') { %>
+    <img src="<%= content.headerImage %>" alt="<%= title %>" class="img-fluid rounded mb-3">
+  <% } %>
+  <hr>
+</div>
