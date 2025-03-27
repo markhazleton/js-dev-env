@@ -34,6 +34,17 @@ const pagesData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'pages
 // Filter top-level pages for navigation
 const topLevelPages = pagesData.filter(page => (page.url.match(/\//g) || []).length === 1);
 
+// Special case for components page
+app.get('/components', (req, res) => {
+  const componentsPage = pagesData.find(page => page.url === '/components');
+  res.render('components', {
+    title: componentsPage.title,
+    content: componentsPage.content,
+    pages: topLevelPages,
+    layout: 'layout' // Explicitly set layout
+  });
+});
+
 // IMPORTANT: Define the page routes BEFORE the 404 handler
 // Dynamically generate routes based on pages.json
 pagesData.forEach(page => {

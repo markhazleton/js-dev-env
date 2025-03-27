@@ -47,7 +47,8 @@
     "content": {
       "heading": "<i class=\"bi bi-grid-3x3-gap\"></i> Component Library",
       "text": "Explore the available UI components and their usage examples.",
-      "body": "<p>This page provides a visual reference of available Bootstrap 5 components and how to implement them in your project.</p>"
+      "body": "<p>This page provides a visual reference of available Bootstrap 5 components and how to implement them in your project.</p>",
+      "useCustomTemplate": true
     }
   }
 ]

@@ -57,11 +57,13 @@
 
     <!-- Main content area -->
     <main class="container my-5 pt-3 pb-5 flex-main">
-      <% if (typeof content !== 'undefined') { %>
-      <h1 class="mb-4"><%- content.heading %></h1>
-      <p class="lead"><%- content.text %></p>
-      <div class="content-body"><%- content.body %></div>
-      <% } else { %> <%- body %> <% } %>
+      <% if (typeof content !== 'undefined' && !content.useCustomTemplate) { %>
+        <h1 class="mb-4"><%- content.heading %></h1>
+        <p class="lead"><%- content.text %></p>
+        <div class="content-body"><%- content.body %></div>
+      <% } else { %> 
+        <%- body %> 
+      <% } %>
     </main>
 
     <!-- Footer -->
