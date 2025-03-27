@@ -1,0 +1,75 @@
+// Styles for the Components Page
+
+// Component sections
+.component-section {
+    padding-top: 1rem;
+    margin-bottom: 3rem;
+    
+    h2 {
+      color: $primary;
+      margin-bottom: 1.5rem;
+    }
+    
+    h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+  
+  // Component examples
+  .component-example {
+    position: relative;
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-left: 0;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    
+    // Headings within examples should be more compact
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  // Code examples
+  .code-example {
+    position: relative;
+    background-color: #f8f9fa;
+    
+    pre {
+      margin-bottom: 0;
+      border-radius: 0.25rem;
+      
+      code {
+        font-size: 0.875rem;
+      }
+    }
+  }
+  
+  // Sticky navigation
+  @include media-breakpoint-up(lg) {
+    .sticky-top {
+      top: 2rem;
+    }
+  }
+  
+  // Sidebar navigation improvements
+  .list-group-item {
+    .bi {
+      margin-right: 0.5rem;
+    }
+  }
+  
+  // Adjustments for mobile view
+  @include media-breakpoint-down(md) {
+    .component-section {
+      margin-top: 2rem;
+    }
+    
+    .sticky-top {
+      position: relative !important;
+      margin-bottom: 2rem;
+    }
+  }
