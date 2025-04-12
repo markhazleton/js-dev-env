@@ -6,10 +6,19 @@
 }
 
 .flex-main {
-  flex: 1;
+  flex: 1 0 auto; /* Changed to flex: 1 0 auto for better cross-browser compatibility */
 }
 
 // Navigation
+.navbar {
+  // Auto theme styling based on dark/light mode
+  background-color: var(--bs-body-bg);
+  border-bottom: 1px solid var(--bs-border-color);
+  
+  // Add a subtle transition
+  transition: background-color 0.3s ease;
+}
+
 .navbar-brand {
   font-weight: 600;
   
@@ -33,9 +42,10 @@
 
 .content-section {
   padding: 1.5rem;
-  background-color: $white;
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
   border-radius: 0.375rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  box-shadow: var(--bs-box-shadow-sm);
   
   img {
     max-width: 100%;
@@ -49,9 +59,32 @@
   box-shadow: 0 0 0 0.25rem rgba($primary, 0.25);
 }
 
+// Cards
+.card {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+}
+
+// Alerts
+.alert {
+  // Ensure alert link color has proper contrast in both themes
+  .alert-link {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+}
+
 // Footer
 .footer {
   padding-bottom: 1.5rem !important;
+  background-color: var(--bs-body-bg);
+  border-top: 1px solid var(--bs-border-color);
+  transition: background-color 0.3s ease;
+  flex-shrink: 0; /* Prevent footer from shrinking */
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
   
   .bi {
     font-size: 1.25rem;
@@ -60,6 +93,57 @@
     &:hover {
       color: $primary !important;
     }
+  }
+  
+  a {
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    
+    &:hover {
+      color: $primary !important;
+    }
+  }
+}
+
+// Dark mode specific styles
+[data-bs-theme="dark"] {
+  .navbar {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+  
+  .footer .text-muted {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+  
+  .content-section {
+    box-shadow: $custom-card-shadow-dark;
+  }
+
+  // Improve contrast for links in dark mode
+  a:not(.btn):not(.nav-link) {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  
+  // Better contrast for alert colors in dark mode
+  .alert-warning {
+    color: #f8d7a5;
+  }
+  
+  .alert-danger {
+    color: #f8c9c5;
+  }
+}
+
+// Light mode specific styles
+[data-bs-theme="light"] {
+  .content-section {
+    box-shadow: $custom-card-shadow-light;
+  }
+  
+  // Ensure text elements have sufficient contrast
+  .text-muted {
+    color: rgba(0, 0, 0, 0.65) !important;
   }
 }
 
@@ -73,5 +157,26 @@
   // Fix spacing on mobile
   main.container {
     padding-bottom: 5rem !important;
+  }
+}
+
+// Style adjustments for theme toggle
+.theme-toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1rem;
+  
+  .form-check {
+    margin-bottom: 0;
+  }
+  
+  .form-check-label {
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $primary;
+    }
   }
 }

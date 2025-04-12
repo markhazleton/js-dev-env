@@ -1,0 +1,38 @@
+<!-- 404 Page Not Found Template -->
+<div class="container error-page">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <div class="error-icon mb-4">
+        <i class="bi bi-exclamation-circle display-1 text-warning"></i>
+      </div>
+      <h1 class="display-4 mb-3"><%- content.heading %></h1>
+      <p class="lead mb-4"><%- content.text %></p>
+      <div class="error-content mb-5"><%- content.body %></div>
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">
+          <i class="bi bi-house-door me-2"></i>Go to Homepage
+        </a>
+        <button
+          onclick="window.history.back()"
+          class="btn btn-outline-secondary ms-2"
+        >
+          <i class="bi bi-arrow-left me-2"></i>Go Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .error-page {
+    padding: 4rem 0;
+  }
+  .error-icon {
+    font-size: 6rem;
+    opacity: 0.7;
+  }
+  .error-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>

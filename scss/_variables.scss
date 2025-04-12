@@ -1,3 +1,7 @@
 // _variables.scss
-$primary: #ff5733; // Change primary color
-$font-size-base: 1.1rem; // Change base font size
+$primary: #ff5733; // Primary color
+$font-size-base: 1.1rem; // Base font size
+
+// Additional theme variables
+$custom-card-shadow-light: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$custom-card-shadow-dark: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);

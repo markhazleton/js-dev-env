@@ -12,6 +12,11 @@ A simple, lightweight starter kit for building websites with Bootstrap 5, Expres
 - 🔄 **Live Reload** - Automatically refresh your browser on code changes
 - 📱 **Mobile-First** - Responsive design that works on all devices
 - 🎛️ **Content Management** - Simple JSON-based content management
+- 🌓 **Dark Mode** - Built-in dark mode with theme toggle and persistence
+- 🔒 **Enhanced Security** - Helmet.js integration for security headers
+- 🚄 **Performance Optimized** - Compression and caching for better performance
+- 📱 **PWA Support** - Progressive Web App features for offline access
+- 🔍 **SEO Ready** - Structured data and optimized metadata
 
 ## Quick Start
 
@@ -44,6 +49,11 @@ project-root/
 │   └── pages.json             # Content definitions for pages
 ├── public/                    # Static files served to the client
 │   ├── css/                   # Compiled CSS files
+│   ├── js/                    # JavaScript files
+│   │   ├── form-validation.js # Form validation utilities
+│   │   └── theme-toggle.js    # Dark mode toggle functionality
+│   ├── manifest.json          # Web App Manifest for PWA
+│   ├── service-worker.js      # Service Worker for offline support
 │   └── fonts/                 # Font files including Bootstrap Icons
 ├── scss/                      # SASS source files
 │   ├── _custom.scss           # Custom styles
@@ -51,13 +61,34 @@ project-root/
 │   └── main.scss              # Main SASS file
 ├── scripts/                   # Utility scripts
 │   └── copy-icons.js          # Script to copy Bootstrap Icons
+├── tests/                     # Test suite
+│   └── app.test.js            # Basic application tests
+├── utils/                     # Utility functions
+│   ├── cache.js               # Simple caching system
+│   └── database.js            # Database abstraction layer
 ├── views/                     # EJS template files
 │   ├── partials/              # Reusable template parts
+│   ├── error-404.ejs          # Custom 404 error page
 │   ├── layout.ejs             # Main layout template
 │   └── page.ejs               # Page template
+├── .env                       # Environment configuration
 ├── index.js                   # Main server file
 ├── package.json               # Project dependencies and scripts
 └── README.md                  # Project documentation
+```
+
+## Environment Configuration
+
+The starter kit uses dotenv for environment configuration. Create or edit the `.env` file:
+
+```properties
+# Server configuration
+PORT=3000
+NODE_ENV=development
+
+# Application settings
+SITE_NAME=My Bootstrap Website
+ENABLE_CACHE=false
 ```
 
 ## Available Scripts
@@ -68,7 +99,9 @@ project-root/
 - `npm run watch-css` - Watch SASS files and compile on changes
 - `npm run copy-icons` - Copy Bootstrap Icons to the public directory
 - `npm run start:dev` - Do all of the above at once (recommended for development)
+- `npm run build` - Build the project for production
 - `npm run lint` - Run ESLint to check code quality
+- `npm test` - Run Jest test suite
 
 ## Adding New Pages
 
@@ -88,6 +121,49 @@ To add a new page, add an entry to `data/pages.json`:
 ```
 
 The server automatically creates routes for all pages defined in the JSON file.
+
+## API Endpoints
+
+The starter kit includes a basic API structure:
+
+- `GET /api/info` - Returns basic information about the site
+
+Add your own endpoints in the `index.js` file:
+
+```javascript
+apiRouter.get('/custom-endpoint', (req, res) => {
+  // Your API logic here
+  res.json({ success: true, data: { ... } });
+});
+```
+
+## Progressive Web App (PWA) Support
+
+This starter kit includes built-in PWA support:
+
+- Service Worker for offline functionality
+- Web App Manifest for installable experience
+
+To customize the PWA settings, edit the `public/manifest.json` file.
+
+## Form Validation
+
+Use the included form validation utilities for client-side validation:
+
+```html
+<form class="needs-validation" novalidate>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" required>
+    <div class="invalid-feedback">Please provide a valid email.</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+```
+
+## Dark Mode
+
+The starter kit includes a dark mode toggle. The theme preference is saved to localStorage and respects the user's system preferences.
 
 ## Customizing Bootstrap
 

@@ -1,9 +1,43 @@
+// Environment configuration
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const expressLayouts = require('express-ejs-layouts');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const cacheUtils = require('./utils/cache');
 
+// Create Express app
 const app = express();
+
+// Set NODE_ENV if not set
+const environment = process.env.NODE_ENV || 'development';
+console.log(`App running in ${environment} mode`);
+
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com', "'unsafe-inline'"],
+      styleSrc: ["'self'", 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'fonts.googleapis.com', "'unsafe-inline'"],
+      fontSrc: ["'self'", 'fonts.gstatic.com', 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com'],
+      imgSrc: ["'self'", 'data:', 'via.placeholder.com', 'cdn.jsdelivr.net'],
+      connectSrc: ["'self'"]
+    }
+  }
+}));
+
+// Compression middleware for better performance
+app.use(compression());
+
+// HTTP request logging
+if (environment !== 'test') {
+  app.use(morgan(environment === 'development' ? 'dev' : 'combined'));
+}
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
@@ -28,8 +62,40 @@ app.use((req, res, next) => {
   next();
 });
 
-// Read pages.json
-const pagesData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'pages.json'), 'utf-8'));
+// Read pages.json with caching
+const loadPagesData = () => {
+  // Check if we should use caching (based on environment variable)
+  const enableCache = process.env.ENABLE_CACHE === 'true';
+  const cacheKey = 'pages_data';
+  
+  // Try to get data from cache first
+  if (enableCache) {
+    const cachedData = cacheUtils.get(cacheKey);
+    if (cachedData) {
+      console.log('Using cached pages data');
+      return cachedData;
+    }
+  }
+  
+  // Cache miss or caching disabled, load from file
+  try {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'pages.json'), 'utf-8'));
+    
+    // Store in cache if enabled (cache for 5 minutes in production, 10 seconds in development)
+    if (enableCache) {
+      const ttl = environment === 'production' ? 300000 : 10000;
+      cacheUtils.set(cacheKey, data, ttl);
+    }
+    
+    return data;
+  } catch (error) {
+    console.error('Error loading pages data:', error);
+    return [];
+  }
+};
+
+// Load pages data
+const pagesData = loadPagesData();
 
 // Filter top-level pages for navigation
 const topLevelPages = pagesData.filter(page => (page.url.match(/\//g) || []).length === 1);
@@ -45,6 +111,22 @@ app.get('/components', (req, res) => {
   });
 });
 
+// API Routes
+const apiRouter = express.Router();
+
+// Sample API endpoint
+apiRouter.get('/info', (req, res) => {
+  res.json({
+    name: process.env.SITE_NAME || 'Bootstrap 5 + Express.js Starter Kit',
+    version: '1.0.0',
+    environment,
+    timestamp: new Date()
+  });
+});
+
+// Mount API router
+app.use('/api', apiRouter);
+
 // IMPORTANT: Define the page routes BEFORE the 404 handler
 // Dynamically generate routes based on pages.json
 pagesData.forEach(page => {
@@ -59,7 +141,7 @@ pagesData.forEach(page => {
 
 // Custom 404 page - This needs to come AFTER the page routes
 app.use((req, res, next) => {
-  res.status(404).render('page', {
+  res.status(404).render('error-404', {
     title: '404 - Page Not Found',
     content: {
       heading: '<i class="bi bi-exclamation-circle"></i> Page Not Found',
@@ -89,3 +171,6 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
+
+// Export the app for testing
+module.exports = { app };
