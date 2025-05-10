@@ -1,7 +1,11 @@
-// Use Bootstrap SCSS
-@use "bootstrap/scss/bootstrap" as *;
-
-// Your overrides and custom styles
-@use "./variables";
-@use "./custom";
-@use "./components-pages";
+// main.scss
+//
+// Entry point for all SCSS. Only import statements here.
+//
+// 1. Import your variable overrides first
+@use './_variables' as variables;
+// 2. Import Bootstrap with a namespace
+@use 'bootstrap/scss/bootstrap' as bootstrap;
+// 3. Import your custom styles
+@use './_custom';
+@use './_components-pages';

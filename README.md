@@ -58,6 +58,7 @@ project-root/
 ├── scss/                      # SASS source files
 │   ├── _custom.scss           # Custom styles
 │   ├── _variables.scss        # Bootstrap variable overrides
+│   ├── _components-pages.scss # Component-specific styles
 │   └── main.scss              # Main SASS file
 ├── scripts/                   # Utility scripts
 │   └── copy-icons.js          # Script to copy Bootstrap Icons
@@ -165,13 +166,36 @@ Use the included form validation utilities for client-side validation:
 
 The starter kit includes a dark mode toggle. The theme preference is saved to localStorage and respects the user's system preferences.
 
+## SCSS Best Practices
+
+This starter kit follows modern SCSS best practices:
+
+- **Sass Module System:** Uses `@use` and `@forward` instead of `@import`.
+- **Namespacing:** All variables and mixins are namespaced (e.g., `variables.$primary`, `bootstrap.media-breakpoint-down`).
+- **Modular Structure:** SCSS files are organized into partials for better maintainability.
+- **Bootstrap Customization:** Variables are overridden in `_variables.scss` before importing Bootstrap.
+
 ## Customizing Bootstrap
 
 To customize Bootstrap variables, edit `scss/_variables.scss`. For example:
 
 ```scss
-$primary: #ff5733; // Change primary color
-$font-size-base: 1.1rem; // Change base font size
+// Bootstrap color overrides
+$primary: #ff5733; // Primary color for theme
+
+// Example: Extend Bootstrap's $theme-colors map
+$theme-colors: map-merge(
+  (
+    "primary": #ff5733,
+    "secondary": #6c757d
+  ),
+  $theme-colors
+);
+
+// Custom variables
+$font-size-base: 1.1rem; // Base font size
+$custom-card-shadow-light: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); // Light card shadow
+$custom-card-shadow-dark: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3); // Dark card shadow
 ```
 
 ## Deployment

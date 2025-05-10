@@ -1,7 +1,23 @@
 // _variables.scss
-$primary: #ff5733; // Primary color
-$font-size-base: 1.1rem; // Base font size
+//
+// This file contains Bootstrap variable overrides and custom variables.
+// Place all your color, spacing, and shadow variables here.
+//
+// Bootstrap variable overrides must be defined BEFORE importing Bootstrap in main.scss.
 
-// Additional theme variables
-$custom-card-shadow-light: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-$custom-card-shadow-dark: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+// Bootstrap color overrides
+$primary: #ff5733; // Primary color for theme
+
+// Example: Extend Bootstrap's $theme-colors map (uncomment to use)
+// $theme-colors: map-merge(
+//   (
+//     "primary": #ff5733,
+//     "secondary": #6c757d
+//   ),
+//   $theme-colors
+// );
+
+// Custom variables
+$font-size-base: 1.1rem; // Base font size
+$custom-card-shadow-light: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); // Light card shadow
+$custom-card-shadow-dark: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3); // Dark card shadow

@@ -1,3 +1,13 @@
+// _components-pages.scss
+//
+// Styles for the Components Page and related UI elements.
+// - Uses the Sass module system (@use)
+// - All variables and mixins are namespaced
+// - Responsive and theme-aware styles
+//
+@use './_variables' as variables;
+@use 'bootstrap/scss/bootstrap' as bootstrap;
+
 // Styles for the Components Page
 
 // Component sections
@@ -6,7 +16,7 @@
     margin-bottom: 3rem;
     
     h2 {
-      color: $primary;
+      color: variables.$primary;
       margin-bottom: 1.5rem;
     }
     
@@ -53,7 +63,7 @@
   }
   
   // Sticky navigation
-  @include media-breakpoint-up(lg) {
+  @include bootstrap.media-breakpoint-up(lg) {
     .sticky-top {
       top: 2rem;
     }
@@ -78,7 +88,7 @@
   }
   
   // Adjustments for mobile view
-  @include media-breakpoint-down(md) {
+  @include bootstrap.media-breakpoint-down(md) {
     .component-section {
       margin-top: 2rem;
     }
