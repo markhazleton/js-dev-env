@@ -20,25 +20,25 @@
       }
     </script>
 
-    <link href="/css/styles.css" rel="stylesheet" />
-    <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="./css/styles.css" rel="stylesheet" />
+    <link href="./fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
     />
 
     <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
 
     <!-- PWA Support -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="./manifest.json" />
     <meta name="theme-color" content="#ffffff" />
     <script>
       // Register service worker for PWA support
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker
-            .register("/service-worker.js")
+            .register("./service-worker.js")
             .then((registration) => {
               console.log(
                 "Service Worker registered with scope:",
@@ -56,7 +56,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg">
       <div class="container">
-        <a class="navbar-brand" href="/"
+        <a class="navbar-brand" href="./index.html"
           ><i class="bi bi-house"></i> JS-Dev Starter</a
         >
         <button
@@ -76,7 +76,7 @@
             <li class="nav-item">
               <a
                 class="nav-link active"
-                href="/"
+                href="./index.html"
                 aria-current="page"
               >
                 Home
@@ -86,7 +86,7 @@
             <li class="nav-item">
               <a
                 class="nav-link "
-                href="/community"
+                href="./community/index.html"
                 aria-current="false"
               >
                 Community
@@ -96,7 +96,7 @@
             <li class="nav-item">
               <a
                 class="nav-link "
-                href="/getting-started"
+                href="./getting-started/index.html"
                 aria-current="false"
               >
                 Getting Started
@@ -106,7 +106,7 @@
             <li class="nav-item">
               <a
                 class="nav-link "
-                href="/components"
+                href="./components/index.html"
                 aria-current="false"
               >
                 Components
@@ -144,7 +144,7 @@
         <div class="col-md-10">
           <h2 class="display-5 fw-bold"><i class="bi bi-rocket"></i> Launch Your Web Projects Faster</h2>
           <p class="lead my-3">Build modern, responsive web applications with this powerful starter kit that combines Express.js, Bootstrap 5, EJS templates, and many more features.</p>
-          <p><a href="/getting-started" class="btn btn-lg btn-outline-light fw-bold">Get Started <i class="bi bi-arrow-right"></i></a></p>
+          <p><a href="./getting-started/index.html" class="btn btn-lg btn-outline-light fw-bold">Get Started <i class="bi bi-arrow-right"></i></a></p>
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
       <div class="h-100 p-4 border rounded">
         <h2><i class="bi bi-speedometer2"></i> Performance Optimized</h2>
         <p>Enjoy faster page loads with built-in compression, caching system, and optimized assets for a smoother user experience.</p>
-        <a href="/components" class="btn btn-outline-primary">Explore Components</a>
+        <a href="./components/index.html" class="btn btn-outline-primary">Explore Components</a>
       </div>
     </div>
     <div class="col-md-4">
@@ -229,7 +229,7 @@
           <p class="mb-0">Check out our component library to see what's available and how to use it in your projects.</p>
         </div>
         <div class="col-md-4 text-md-end mt-3 mt-md-0">
-          <a href="/components" class="btn btn-primary btn-lg"><i class="bi bi-grid-3x3-gap me-2"></i>View Component Library</a>
+          <a href="./components/index.html" class="btn btn-primary btn-lg"><i class="bi bi-grid-3x3-gap me-2"></i>View Component Library</a>
         </div>
       </div>
     </div>
@@ -281,9 +281,9 @@ document.getElementById('theme-demo-toggle')?.addEventListener('click', function
       </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/theme-toggle.js"></script>
+    <script src="./js/theme-toggle.js"></script>
     <!-- Just before the closing body tag -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <script src="/js/component-library.js"></script>
+    <script src="./js/component-library.js"></script>
   </body>
 </html>

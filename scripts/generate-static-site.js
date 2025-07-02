@@ -15,6 +15,34 @@ if (!fs.existsSync(docsDir)) {
   console.log(`Created directory: ${docsDir}`);
 }
 
+// Function to convert absolute paths to relative paths for GitHub Pages
+function convertPathsForGitHubPages(html, depth = 0) {
+  // Calculate the relative path prefix based on depth
+  const prefix = depth === 0 ? './' : '../'.repeat(depth);
+  
+  // Convert absolute paths to relative paths
+  let convertedHtml = html
+    // CSS and other assets
+    .replace(/href="\/css\//g, `href="${prefix}css/`)
+    .replace(/href="\/fonts\//g, `href="${prefix}fonts/`)
+    .replace(/href="\/js\//g, `href="${prefix}js/`)
+    .replace(/src="\/js\//g, `src="${prefix}js/`)
+    .replace(/href="\/manifest\.json"/g, `href="${prefix}manifest.json"`)
+    .replace(/href="\/favicon\.ico"/g, `href="${prefix}favicon.ico"`)
+    .replace(/"\/service-worker\.js"/g, `"${prefix}service-worker.js"`);
+  
+  // Convert navigation links (more specific approach)
+  // Handle home page link
+  convertedHtml = convertedHtml.replace(/href="\/"(?=[\s>])/g, `href="${prefix}index.html"`);
+  
+  // Handle other page links
+  convertedHtml = convertedHtml.replace(/href="\/([^"/]+)"(?=[\s>])/g, (match, pageName) => {
+    return `href="${prefix}${pageName}/index.html"`;
+  });
+  
+  return convertedHtml;
+}
+
 // Function to render a page
 async function renderPage(pageData, isHomePage = false) {
   const viewsDir = path.join(__dirname, '..', 'views');
@@ -48,7 +76,7 @@ async function renderPage(pageData, isHomePage = false) {
     });
     
     // Then render with layout
-    const fullPage = await ejs.render(layoutTemplate, {
+    let fullPage = await ejs.render(layoutTemplate, {
       ...templateData,
       body: pageContent
     }, {
@@ -56,10 +84,12 @@ async function renderPage(pageData, isHomePage = false) {
       filename: layoutPath
     });
 
-    // Determine output file name
+    // Determine output file name and depth for relative paths
     let fileName;
+    let depth = 0;
     if (isHomePage || pageData.url === '/') {
       fileName = 'index.html';
+      depth = 0;
     } else {
       // Create directory structure for nested URLs
       const urlParts = pageData.url.split('/').filter(part => part);
@@ -69,10 +99,15 @@ async function renderPage(pageData, isHomePage = false) {
           fs.mkdirSync(dirPath, { recursive: true });
         }
         fileName = path.join(...urlParts, 'index.html');
+        depth = urlParts.length;
       } else {
         fileName = 'index.html';
+        depth = 0;
       }
     }
+
+    // Convert absolute paths to relative paths for GitHub Pages
+    fullPage = convertPathsForGitHubPages(fullPage, depth);
 
     // Write the file
     const outputPath = path.join(docsDir, fileName);
