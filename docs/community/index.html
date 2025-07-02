@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Community | JS-Dev Starter</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Community | JS-Dev Starter",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      // Register service worker for PWA support
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
+            })
+            .catch((error) => {
+              console.error("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/"
+          ><i class="bi bi-house"></i> JS-Dev Starter</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+             
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="/"
+                aria-current="false"
+              >
+                Home
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="/community"
+                aria-current="page"
+              >
+                Community
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="/getting-started"
+                aria-current="false"
+              >
+                Getting Started
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="/components"
+                aria-current="false"
+              >
+                Components
+              </a>
+            </li>
+             
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+      
+      <h1 class="mb-4"><i class="bi bi-people"></i> Join Our Community</h1>
+      <p class="lead">Become part of the js-dev-env project ecosystem and help shape its future.</p>
+      <div class="content-body"><div class="row">
+  <div class="col-lg-8 mx-auto">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4 p-md-5">
+        <div class="text-center mb-4">
+          <img src="https://github.com/markhazleton.png" alt="Mark Hazleton" class="rounded-circle mb-3" width="120" height="120">
+          <h3 class="mb-0">Welcome to the js-dev-env Community</h3>
+          <p class="text-body-secondary">A collaborative ecosystem for modern web development</p>
+        </div>
+
+        <div class="mb-4">
+          <p class="lead">The Bootstrap 5 + Express.js Starter Kit thrives because of its community!</p>
+          
+          <p>Our project is built on the principle that great software comes from collaboration, diverse perspectives, and shared knowledge. We invite developers of all skill levels to join our growing community.</p>
+
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <div class="card h-100 border-primary">
+                <div class="card-body">
+                  <h4 class="card-title"><i class="bi bi-people-fill text-primary me-2"></i>Why Join?</h4>
+                  <ul class="list-unstyled">
+                    <li><i class="bi bi-check-circle text-success me-2"></i>Learn modern web development practices</li>
+                    <li><i class="bi bi-check-circle text-success me-2"></i>Collaborate with experienced developers</li>
+                    <li><i class="bi bi-check-circle text-success me-2"></i>Build your portfolio with meaningful contributions</li>
+                    <li><i class="bi bi-check-circle text-success me-2"></i>Shape the future of a growing open-source project</li>
+                    <li><i class="bi bi-check-circle text-success me-2"></i>Get feedback on your code from peers</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card h-100 border-success">
+                <div class="card-body">
+                  <h4 class="card-title"><i class="bi bi-code-square text-success me-2"></i>How to Contribute</h4>
+                  <ul class="list-unstyled">
+                    <li><i class="bi bi-arrow-right text-primary me-2"></i>Fix bugs and implement new features</li>
+                    <li><i class="bi bi-arrow-right text-primary me-2"></i>Improve documentation and examples</li>
+                    <li><i class="bi bi-arrow-right text-primary me-2"></i>Create tutorials and blog posts</li>
+                    <li><i class="bi bi-arrow-right text-primary me-2"></i>Help answer questions from other users</li>
+                    <li><i class="bi bi-arrow-right text-primary me-2"></i>Share how you're using the project</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading"><i class="bi bi-chat-text me-2"></i>Have questions or found a bug?</h4>
+            <p>Please open an issue on our GitHub repository. This helps us track and address problems efficiently while creating a knowledge base for other users.</p>
+            <hr>
+            <a href="https://github.com/markhazleton/js-dev-env/issues" class="btn btn-primary" target="_blank"><i class="bi bi-bug me-2"></i>Open an Issue on GitHub</a>
+          </div>
+
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading"><i class="bi bi-code-square me-2"></i>Ready to contribute code?</h4>
+            <p>We welcome pull requests! Our development process is simple and beginner-friendly. Check out our contribution guidelines to get started.</p>
+            <hr>
+            <a href="https://github.com/markhazleton/js-dev-env" class="btn btn-success" target="_blank"><i class="bi bi-git me-2"></i>Fork the Repository</a>
+          </div>
+
+          <h4><i class="bi bi-calendar-event me-2"></i>Community Events</h4>
+          <p>We hold regular online meetups and coding sessions where you can:</p>
+          <ul>
+            <li>Get help with your contributions</li>
+            <li>Learn about upcoming features</li>
+            <li>Share your insights and ideas</li>
+            <li>Connect with other contributors</li>
+          </ul>
+          <p>Join our GitHub discussions to stay updated on upcoming events!</p>
+
+          <h4><i class="bi bi-star me-2"></i>Show Your Support</h4>
+          <p>If you find this project useful, please consider giving it a star on GitHub. This helps others discover the project and motivates continued development.</p>
+
+          <div class="card bg-light mt-4 mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-quote me-2"></i>From Our Community</h5>
+              <blockquote class="blockquote mb-0">
+                <p>"The js-dev-env starter kit saved me hours of setup time and helped me create a professional web application with all the modern features my clients expect."</p>
+                <footer class="blockquote-footer">A community member</footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <a href="https://github.com/markhazleton/js-dev-env" class="btn btn-outline-primary btn-lg" target="_blank">
+              <i class="bi bi-github me-2"></i>Join Us on GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="text-center text-body-secondary mt-4">
+          <p>We're excited to see what you'll build with us!</p>
+          <p class="mb-0">- The js-dev-env Team</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+      
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2025 JS-Dev Starter. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <!-- Just before the closing body tag -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="/js/component-library.js"></script>
+  </body>
+</html>

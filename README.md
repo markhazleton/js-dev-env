@@ -17,6 +17,37 @@ A simple, lightweight starter kit for building websites with Bootstrap 5, Expres
 - 🚄 **Performance Optimized** - Compression and caching for better performance
 - 📱 **PWA Support** - Progressive Web App features for offline access
 - 🔍 **SEO Ready** - Structured data and optimized metadata
+- 🌐 **GitHub Pages Ready** - Static site generation for easy deployment
+
+## GitHub Pages Deployment
+
+This starter kit includes built-in support for GitHub Pages deployment:
+
+### Build Process
+
+The build process generates static HTML files in the `/docs` directory:
+
+- `npm run build` - Build static site for GitHub Pages
+- `npm run build:github-pages` - Alias for the build command
+
+### Automatic Deployment
+
+The included GitHub Actions workflow (`.github/workflows/deploy.yml`) automatically:
+
+1. Builds the static site when you push to the main branch
+2. Deploys the generated files to GitHub Pages
+3. Makes your site available at `https://username.github.io/repository-name`
+
+### Manual Setup
+
+To set up GitHub Pages manually:
+
+1. Run `npm run build` to generate the `/docs` directory
+2. Commit and push the changes to your repository
+3. In your GitHub repository settings, go to Pages
+4. Set the source to "Deploy from a branch"
+5. Select the `main` branch and `/docs` folder
+6. Your site will be available at your GitHub Pages URL
 
 ## Quick Start
 
@@ -204,6 +235,7 @@ This starter kit can be deployed to various hosting platforms:
 
 - **Heroku**: Add a `Procfile` with `web: node index.js`
 - **Vercel/Netlify**: Configure as a Node.js application
+- **GitHub Pages**: See the GitHub Pages Deployment section
 - **Traditional Hosting**: Build the site and upload via FTP
 
 ## Contributing

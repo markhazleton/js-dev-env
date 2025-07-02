@@ -1,14 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-// Check if we're targeting docs directory (for GitHub Pages)
-const targetDocs = process.argv.includes('--target=docs');
-
 // Define source and destination paths
-const sourceDir = path.join(__dirname, '..', 'node_modules', 'bootstrap-icons', 'font');
-const destDir = targetDocs 
-  ? path.join(__dirname, '..', 'docs', 'fonts', 'bootstrap-icons')
-  : path.join(__dirname, '..', 'public', 'fonts', 'bootstrap-icons');
+const sourceDir = path.join(__dirname, '..', 'public');
+const destDir = path.join(__dirname, '..', 'docs');
+
+// Files and directories to exclude from copying (we'll handle CSS and fonts separately)
+const excludeItems = ['css', 'fonts'];
 
 // Create destination directory if it doesn't exist
 if (!fs.existsSync(destDir)) {
@@ -17,10 +15,16 @@ if (!fs.existsSync(destDir)) {
 }
 
 // Function to copy files recursively
-function copyFiles(src, dest) {
+function copyFiles(src, dest, exclude = []) {
   const entries = fs.readdirSync(src, { withFileTypes: true });
 
   for (const entry of entries) {
+    // Skip excluded items
+    if (exclude.includes(entry.name)) {
+      console.log(`Skipping: ${entry.name}`);
+      continue;
+    }
+
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
 
@@ -37,7 +41,6 @@ function copyFiles(src, dest) {
 }
 
 // Start copying
-const targetName = targetDocs ? 'docs' : 'public';
-console.log(`Copying Bootstrap Icons to ${targetName}/fonts/bootstrap-icons...`);
-copyFiles(sourceDir, destDir);
-console.log('Bootstrap Icons copied successfully!');
+console.log('Copying static assets from public to docs...');
+copyFiles(sourceDir, destDir, excludeItems);
+console.log('Static assets copied successfully!');
