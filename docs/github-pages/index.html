@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>GitHub Pages | JS-Dev Starter</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GitHub Pages | JS-Dev Starter",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="../fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      // Register service worker for PWA support
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("../service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered with scope:",
+                registration.scope
+              );
+            })
+            .catch((error) => {
+              console.error("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html"
+          ><i class="bi bi-house"></i> JS-Dev Starter</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+             
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="../index.html"
+                aria-current="false"
+              >
+                Home
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="../community/index.html"
+                aria-current="false"
+              >
+                Community
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="../github-pages/index.html"
+                aria-current="page"
+              >
+                GitHub Pages
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="../getting-started/index.html"
+                aria-current="false"
+              >
+                Getting Started
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a
+                class="nav-link "
+                href="../components/index.html"
+                aria-current="false"
+              >
+                Components
+              </a>
+            </li>
+             
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+      
+      <h1 class="mb-4"><i class="bi bi-github"></i> GitHub Pages Deployment Guide</h1>
+      <p class="lead">Learn how to deploy your Express.js application to GitHub Pages with our automated build process.</p>
+      <div class="content-body"><div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading"><i class="bi bi-check-circle me-2"></i>Success!</h4>
+        <p>This site is now live on GitHub Pages! Follow the steps below to deploy your own Express.js application to GitHub Pages.</p>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-info-circle"></i> The Challenge</h2>
+          <p>GitHub Pages is designed for static sites, but our starter kit is a dynamic Express.js application. We solved this by creating a build process that:</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><i class="bi bi-arrow-right text-primary me-2"></i>Converts dynamic EJS templates to static HTML</li>
+            <li class="list-group-item"><i class="bi bi-arrow-right text-primary me-2"></i>Fixes path issues for GitHub Pages subdirectories</li>
+            <li class="list-group-item"><i class="bi bi-arrow-right text-primary me-2"></i>Automatically deploys via GitHub Actions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-gear"></i> Step 1: Project Setup</h2>
+          <p>First, make sure your project has the necessary build scripts and files:</p>
+          
+          <h5 class="mt-3"><i class="bi bi-file-earmark-code"></i> Required Scripts</h5>
+          <p>Add these scripts to your <code>package.json</code>:</p>
+          <pre class="bg-light p-3 rounded"><code>{
+  "scripts": {
+    "clean": "node scripts/clean-docs.js",
+    "copy-icons-docs": "node scripts/copy-icons.js --target=docs",
+    "copy-static-assets": "node scripts/copy-static-assets.js",
+    "generate-static-site": "node scripts/generate-static-site.js",
+    "build-css": "sass --load-path=node_modules scss/main.scss docs/css/styles.css",
+    "prebuild": "npm run clean",
+    "build": "npm-run-all copy-icons-docs copy-static-assets build-css generate-static-site"
+  }
+}</code></pre>
+          
+          <h5 class="mt-3"><i class="bi bi-folder"></i> Required Build Scripts</h5>
+          <p>Create these files in your <code>scripts/</code> directory:</p>
+          <ul class="list-unstyled">
+            <li><i class="bi bi-file-code me-2"></i><code>clean-docs.js</code> - Cleans the output directory</li>
+            <li><i class="bi bi-file-code me-2"></i><code>copy-icons.js</code> - Copies Bootstrap Icons</li>
+            <li><i class="bi bi-file-code me-2"></i><code>copy-static-assets.js</code> - Copies JS, manifest, etc.</li>
+            <li><i class="bi bi-file-code me-2"></i><code>generate-static-site.js</code> - Converts EJS to HTML</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-wrench"></i> Step 2: Build Process</h2>
+          <p>Our build process solves several key challenges:</p>
+          
+          <div class="row g-4 mb-4">
+            <div class="col-md-6">
+              <div class="card h-100 border-primary">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="bi bi-arrow-repeat text-primary me-2"></i>Path Conversion</h5>
+                  <p class="card-text">Converts absolute paths like <code>/css/styles.css</code> to relative paths like <code>./css/styles.css</code> for GitHub Pages compatibility.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card h-100 border-success">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="bi bi-file-earmark-text text-success me-2"></i>Static Generation</h5>
+                  <p class="card-text">Renders EJS templates to static HTML files with proper directory structure for each page.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h5><i class="bi bi-terminal"></i> Run the Build</h5>
+          <pre class="bg-dark text-light p-3 rounded"><code>npm run build</code></pre>
+          <p class="mt-2">This command will:</p>
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item">Clean the <code>/docs</code> directory</li>
+            <li class="list-group-item">Copy Bootstrap Icons to <code>/docs/fonts/</code></li>
+            <li class="list-group-item">Copy static assets to <code>/docs/</code></li>
+            <li class="list-group-item">Compile SASS to <code>/docs/css/</code></li>
+            <li class="list-group-item">Generate static HTML files with correct paths</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-github"></i> Step 3: GitHub Actions Setup</h2>
+          <p>Create <code>.github/workflows/deploy.yml</code> for automatic deployment:</p>
+          
+          <pre class="bg-light p-3 rounded"><code>name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build for GitHub Pages
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-sliders"></i> Step 4: GitHub Pages Configuration</h2>
+          <p>Configure your GitHub repository for Pages deployment:</p>
+          
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item">
+              <strong>Go to your repository on GitHub</strong>
+              <p class="mb-0 mt-2">Navigate to your GitHub repository in a web browser.</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Access Settings</strong>
+              <p class="mb-0 mt-2">Click on the "Settings" tab in your repository.</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Find Pages Section</strong>
+              <p class="mb-0 mt-2">Scroll down and click on "Pages" in the left sidebar.</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Configure Source</strong>
+              <p class="mb-0 mt-2">Under "Source", select "Deploy from a branch".</p>
+            </li>
+            <li class="list-group-item">
+              <strong>Select Branch and Folder</strong>
+              <p class="mb-0 mt-2">Choose "main" branch and "/docs" folder, then click "Save".</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-rocket"></i> Step 5: Deploy Your Site</h2>
+          <p>Now you're ready to deploy!</p>
+          
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading"><i class="bi bi-info-circle me-2"></i>Automatic Deployment</h5>
+            <p>Every time you push to the main branch, GitHub Actions will automatically:</p>
+            <ul class="mb-0">
+              <li>Build your static site</li>
+              <li>Deploy it to GitHub Pages</li>
+              <li>Make it live at <code>https://username.github.io/repository-name</code></li>
+            </ul>
+          </div>
+          
+          <h5 class="mt-3"><i class="bi bi-terminal"></i> Manual Deployment</h5>
+          <p>You can also deploy manually:</p>
+          <pre class="bg-dark text-light p-3 rounded"><code># Build the site locally
+npm run build
+
+# Commit and push the changes
+git add .
+git commit -m "Deploy to GitHub Pages"
+git push origin main</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title"><i class="bi bi-bug"></i> Troubleshooting Common Issues</h2>
+          
+          <div class="accordion" id="troubleshootingAccordion">
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#pathIssues">
+                  <i class="bi bi-exclamation-triangle me-2"></i>Path Issues (404 errors)
+                </button>
+              </h3>
+              <div id="pathIssues" class="accordion-collapse collapse show" data-bs-parent="#troubleshootingAccordion">
+                <div class="accordion-body">
+                  <p><strong>Problem:</strong> CSS, JS, or other assets not loading (404 errors).</p>
+                  <p><strong>Solution:</strong> Our build process automatically converts absolute paths to relative paths. Make sure you're running <code>npm run build</code> and not manually copying files.</p>
+                  <p><strong>Check:</strong> Generated HTML should have paths like <code>./css/styles.css</code> not <code>/css/styles.css</code>.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#buildFails">
+                  <i class="bi bi-x-circle me-2"></i>Build Fails
+                </button>
+              </h3>
+              <div id="buildFails" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                <div class="accordion-body">
+                  <p><strong>Problem:</strong> GitHub Actions build fails.</p>
+                  <p><strong>Solutions:</strong></p>
+                  <ul>
+                    <li>Check that all dependencies are listed in <code>package.json</code></li>
+                    <li>Ensure Node.js version compatibility (we use Node 18)</li>
+                    <li>Verify all build script files exist in <code>scripts/</code> directory</li>
+                    <li>Check the Actions tab in GitHub for detailed error logs</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pageNotFound">
+                  <i class="bi bi-file-earmark-x me-2"></i>Page Not Found
+                </button>
+              </h3>
+              <div id="pageNotFound" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                <div class="accordion-body">
+                  <p><strong>Problem:</strong> Your site shows a 404 page.</p>
+                  <p><strong>Solutions:</strong></p>
+                  <ul>
+                    <li>Make sure you selected "/docs" folder in GitHub Pages settings</li>
+                    <li>Verify that <code>docs/index.html</code> exists after build</li>
+                    <li>Check that your repository is public (or you have GitHub Pro for private repos)</li>
+                    <li>Wait a few minutes after deployment for changes to propagate</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4 border-success">
+        <div class="card-body">
+          <h2 class="card-title text-success"><i class="bi bi-check-circle"></i> Success! Your Site is Live</h2>
+          <p>Once everything is set up, your site will be available at:</p>
+          <div class="alert alert-success" role="alert">
+            <code class="text-success">https://username.github.io/repository-name</code>
+          </div>
+          <p>Every push to your main branch will automatically update your live site!</p>
+          
+          <div class="d-flex gap-2 flex-wrap">
+            <a href="https://docs.github.com/en/pages" class="btn btn-outline-primary" target="_blank">
+              <i class="bi bi-book me-2"></i>GitHub Pages Docs
+            </a>
+            <a href="https://github.com/features/actions" class="btn btn-outline-secondary" target="_blank">
+              <i class="bi bi-gear me-2"></i>GitHub Actions
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <div class="card mb-4 position-sticky" style="top: 2rem;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-list-check"></i> Quick Checklist</h5>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="check1">
+            <label class="form-check-label" for="check1">
+              Build scripts added to package.json
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="check2">
+            <label class="form-check-label" for="check2">
+              Created .github/workflows/deploy.yml
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="check3">
+            <label class="form-check-label" for="check3">
+              GitHub Pages configured for /docs folder
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="check4">
+            <label class="form-check-label" for="check4">
+              Successfully ran npm run build
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="check5">
+            <label class="form-check-label" for="check5">
+              Pushed to main branch
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="check6">
+            <label class="form-check-label" for="check6">
+              Site is live and working!
+            </label>
+          </div>
+          
+          <hr>
+          <h6><i class="bi bi-clock"></i> Timeline</h6>
+          <ul class="list-unstyled small">
+            <li><i class="bi bi-dot"></i>Setup: ~10 minutes</li>
+            <li><i class="bi bi-dot"></i>First build: ~2-5 minutes</li>
+            <li><i class="bi bi-dot"></i>Future deploys: ~1-2 minutes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+      
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2025 JS-Dev Starter. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/theme-toggle.js"></script>
+    <!-- Just before the closing body tag -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="../js/component-library.js"></script>
+  </body>
+</html>
