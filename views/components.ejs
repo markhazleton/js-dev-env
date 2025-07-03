@@ -1155,17 +1155,28 @@
 <!-- Highlight.js for syntax highlighting with dark mode support -->
 <link
   rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css"
+  integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
   id="light-mode-highlight"
 />
 <link
   rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css"
+  integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
   id="dark-mode-highlight"
   disabled
 />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-<script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"
+  integrity="sha384-GdEWAbCjn+ghjX0gLx7/N1hyTVmPAjdC2OvoAA0RyNcAOhqwtT8qnbCxWle2+uJX"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script<% if (typeof cspNonce !== 'undefined') { %> nonce="<%- cspNonce %>"<% } %>>
   document.addEventListener("DOMContentLoaded", (event) => {
     // Apply syntax highlighting
     document.querySelectorAll("pre code").forEach((el) => {

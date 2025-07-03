@@ -10,7 +10,7 @@
     <title>Components | JS-Dev Starter</title>
 
     <!-- Structured data for SEO -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
@@ -24,7 +24,10 @@
     <link href="../fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/default.min.css"
+      integrity="sha384-4Y0nObtF3CbKnh+lpzmAVdAMtQXl+ganWiiv73RcGVdRdfVIya8Cao1C8ZsVRRDz"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
 
     <!-- Favicon -->
@@ -33,24 +36,6 @@
     <!-- PWA Support -->
     <link rel="manifest" href="../manifest.json" />
     <meta name="theme-color" content="#ffffff" />
-    <script>
-      // Register service worker for PWA support
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("../service-worker.js")
-            .then((registration) => {
-              console.log(
-                "Service Worker registered with scope:",
-                registration.scope
-              );
-            })
-            .catch((error) => {
-              console.error("Service Worker registration failed:", error);
-            });
-        });
-      }
-    </script>
   </head>
   <body class="flex-layout">
     <!-- Navigation Bar -->
@@ -1307,17 +1292,28 @@
 <!-- Highlight.js for syntax highlighting with dark mode support -->
 <link
   rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css"
+  integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
   id="light-mode-highlight"
 />
 <link
   rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css"
+  integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
   id="dark-mode-highlight"
   disabled
 />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-<script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"
+  integrity="sha384-GdEWAbCjn+ghjX0gLx7/N1hyTVmPAjdC2OvoAA0RyNcAOhqwtT8qnbCxWle2+uJX"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script nonce="static-site-dummy-nonce">
   document.addEventListener("DOMContentLoaded", (event) => {
     // Apply syntax highlighting
     document.querySelectorAll("pre code").forEach((el) => {
@@ -1399,10 +1395,21 @@
         </div>
       </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/service-worker-register.js"></script>
     <script src="../js/theme-toggle.js"></script>
+    <script src="../js/theme-demo.js"></script>
     <!-- Just before the closing body tag -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"
+      integrity="sha384-GdEWAbCjn+ghjX0gLx7/N1hyTVmPAjdC2OvoAA0RyNcAOhqwtT8qnbCxWle2+uJX"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="../js/component-library.js"></script>
   </body>
 </html>

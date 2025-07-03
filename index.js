@@ -8,7 +8,9 @@ const expressLayouts = require('express-ejs-layouts');
 const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
+const crypto = require('crypto');
 const cacheUtils = require('./utils/cache');
+const { TRUSTED_RESOURCES } = require('./utils/security');
 
 // Create Express app
 const app = express();
@@ -17,19 +19,61 @@ const app = express();
 const environment = process.env.NODE_ENV || 'development';
 console.log(`App running in ${environment} mode`);
 
+// CSP nonce middleware
+app.use((req, res, next) => {
+  // Generate a unique nonce for each request
+  res.locals.cspNonce = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
 // Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com', "'unsafe-inline'"],
-      styleSrc: ["'self'", 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'fonts.googleapis.com', "'unsafe-inline'"],
-      fontSrc: ["'self'", 'fonts.gstatic.com', 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com'],
-      imgSrc: ["'self'", 'data:', 'via.placeholder.com', 'cdn.jsdelivr.net'],
-      connectSrc: ["'self'"]
-    }
-  }
-}));
+app.use((req, res, next) => {
+  // Get the nonce for the current request
+  const cspNonce = res.locals.cspNonce;
+  
+  // Apply helmet with dynamic nonce
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'", 
+          'https://cdn.jsdelivr.net',
+          'https://cdnjs.cloudflare.com',
+          `'nonce-${cspNonce}'` // Allow scripts with this request's nonce
+        ],
+        styleSrc: [
+          "'self'", 
+          'https://cdn.jsdelivr.net',
+          'https://cdnjs.cloudflare.com',
+          'https://fonts.googleapis.com',
+          "'unsafe-inline'" // Required for dynamic theme switching
+        ],
+        fontSrc: [
+          "'self'", 
+          'https://fonts.gstatic.com',
+          'https://cdn.jsdelivr.net',
+          'https://cdnjs.cloudflare.com'
+        ],
+        imgSrc: [
+          "'self'", 
+          'data:', 
+          'https://via.placeholder.com',
+          'https://cdn.jsdelivr.net'
+        ],
+        connectSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"],
+        // Add integrity requirement for external resources
+        requireSriFor: ['script', 'style']
+      }
+    },
+    // Add additional security headers
+    crossOriginEmbedderPolicy: false, // Set to true for stricter security if needed
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  })(req, res, next);
+});
 
 // Compression middleware for better performance
 app.use(compression());

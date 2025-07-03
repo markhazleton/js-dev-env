@@ -54,7 +54,9 @@ async function renderPage(pageData, isHomePage = false) {
     currentPath: pageData.url,
     // Add some default values that might be expected
     title: pageData.title,
-    content: pageData.content
+    content: pageData.content,
+    // Add a dummy cspNonce for static site generation
+    cspNonce: 'static-site-dummy-nonce'
   };
 
   try {

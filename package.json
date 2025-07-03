@@ -18,7 +18,9 @@
     "prebuild": "npm run clean",
     "build": "npm-run-all copy-icons-docs copy-static-assets build-css generate-static-site",
     "build:github-pages": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "security-audit": "node scripts/security-audit.js",
+    "security:validate": "npm run security-audit"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
