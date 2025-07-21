@@ -49,5 +49,16 @@
       "body": "<p>This page provides a visual reference of available Bootstrap 5 components and how to implement them in your project.</p>",
       "useCustomTemplate": true
     }
+  },
+  {
+    "title": "Advanced Components",
+    "url": "/advanced-components",
+    "template": "advanced-components",
+    "content": {
+      "heading": "<i class=\"bi bi-gear-wide-connected\"></i> Advanced Bootstrap Components",
+      "text": "Explore advanced Bootstrap components including accordions, carousels, offcanvas, and more interactive elements.",
+      "body": "<p>This page showcases advanced Bootstrap 5 components that provide enhanced user interactions and complex layouts.</p>",
+      "useCustomTemplate": true
+    }
   }
 ]
