@@ -10,7 +10,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 const crypto = require('crypto');
 const cacheUtils = require('./utils/cache');
-const { TRUSTED_RESOURCES } = require('./utils/security');
+// const { TRUSTED_RESOURCES } = require('./utils/security'); // Reserved for future security features
 
 // Create Express app
 const app = express();
@@ -275,7 +275,7 @@ pagesData.forEach(page => {
 });
 
 // Custom 404 page - This needs to come AFTER the page routes
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).render('error-404', {
     title: '404 - Page Not Found',
     content: {
@@ -288,7 +288,7 @@ app.use((req, res, next) => {
 });
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error(err.stack);
   res.status(500).render('page', {
     title: 'Error',

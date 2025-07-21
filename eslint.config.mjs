@@ -2,15 +2,17 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 
 export default [
+  // Node.js files configuration (default for server-side code)
   {
     files: ["**/*.js"],
+    ignores: ["docs/**/*.js", "public/**/*.js", "**/service-worker.js"],
     languageOptions: {
       sourceType: "commonjs",
       ecmaVersion: 2021,
       globals: globals.node, // Enables Node.js globals (e.g., process, __dirname)
     },
     rules: {
-      // Add your custom rules here if needed
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_|^next$" }]
     }
   },
   // Test files configuration
@@ -25,14 +27,14 @@ export default [
       }
     },
     rules: {
-      "no-unused-vars": "warn"
+      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
     }
   },
-  // Add browser environment configuration for client-side JavaScript files
+  // Browser environment configuration for client-side JavaScript files
   {
-    files: ["public/js/**/*.js"],
+    files: ["public/js/**/*.js", "docs/js/**/*.js"],
     languageOptions: {
-      sourceType: "module",
+      sourceType: "script",
       ecmaVersion: 2021,
       globals: {
         ...globals.browser, // Enables browser globals (document, window, etc.)
@@ -40,7 +42,21 @@ export default [
       }
     },
     rules: {
-      "no-unused-vars": "warn" // Downgrade unused vars to warnings
+      "no-unused-vars": "warn" // Downgrade unused vars to warnings for client-side code
+    }
+  },
+  // Service Worker configuration
+  {
+    files: ["**/service-worker.js"],
+    languageOptions: {
+      sourceType: "script",
+      ecmaVersion: 2021,
+      globals: {
+        ...globals.serviceworker, // Enables service worker globals (self, caches, etc.)
+      }
+    },
+    rules: {
+      "no-unused-vars": "warn"
     }
   },
   pluginJs.configs.recommended, // Apply ESLint's recommended rules

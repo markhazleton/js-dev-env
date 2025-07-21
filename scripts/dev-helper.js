@@ -7,7 +7,7 @@
 
 const { execSync } = require('child_process');
 const fs = require('fs');
-const path = require('path');
+// const path = require('path'); // Reserved for future path operations
 
 const commands = {
   setup: () => {
@@ -36,7 +36,7 @@ const commands = {
     console.log('🧹 Cleaning build artifacts...');
     
     const dirsToClean = ['docs', 'coverage', 'node_modules/.cache'];
-    const filesToClean = ['*.log', '.eslintcache'];
+    // const filesToClean = ['*.log', '.eslintcache']; // Reserved for future file cleaning
     
     dirsToClean.forEach(dir => {
       if (fs.existsSync(dir)) {

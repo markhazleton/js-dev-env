@@ -2,8 +2,8 @@
  * Basic app test
  */
 const request = require('supertest');
-const path = require('path');
-const fs = require('fs');
+// const path = require('path'); // Reserved for future path operations
+// const fs = require('fs'); // Reserved for future file operations
 
 // Mock environment variables before requiring the app
 process.env.NODE_ENV = 'test';
