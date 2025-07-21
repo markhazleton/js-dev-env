@@ -13,6 +13,21 @@ export default [
       // Add your custom rules here if needed
     }
   },
+  // Test files configuration
+  {
+    files: ["tests/**/*.js"],
+    languageOptions: {
+      sourceType: "commonjs",
+      ecmaVersion: 2021,
+      globals: {
+        ...globals.node,
+        ...globals.jest, // Enables Jest globals (describe, test, expect, etc.)
+      }
+    },
+    rules: {
+      "no-unused-vars": "warn"
+    }
+  },
   // Add browser environment configuration for client-side JavaScript files
   {
     files: ["public/js/**/*.js"],

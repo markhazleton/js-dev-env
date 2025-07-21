@@ -158,13 +158,104 @@ app.get('/components', (req, res) => {
 // API Routes
 const apiRouter = express.Router();
 
-// Sample API endpoint
+// Add JSON parsing middleware for API routes
+apiRouter.use(express.json());
+
+// Health check endpoint
+apiRouter.get('/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date(),
+    uptime: process.uptime(),
+    environment,
+    node_version: process.version
+  });
+});
+
+// Application info endpoint
 apiRouter.get('/info', (req, res) => {
   res.json({
     name: process.env.SITE_NAME || 'Bootstrap 5 + Express.js Starter Kit',
     version: '1.0.0',
     environment,
+    timestamp: new Date(),
+    features: [
+      'Bootstrap 5',
+      'Express.js',
+      'EJS Templates',
+      'SASS/SCSS',
+      'PWA Support',
+      'Security Headers',
+      'Testing Suite'
+    ]
+  });
+});
+
+// Pages API endpoint
+apiRouter.get('/pages', (req, res) => {
+  res.json({
+    total: pagesData.length,
+    pages: pagesData.map(page => ({
+      title: page.title,
+      url: page.url,
+      template: page.template,
+      description: page.content?.text || ''
+    }))
+  });
+});
+
+// Contact form endpoint
+apiRouter.post('/contact', (req, res) => {
+  const { name, email, message } = req.body;
+  
+  // Basic validation
+  const errors = [];
+  if (!name || name.trim().length < 2) {
+    errors.push('Name is required and must be at least 2 characters');
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errors.push('Valid email address is required');
+  }
+  if (!message || message.trim().length < 10) {
+    errors.push('Message is required and must be at least 10 characters');
+  }
+  
+  if (errors.length > 0) {
+    return res.status(400).json({ success: false, errors });
+  }
+  
+  // In a real app, you'd save to database or send email
+  console.log('Contact form submission:', { name, email, message });
+  
+  res.json({
+    success: true,
+    message: 'Thank you for your message! We\'ll get back to you soon.',
     timestamp: new Date()
+  });
+});
+
+// Search endpoint (example)
+apiRouter.get('/search', (req, res) => {
+  const { q } = req.query;
+  
+  if (!q) {
+    return res.status(400).json({ error: 'Query parameter "q" is required' });
+  }
+  
+  // Simple search through pages
+  const results = pagesData.filter(page => 
+    page.title.toLowerCase().includes(q.toLowerCase()) ||
+    (page.content?.text && page.content.text.toLowerCase().includes(q.toLowerCase()))
+  );
+  
+  res.json({
+    query: q,
+    total: results.length,
+    results: results.map(page => ({
+      title: page.title,
+      url: page.url,
+      snippet: page.content?.text?.substring(0, 200) + '...' || ''
+    }))
   });
 });
 
