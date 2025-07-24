@@ -65,13 +65,15 @@ app.use((req, res, next) => {
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
         frameSrc: ["'none'"],
-        // Add integrity requirement for external resources
-        requireSriFor: ['script', 'style']
+        // Add integrity requirement for external resources (disabled in development)
+        ...(environment === 'production' ? { requireSriFor: ['script', 'style'] } : {})
       }
     },
     // Add additional security headers
     crossOriginEmbedderPolicy: false, // Set to true for stricter security if needed
-    crossOriginResourcePolicy: { policy: "cross-origin" }
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    // Disable HSTS in development to prevent HTTPS enforcement
+    hsts: environment === 'production' ? { maxAge: 31536000 } : false
   })(req, res, next);
 });
 
