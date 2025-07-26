@@ -16,7 +16,7 @@
 
 🌐 **[Live Demo](https://markhazleton.github.io/js-dev-env/)** | 📚 **[Documentation](https://github.com/markhazleton/js-dev-env/wiki)** | 🚀 **[Quick Start](#-quick-start)**
 
-![Hero Image](https://via.placeholder.com/800x400/007bff/ffffff?text=Bootstrap+5+%2B+Express.js+Starter+Kit)
+![Hero Image](https://raw.githubusercontent.com/markhazleton/js-dev-env/main/docs/images/hero-banner.svg)
 
 </div>
 
@@ -53,13 +53,15 @@
 ### 🌟 Key Features
 
 #### 🎨 **Modern UI/UX**
+
 - **Bootstrap 5.3.7** with latest components and utilities
-- **1,800+ Bootstrap Icons** for comprehensive iconography
+- **2,000+ Bootstrap Icons** for comprehensive iconography
 - **Dark/Light Mode Toggle** with system preference detection
 - **Responsive Design** optimized for all device sizes
 - **Advanced Component Library** with interactive examples
 
 #### ⚡ **Developer Experience**
+
 - **Hot Reload Development** with automatic browser refresh
 - **SASS Watch Mode** for real-time style compilation
 - **ESLint + Prettier** for consistent code formatting
@@ -67,6 +69,7 @@
 - **Docker Support** for containerized development
 
 #### 🛡️ **Security & Performance**
+
 - **Helmet.js Integration** for security headers
 - **Rate Limiting** to prevent abuse
 - **Compression Middleware** for optimized delivery
@@ -74,12 +77,14 @@
 - **Input Validation** with sanitization
 
 #### 📱 **Progressive Web App**
+
 - **Service Worker** for offline functionality
 - **Web App Manifest** for installable experience
 - **Responsive Images** with optimized loading
 - **Performance Metrics** tracking
 
 #### 🚀 **Deployment Ready**
+
 - **GitHub Pages Integration** with automatic builds
 - **CI/CD Pipeline** with GitHub Actions
 - **Docker Containerization** for consistent deployment
@@ -190,21 +195,27 @@ js-dev-env/
 ## 🎯 Use Cases
 
 ### 🎨 **UI/UX Prototyping**
+
 Perfect for rapidly prototyping interfaces with Bootstrap 5 components and custom styling.
 
 ### 📖 **Documentation Sites**
+
 Create beautiful documentation with the JSON-based CMS and automatic GitHub Pages deployment.
 
 ### 🌐 **Landing Pages**
+
 Build conversion-optimized landing pages with SEO features and performance optimization.
 
 ### 🛍️ **E-commerce Frontends**
+
 Develop responsive e-commerce interfaces with form validation and security features.
 
 ### 📱 **Progressive Web Apps**
+
 Create installable web applications with offline functionality and responsive design.
 
 ### 🎓 **Learning Projects**
+
 Ideal for developers learning modern web development practices and Bootstrap 5.
 
 ## 🛠️ Development
@@ -267,6 +278,7 @@ $border-radius: 0.375rem;
 The starter kit includes two comprehensive component libraries:
 
 ### 📦 **Basic Components** (`/components`)
+
 - **Buttons** - All variants, sizes, and states
 - **Typography** - Headings, text utilities, and formatting
 - **Cards** - Various card layouts and styles
@@ -277,6 +289,7 @@ The starter kit includes two comprehensive component libraries:
 - **Icons** - Bootstrap Icons showcase
 
 ### 🔥 **Advanced Components** (`/advanced-components`)
+
 - **Accordion** - Collapsible content panels
 - **Carousel** - Image/content sliders with controls
 - **Offcanvas** - Sliding panel navigation
@@ -293,6 +306,7 @@ The starter kit includes two comprehensive component libraries:
 ### 🖼️ **Interactive Examples**
 
 Each component includes:
+
 - **Live Preview** - See components in action
 - **Copy-Paste Code** - Ready-to-use HTML snippets
 - **Responsive Design** - Mobile-optimized layouts
@@ -305,20 +319,22 @@ Each component includes:
 Automatic deployment with every push to main:
 
 ```yaml
-# .github/workflows/deploy.yml
-name: Deploy to GitHub Pages
+# .github/workflows/ci.yml
+name: CI/CD Pipeline
 on:
   push:
+    branches: [main, develop]
+  pull_request:
     branches: [main]
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-      - run: npm install
+      - run: npm ci
       - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+      - uses: peaceiris/actions-gh-pages@v4
 ```
 
 ### ☁️ **Other Deployment Options**
@@ -333,6 +349,7 @@ npm i -g vercel
 # Deploy
 vercel --prod
 ```
+
 </details>
 
 <details>
@@ -344,6 +361,7 @@ vercel --prod
   command = "npm run build"
   publish = "docs"
 ```
+
 </details>
 
 <details>
@@ -356,6 +374,7 @@ echo "web: node index.js" > Procfile
 # Deploy
 git push heroku main
 ```
+
 </details>
 
 <details>
@@ -365,6 +384,7 @@ git push heroku main
 # Build and run
 docker-compose up --build -d
 ```
+
 </details>
 
 ## 📄 Content Management
@@ -414,6 +434,7 @@ npm run test:ci
 ### 📊 **Coverage Reports**
 
 Tests cover:
+
 - **Route handling** and page rendering
 - **Utility functions** and helpers
 - **Security middleware** functionality
@@ -430,7 +451,7 @@ Tests cover:
 
 ## 🤝 Contributing
 
-We welcome contributions from developers of all skill levels! 
+We welcome contributions from developers of all skill levels!
 
 ### 🚀 **Getting Started**
 
@@ -452,6 +473,7 @@ We welcome contributions from developers of all skill levels!
 ### 🏷️ **Good First Issues**
 
 Look for issues labeled:
+
 - `good first issue`
 - `beginner-friendly`
 - `help wanted`
@@ -509,4 +531,3 @@ If this project helped you, please consider:
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/markhazleton/)
 
 </div>
-
