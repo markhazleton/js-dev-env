@@ -6,7 +6,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 
 console.log('🔍 Analyzing dependencies...\n');
 
@@ -75,7 +74,7 @@ function hasBootstrapImports() {
           content.includes('bootstrap/scss/bootstrap')) {
         return true;
       }
-    } catch (error) {
+    } catch {
       // Skip files that can't be read
       continue;
     }

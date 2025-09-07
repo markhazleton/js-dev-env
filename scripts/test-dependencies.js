@@ -113,7 +113,7 @@ function checkDependencyUsage(depName, analysis) {
             isUsed = true;
           }
         }
-      } catch (error) {
+      } catch {
         // File doesn't exist or can't be read
       }
     }
@@ -130,7 +130,7 @@ function testCommands(commands) {
       console.log(`    Running: ${command}`);
       execSync(command, { stdio: 'pipe', timeout: 30000 });
       console.log(`    ✅ ${command} passed`);
-    } catch (error) {
+    } catch {
       console.log(`    ❌ ${command} failed`);
       return false;
     }
@@ -187,7 +187,7 @@ function main() {
     const priorities = ['HIGH', 'MEDIUM', 'LOW'];
     for (const priority of priorities) {
       const deps = Object.entries(dependencyAnalysis)
-        .filter(([name, analysis]) => analysis.priority === priority)
+        .filter(([_name, analysis]) => analysis.priority === priority)
         .filter(([name]) => packageJson.dependencies?.[name] || packageJson.devDependencies?.[name]);
       
       if (deps.length > 0) {

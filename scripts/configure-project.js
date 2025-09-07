@@ -6,7 +6,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 const readline = require('readline');
 const { getFeatures, generatePackageJson, generateScripts } = require('../config/features');
 
@@ -106,7 +105,7 @@ async function getCustomConfiguration() {
   for (const [category, categoryFeatures] of Object.entries(features)) {
     console.log(`\n📁 ${category.toUpperCase()} Features:`);
     
-    for (const [feature, enabled] of Object.entries(categoryFeatures)) {
+    for (const [feature] of Object.entries(categoryFeatures)) {
       const current = customFeatures[category][feature];
       const answer = await question(`  ${feature} (currently ${current ? 'enabled' : 'disabled'}) [y/n]: `);
       customFeatures[category][feature] = answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes';
