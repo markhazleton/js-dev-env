@@ -158,11 +158,32 @@ jobs:
       - name: Test Docker image
         timeout-minutes: 5
         run: |
+          echo "🐳 Starting Docker container test..."
           docker run -d --name test-container -p 3000:3000 js-dev-env:${{ github.sha }}
-          sleep 10
-          curl -f http://localhost:3000/api/health || exit 1
+
+          # Wait for container to start and app to be ready
+          echo "⏳ Waiting for application to start..."
+          for i in {1..30}; do
+            echo "Attempt $i/30 - Checking if app is ready..."
+            if curl -f http://localhost:3000/api/health; then
+              echo "✅ Application is responding!"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "❌ Application failed to start within 30 attempts"
+              echo "📋 Container logs:"
+              docker logs test-container
+              echo "📋 Container status:"
+              docker ps -a
+              exit 1
+            fi
+            sleep 2
+          done
+
+          echo "🧹 Cleaning up..."
           docker stop test-container
           docker rm test-container
+          echo "✅ Docker test completed successfully!"
 
   monthly-maintenance:
     runs-on: ubuntu-latest

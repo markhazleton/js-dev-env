@@ -12,7 +12,10 @@ const options = {
   timeout: 5000
 };
 
+console.log(`Running health check on http://${options.hostname}:${options.port}${options.path}`);
+
 const req = http.request(options, (res) => {
+  console.log(`Health check response status: ${res.statusCode}`);
   if (res.statusCode === 200) {
     console.log('Health check passed');
     process.exit(0);

@@ -1,5 +1,5 @@
 # Use the official Node.js runtime as base image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
@@ -7,11 +7,21 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install all dependencies (needed for build process)
+RUN npm ci
 
 # Copy application code
 COPY . .
+
+# Build the application
+RUN npm run build
+
+# Set production environment
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Remove dev dependencies after build (optional optimization)
+# RUN npm ci --only=production && npm cache clean --force
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs
@@ -28,5 +38,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node healthcheck.js
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application (skip build since we already built)
+CMD ["node", "index.js"]
