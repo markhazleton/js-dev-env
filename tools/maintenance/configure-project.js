@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const readline = require('readline');
-const { getFeatures, generatePackageJson, generateScripts } = require('../config/features');
+const { getFeatures, generatePackageJson, generateScripts } = require('../../config/features');
 
 const rl = readline.createInterface({
   input: process.stdin,

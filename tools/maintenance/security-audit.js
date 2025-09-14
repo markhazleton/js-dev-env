@@ -7,7 +7,7 @@
  * and checks for potential security issues in your application.
  */
 
-const { validateTrustedResources } = require('../utils/security');
+const { validateTrustedResources } = require('../../utils/security');
 const fs = require('fs');
 const path = require('path');
 
@@ -81,7 +81,7 @@ async function main() {
     // Check for potential security issues in templates
     console.log('\n' + colorize('🔍 Checking for potential security issues...', 'blue'));
     
-    const viewsDir = path.join(__dirname, '..', 'views');
+    const viewsDir = path.join(__dirname, '..', '..', 'views');
     const templateFiles = fs.readdirSync(viewsDir).filter(file => file.endsWith('.ejs'));
     
     let securityIssues = [];
