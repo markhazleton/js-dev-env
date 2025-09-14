@@ -25,11 +25,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Handle potential lock file sync issues
+          if ! npm ci; then
+            echo "npm ci failed, trying npm install to fix lock file sync..."
+            npm install
+            npm ci
+          fi
 
       - name: Run linting
         run: npm run lint
@@ -61,11 +67,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Handle potential lock file sync issues
+          if ! npm ci; then
+            echo "npm ci failed, trying npm install to fix lock file sync..."
+            npm install
+            npm ci
+          fi
 
       - name: Build for quality checks
         run: npm run build
@@ -97,11 +109,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Handle potential lock file sync issues
+          if ! npm ci; then
+            echo "npm ci failed, trying npm install to fix lock file sync..."
+            npm install
+            npm ci
+          fi
 
       - name: Clean previous build
         run: npm run clean
@@ -157,11 +175,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Handle potential lock file sync issues
+          if ! npm ci; then
+            echo "npm ci failed, trying npm install to fix lock file sync..."
+            npm install
+            npm ci
+          fi
 
       - name: Generate monthly maintenance report
         run: npm run report:monthly
@@ -185,18 +209,17 @@ jobs:
             const fs = require('fs');
             const path = require('path');
 
-            // Try to read maintenance report
             let reportContent = 'Maintenance report generation completed.';
             try {
               const reportPath = path.join(process.cwd(), 'temp/reports/monthly-maintenance-report.json');
               if (fs.existsSync(reportPath)) {
                 const report = JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
-                reportContent = `## Monthly Maintenance Report
-                
-                **Generated**: ${report.timestamp}
-                **Period**: ${report.period}
-                **Status**: ${report.status}
-                
+                reportContent = `Monthly Maintenance Report
+
+                Generated: ${report.timestamp}
+                Period: ${report.period}
+                Status: ${report.status}
+
                 ${report.message || 'Maintenance tasks completed successfully.'}`;
               }
             } catch (error) {

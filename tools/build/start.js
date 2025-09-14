@@ -6,7 +6,6 @@
  */
 
 const { execSync } = require('child_process');
-const buildConfig = require('./build-config.js');
 
 async function start() {
   console.log('🚀 Starting development server...');

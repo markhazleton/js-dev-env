@@ -8,7 +8,6 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const buildConfig = require('./build-config.js');
 
 // Parse command line arguments
 const args = process.argv.slice(2);

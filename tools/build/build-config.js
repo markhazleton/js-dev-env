@@ -5,9 +5,7 @@
  * Environment-specific settings, path configuration, and optimization settings
  */
 
-const path = require('path');
-
-const config = {
+const buildConfig = {
   // Environment detection
   environment: process.env.NODE_ENV || 'development',
   
@@ -111,9 +109,9 @@ const config = {
 };
 
 // Apply environment-specific overrides
-const envConfig = config.environments[config.environment];
+const envConfig = buildConfig.environments[buildConfig.environment];
 if (envConfig) {
-  Object.assign(config, envConfig);
+  Object.assign(buildConfig, envConfig);
 }
 
-module.exports = config;
+module.exports = buildConfig;
