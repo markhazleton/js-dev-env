@@ -3,13 +3,13 @@ const path = require('path');
 const ejs = require('ejs');
 
 // Load pages data
-const pagesData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'pages.json'), 'utf-8'));
+const pagesData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'pages.json'), 'utf-8'));
 
 // Filter top-level pages for navigation
 const navPages = pagesData.filter(page => !page.url.includes('/', 1));
 
 // Create docs directory if it doesn't exist
-const docsDir = path.join(__dirname, '..', 'docs');
+const docsDir = path.join(__dirname, '..', '..', 'docs');
 if (!fs.existsSync(docsDir)) {
   fs.mkdirSync(docsDir, { recursive: true });
   console.log(`Created directory: ${docsDir}`);
@@ -45,7 +45,7 @@ function convertPathsForGitHubPages(html, depth = 0) {
 
 // Function to render a page
 async function renderPage(pageData, isHomePage = false) {
-  const viewsDir = path.join(__dirname, '..', 'views');
+  const viewsDir = path.join(__dirname, '..', '..', 'views');
   
   // Prepare data for template
   const templateData = {

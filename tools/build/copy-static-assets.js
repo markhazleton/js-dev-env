@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Define source and destination paths
-const sourceDir = path.join(__dirname, '..', 'public');
-const destDir = path.join(__dirname, '..', 'docs');
+const sourceDir = path.join(__dirname, '..', '..', 'public');
+const destDir = path.join(__dirname, '..', '..', 'docs');
 
 // Files and directories to exclude from copying (we'll handle CSS and fonts separately)
 const excludeItems = ['css', 'fonts'];

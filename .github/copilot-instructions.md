@@ -8,9 +8,9 @@ system. This keeps the project organized and prevents documentation pollution.
 
 Example structure:
 
-- `/copilot/session-2025-09-06/analysis.md`
-- `/copilot/session-2025-09-06/recommendations.md`
-- `/copilot/session-2025-09-06/implementation-plan.md`
+- `/copilot/session-2025-09-14/tools-structure-implementation.md`
+- `/copilot/session-2025-09-14/analysis.md`
+- `/copilot/session-2025-09-14/recommendations.md`
 
 ## 🚀 Project Context
 
@@ -21,19 +21,27 @@ This is a **Bootstrap 5 + Express.js Starter Kit** with the following key charac
 - **Frontend**: Bootstrap 5.3.8, SASS, EJS templating
 - **Backend**: Express.js 5.1.0, Node.js 18+
 - **Testing**: Jest with coverage reporting
-- **Build System**: Custom build scripts, npm scripts
+- **Build System**: Function-based tools structure with build orchestration
+- **Development Tools**: Comprehensive SEO, Git analysis, and maintenance automation
 - **Deployment**: GitHub Pages, Docker support
-- **Security**: Helmet.js, rate limiting, CSP implementation
+- **Security**: Helmet.js, rate limiting, CSP implementation, SSL monitoring
 
 ### Project Structure
 
+- `/tools/` - Function-based development tools organization
+  - `/tools/build/` - Build system and static site generation
+  - `/tools/seo/` - SEO validation, accessibility, and SSL monitoring
+  - `/tools/git/` - Git analysis and repository metrics
+  - `/tools/maintenance/` - Maintenance automation and dependency management
 - `/data/pages.json` - JSON-based CMS for content
 - `/scss/` - SASS source files with Bootstrap customization
 - `/views/` - EJS templates and partials
-- `/scripts/` - Build and utility scripts
 - `/tests/` - Jest test suite
 - `/public/` - Development assets
 - `/docs/` - Built static site (auto-generated)
+- `/temp/` - Temporary outputs and reports (gitignored)
+- `/artifacts/` - CI/CD artifacts (gitignored)
+- `/reports/` - Permanent reports (tracked)
 
 ## 🎯 Development Guidelines
 
@@ -50,15 +58,20 @@ This is a **Bootstrap 5 + Express.js Starter Kit** with the following key charac
 - **MVC pattern** with Express.js
 - **Component-based** frontend with EJS partials
 - **JSON-driven content** management
+- **Function-based tool organization** with clear separation of concerns
+- **Build orchestration** with performance tracking and selective execution
 - **Progressive Web App** capabilities
 - **Security-first** approach with proper headers and validation
+- **Automated quality assurance** with SEO, accessibility, and security auditing
 
 ### Build Process
 
-- Development: `npm run start:dev` (hot reload)
-- Production: `npm run build` (static site generation)
+- Development: `npm run start:dev` (hot reload with watch mode)
+- Production: `npm run build` (unified build orchestrator)
+- Selective builds: `npm run build:scss`, `npm run build:pug`
 - Testing: `npm run test` or `npm run test:coverage`
 - Linting: `npm run lint` or `npm run lint:fix`
+- Quality audits: `npm run audit:all`
 
 ## 📋 Coding Conventions
 
@@ -144,15 +157,31 @@ When working with the component library:
 - Asset optimization and caching
 - SEO and performance optimization
 
+## 🔧 Tools Structure Guidelines
+
+When working with the tools structure:
+
+- Use the **function-based organization** in `/tools/`
+- **Build tools** go in `/tools/build/` (orchestration, compilation, asset processing)
+- **SEO and quality tools** go in `/tools/seo/` (validation, accessibility, SSL monitoring)
+- **Git analysis tools** go in `/tools/git/` (repository metrics, activity reporting)
+- **Maintenance tools** go in `/tools/maintenance/` (automation, dependency management)
+- Generate reports to `/temp/reports/` for temporary outputs
+- Use consistent error handling and progress logging
+- Implement command-line argument parsing for selective execution
+- Follow the build orchestration patterns established in `tools/build/build.js`
+
 ## 🔧 Build Script Patterns
 
-When creating or modifying build scripts:
+When creating or modifying tools:
 
 - Use Node.js built-in modules when possible
-- Implement proper error handling
-- Log progress and completion status
+- Implement proper error handling with descriptive messages
+- Log progress and completion status with emoji indicators
 - Support both development and production modes
-- Clean up temporary files
+- Generate JSON reports to `/temp/reports/` for automation
+- Use the build configuration from `tools/build/build-config.js`
+- Follow established patterns from existing tools
 
 ## 📱 PWA Implementation
 
@@ -207,14 +236,28 @@ npm run start:dev          # Start dev server with hot reload
 npm run watch-css          # Watch SASS files
 npm run test:watch         # Run tests in watch mode
 
-# Production
-npm run build             # Build for production
-npm run docker:dev        # Run with Docker
-npm run security-audit    # Security audit
+# Production Build
+npm run build             # Full production build (unified orchestrator)
+npm run build:scss        # Build SCSS only
+npm run build:pug         # Build templates only
+npm run clean             # Clean build artifacts
+npm run start             # Build and start server
 
-# Utilities
+# Quality Assurance
+npm run audit:all         # Run all quality audits
+npm run audit:seo         # SEO and accessibility checks
+npm run audit:ssl         # SSL certificate monitoring
+npm run seo:audit         # SEO validation report
+
+# Analysis and Reporting
+npm run report:git        # Git activity analysis
+npm run report:monthly    # Monthly maintenance report
+npm run fix:auto          # Apply automated fixes
+
+# Maintenance
+npm run security-audit    # Security vulnerability scan
+npm run analyze:deps      # Dependency analysis
 npm run configure         # Interactive setup wizard
-npm run analyze:deps      # Analyze dependencies
 npm run help             # Show all available commands
 ```
 
@@ -226,5 +269,7 @@ npm run help             # Show all available commands
 
 ---
 
-**Remember**: This is a production-ready starter kit designed for modern web development. Always
-consider security, performance, accessibility, and maintainability in your recommendations.
+**Remember**: This is a production-ready starter kit with a comprehensive tools structure designed
+for modern web development. The function-based tool organization provides clear separation of
+concerns, automated quality assurance, and maintainable development workflows. Always consider
+security, performance, accessibility, and maintainability in your recommendations.

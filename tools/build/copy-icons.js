@@ -5,10 +5,10 @@ const path = require('path');
 const targetDocs = process.argv.includes('--target=docs');
 
 // Define source and destination paths
-const sourceDir = path.join(__dirname, '..', 'node_modules', 'bootstrap-icons', 'font');
+const sourceDir = path.join(__dirname, '..', '..', 'node_modules', 'bootstrap-icons', 'font');
 const destDir = targetDocs 
-  ? path.join(__dirname, '..', 'docs', 'fonts', 'bootstrap-icons')
-  : path.join(__dirname, '..', 'public', 'fonts', 'bootstrap-icons');
+  ? path.join(__dirname, '..', '..', 'docs', 'fonts', 'bootstrap-icons')
+  : path.join(__dirname, '..', '..', 'public', 'fonts', 'bootstrap-icons');
 
 // Create destination directory if it doesn't exist
 if (!fs.existsSync(destDir)) {

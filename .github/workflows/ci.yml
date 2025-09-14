@@ -5,11 +5,19 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main]
+  schedule:
+    # Run monthly maintenance on the 1st day of each month at 9 AM UTC
+    - cron: '0 9 1 * *'
+  workflow_dispatch:
+    # Allow manual trigger of maintenance jobs
+
+env:
+  NODE_ENV: ci
 
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,8 +25,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -39,8 +47,46 @@ jobs:
       - name: Run security audit
         run: npm run security:validate
 
-  build-and-deploy:
+      - name: Analyze dependencies
+        run: npm run analyze:deps
+
+  quality-assurance:
     needs: lint-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for quality checks
+        run: npm run build
+
+      - name: Run SEO audit
+        run: npm run seo:audit
+
+      - name: Generate Git analysis report
+        run: npm run report:git
+
+      - name: Upload quality reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-reports
+          path: |
+            temp/reports/
+            reports/
+          retention-days: 30
+
+  build-and-deploy:
+    needs: [lint-and-test, quality-assurance]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
@@ -51,14 +97,26 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "npm"
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Clean previous build
+        run: npm run clean
+
       - name: Build for GitHub Pages
         run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            docs/
+            temp/reports/build-report.json
+          retention-days: 7
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -68,17 +126,17 @@ jobs:
           force_orphan: true
 
   docker-build:
-    needs: lint-and-test
+    needs: [lint-and-test, quality-assurance]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Build Docker image
         run: docker build -t js-dev-env:${{ github.sha }} .
-        
+
       - name: Test Docker image
         timeout-minutes: 5
         run: |
@@ -87,3 +145,68 @@ jobs:
           curl -f http://localhost:3000/api/health || exit 1
           docker stop test-container
           docker rm test-container
+
+  monthly-maintenance:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate monthly maintenance report
+        run: npm run report:monthly
+
+      - name: Apply automatic fixes
+        run: npm run fix:auto
+
+      - name: Upload maintenance reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-reports-${{ github.run_number }}
+          path: |
+            temp/reports/
+            reports/
+          retention-days: 90
+
+      - name: Create maintenance summary issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // Try to read maintenance report
+            let reportContent = 'Maintenance report generation completed.';
+            try {
+              const reportPath = path.join(process.cwd(), 'temp/reports/monthly-maintenance-report.json');
+              if (fs.existsSync(reportPath)) {
+                const report = JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
+                reportContent = `## Monthly Maintenance Report
+                
+                **Generated**: ${report.timestamp}
+                **Period**: ${report.period}
+                **Status**: ${report.status}
+                
+                ${report.message || 'Maintenance tasks completed successfully.'}`;
+              }
+            } catch (error) {
+              console.log('Could not read maintenance report:', error.message);
+            }
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Monthly Maintenance Report - ${new Date().toISOString().slice(0, 7)}`,
+              body: reportContent,
+              labels: ['maintenance', 'automated']
+            });

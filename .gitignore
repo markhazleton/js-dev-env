@@ -1,3 +1,10 @@
+# Temporary files and generated reports
+temp/
+!temp/**/.gitkeep
+artifacts/
+!artifacts/**/.gitkeep
+.build-cache/
+lhci/
 
 node_modules
 .DS_Store
