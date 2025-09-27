@@ -64,20 +64,12 @@ class PluginManager extends EventEmitter {
   }
 
   /**
-   * Discover plugins in the plugin directory and node_modules
+   * Discover plugins in the plugin directory only
    */
   async discoverPlugins() {
-    const pluginSources = [
-      // Local plugins directory
-      this.pluginDirectory,
-      // Node modules with plugin prefix
-      path.join(process.cwd(), 'node_modules')
-    ];
-
-    for (const source of pluginSources) {
-      if (fs.existsSync(source)) {
-        await this.scanDirectory(source);
-      }
+    // Only scan the designated plugins directory to avoid loading npm packages as plugins
+    if (fs.existsSync(this.pluginDirectory)) {
+      await this.scanDirectory(this.pluginDirectory);
     }
   }
 
@@ -89,15 +81,19 @@ class PluginManager extends EventEmitter {
       const items = fs.readdirSync(directory);
       
       for (const item of items) {
+        // Skip system directories and files
+        if (item.startsWith('.') || item === 'core') {
+          continue;
+        }
+
         const itemPath = path.join(directory, item);
         const stats = fs.statSync(itemPath);
 
         if (stats.isDirectory()) {
-          // Check if it's a plugin
-          const packageJsonPath = path.join(itemPath, 'package.json');
+          // Check if it's a legitimate plugin directory with index.js
           const indexPath = path.join(itemPath, 'index.js');
           
-          if (fs.existsSync(packageJsonPath) || fs.existsSync(indexPath)) {
+          if (fs.existsSync(indexPath)) {
             await this.loadPlugin(item, itemPath);
           }
         }
