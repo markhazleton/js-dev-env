@@ -9,6 +9,11 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Load build info utility
+const buildInfo = require('../../utils/build-info');
+const versionManager = require('../../utils/version-manager');
+const { performanceMonitor } = require('../../utils/performance-monitor');
+
 // Parse command line arguments
 const args = process.argv.slice(2);
 const flags = {
@@ -22,13 +27,31 @@ const flags = {
 async function runBuildTask(taskName, command) {
   console.log(`🔨 Running ${taskName}...`);
   
+  const taskId = `build_${taskName.toLowerCase().replace(/\s+/g, '_')}`;
+  performanceMonitor.startTiming(taskId);
+  
   try {
     const startTime = Date.now();
     execSync(command, { stdio: 'inherit', cwd: process.cwd() });
     const duration = Date.now() - startTime;
+    
+    // Record performance metrics
+    const metric = performanceMonitor.endTiming(taskId, { taskName, command });
+    performanceMonitor.recordBuildMetric(taskName, duration, 0, {
+      success: true,
+      memoryDelta: metric.memoryDelta
+    });
+    
     console.log(`✅ ${taskName} completed in ${duration}ms`);
     return { success: true, duration };
   } catch (error) {
+    // Record failed build metric
+    performanceMonitor.endTiming(taskId);
+    performanceMonitor.recordBuildMetric(taskName, 0, 0, {
+      success: false,
+      error: error.message
+    });
+    
     console.error(`❌ ${taskName} failed:`, error.message);
     return { success: false, error: error.message };
   }
@@ -36,6 +59,17 @@ async function runBuildTask(taskName, command) {
 
 async function build() {
   console.log('🚀 Starting build process...');
+  
+  // Increment build version
+  console.log('📈 Incrementing build version...');
+  const versionInfo = versionManager.incrementVersion('build');
+  console.log(`Version: ${versionInfo.oldVersion} → ${versionInfo.newVersion}`);
+  
+  // Generate build info
+  console.log('📝 Generating build information...');
+  buildInfo.generateBuildInfo();
+  console.log('✅ Build info generated');
+  
   const startTime = Date.now();
   const results = {};
   

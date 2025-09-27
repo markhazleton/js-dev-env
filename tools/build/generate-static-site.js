@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
 
+// Load build info utility
+const buildInfo = require('../../utils/build-info');
+
 // Load pages data
 const pagesData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'pages.json'), 'utf-8'));
 
@@ -47,6 +50,9 @@ function convertPathsForGitHubPages(html, depth = 0) {
 async function renderPage(pageData, isHomePage = false) {
   const viewsDir = path.join(__dirname, '..', '..', 'views');
   
+  // Generate build info for static site
+  const currentBuildInfo = buildInfo.generateBuildInfo();
+  
   // Prepare data for template
   const templateData = {
     page: pageData,
@@ -55,6 +61,8 @@ async function renderPage(pageData, isHomePage = false) {
     // Add some default values that might be expected
     title: pageData.title,
     content: pageData.content,
+    // Add build info for static site
+    buildInfo: buildInfo.getBuildInfo(),
     // Add a dummy cspNonce for static site generation
     cspNonce: 'static-site-dummy-nonce'
   };

@@ -10,6 +10,11 @@ const compression = require('compression');
 const morgan = require('morgan');
 const crypto = require('crypto');
 const cacheUtils = require('./utils/cache');
+const buildInfo = require('./utils/build-info');
+const { featureMiddleware } = require('./utils/feature-middleware');
+const { performanceMiddleware } = require('./utils/performance-monitor');
+const { pluginManager } = require('./plugins/core/plugin-manager');
+const { PLUGIN_HOOKS } = require('./plugins/core/plugin-api');
 // const { TRUSTED_RESOURCES } = require('./utils/security'); // Reserved for future security features
 
 // Create Express app
@@ -97,6 +102,38 @@ app.set('layout', 'layout');  // This ensures views use layout.ejs by default
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Add build info to all templates
+app.use(buildInfo.middleware());
+
+// Add feature flags to all templates
+app.use(featureMiddleware('standard'));
+
+// Add performance monitoring
+app.use(performanceMiddleware());
+
+// Initialize plugin system
+let pluginsInitialized = false;
+async function initializePlugins() {
+  if (!pluginsInitialized) {
+    try {
+      await pluginManager.initialize();
+      
+      // Add plugin middleware
+      const plugins = pluginManager.getAllPlugins();
+      for (const [name, plugin] of Object.entries(plugins)) {
+        if (typeof plugin.middleware === 'function') {
+          app.use(plugin.middleware.bind(plugin));
+          console.log(`🔌 Added middleware for plugin: ${name}`);
+        }
+      }
+      
+      pluginsInitialized = true;
+    } catch (error) {
+      console.error('❌ Plugin initialization failed:', error.message);
+    }
+  }
+}
 
 // Parse request bodies
 app.use(express.urlencoded({ extended: true }));
@@ -305,8 +342,18 @@ app.use((err, req, res) => {
 
 // Start the server
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server running at http://localhost:${port}/`);
+  
+  // Initialize plugins after server starts
+  await initializePlugins();
+  
+  // Execute app start hook
+  try {
+    await pluginManager.executeHook(PLUGIN_HOOKS.APP_AFTER_START, app);
+  } catch (error) {
+    console.error('Plugin hook error:', error.message);
+  }
 });
 
 // Export the app for testing

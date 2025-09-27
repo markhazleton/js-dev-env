@@ -115,6 +115,13 @@
               Created by Mark Hazleton
               <i class="bi bi-box-arrow-up-right small"></i>
             </a>
+            <% if (typeof buildInfo !== 'undefined') { %>
+            <div class="mt-1">
+              <small class="text-muted">
+                v<%= buildInfo.version %> | Built: <%= buildInfo.buildDate %>
+              </small>
+            </div>
+            <% } %>
           </div>
           <div class="col-md-6 text-md-end">
             <a href="https://github.com/markhazleton" class="text-muted me-2"
