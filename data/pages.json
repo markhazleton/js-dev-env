@@ -60,5 +60,16 @@
       "body": "<p>This page showcases advanced Bootstrap 5 components that provide enhanced user interactions and complex layouts.</p>",
       "useCustomTemplate": true
     }
+  },
+  {
+    "title": "Data Tables",
+    "url": "/data-tables",
+    "template": "data-tables",
+    "content": {
+      "heading": "<i class=\"bi bi-table\"></i> Bootstrap Table - Advanced Data Tables",
+      "text": "World-class data table implementation with sorting, filtering, pagination, search, and export capabilities.",
+      "body": "<p>Experience the power of Bootstrap Table with interactive features and real-world data from YouTube's Top 100 Songs.</p>",
+      "useCustomTemplate": true
+    }
   }
 ]

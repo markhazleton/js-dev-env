@@ -78,6 +78,11 @@ async function build() {
   
   if (flags.all || flags.scss) {
     tasks.push({ name: 'SCSS Compilation', command: 'npm run build-css' });
+    tasks.push({ name: 'CSS Dependencies Bundle', command: 'node tools/build/bundle-css-dependencies.js' });
+  }
+  
+  if (flags.all || flags.scripts) {
+    tasks.push({ name: 'JavaScript Bundle', command: 'node tools/build/bundle-javascript.js' });
   }
   
   if (flags.all || flags.assets) {

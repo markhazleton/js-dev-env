@@ -9,12 +9,13 @@ const CACHE_NAME = 'bootstrap-express-v1';
 const urlsToCache = [
   '/',
   '/css/styles.css',
+  '/css/dependencies.css',
+  '/js/dependencies.min.js',
   '/fonts/bootstrap-icons/bootstrap-icons.css',
   '/fonts/bootstrap-icons/fonts/bootstrap-icons.woff',
   '/fonts/bootstrap-icons/fonts/bootstrap-icons.woff2',
   '/js/theme-toggle.js',
-  '/js/component-library.js',
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+  '/js/component-library.js'
 ];
 
 // Install the service worker and cache assets
@@ -46,6 +47,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch strategy: Try network first, fall back to cache
 self.addEventListener('fetch', (event) => {
+  // Only handle http/https requests, skip chrome-extension and other schemes
+  if (!event.request.url.startsWith('http://') && !event.request.url.startsWith('https://')) {
+    return;
+  }
+
   event.respondWith(
     fetch(event.request)
       .then(response => {
@@ -53,9 +59,16 @@ self.addEventListener('fetch', (event) => {
         const responseToCache = response.clone();
         caches.open(CACHE_NAME)
           .then(cache => {
-            // Only cache successful responses
-            if (event.request.method === 'GET' && response.status === 200) {
-              cache.put(event.request, responseToCache);
+            // Only cache successful responses for GET requests from our domain
+            if (event.request.method === 'GET' && 
+                response.status === 200 &&
+                (event.request.url.startsWith('http://localhost') || 
+                 event.request.url.includes(location.hostname))) {
+              try {
+                cache.put(event.request, responseToCache);
+              } catch (error) {
+                console.warn('Cache put failed:', error);
+              }
             }
           });
         return response;

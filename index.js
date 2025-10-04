@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const csv = require('csv-parser');
 const expressLayouts = require('express-ejs-layouts');
 const helmet = require('helmet');
 const compression = require('compression');
@@ -19,6 +20,11 @@ const { PLUGIN_HOOKS } = require('./plugins/core/plugin-api');
 
 // Create Express app
 const app = express();
+
+// Global cache for songs data
+let songsCache = null;
+let songsLastLoaded = null;
+const SONGS_CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 // Set NODE_ENV if not set
 const environment = process.env.NODE_ENV || 'development';
@@ -43,30 +49,32 @@ app.use((req, res, next) => {
         defaultSrc: ["'self'"],
         scriptSrc: [
           "'self'", 
-          'https://cdn.jsdelivr.net',
-          'https://cdnjs.cloudflare.com',
-          `'nonce-${cspNonce}'` // Allow scripts with this request's nonce
+          'https://cdnjs.cloudflare.com', // Still needed for highlight.js
+          `'nonce-${cspNonce}'`, // Allow scripts with this request's nonce
+          "'unsafe-inline'" // Temporarily allow inline scripts for debugging
         ],
         styleSrc: [
           "'self'", 
-          'https://cdn.jsdelivr.net',
-          'https://cdnjs.cloudflare.com',
+          'https://cdnjs.cloudflare.com', // Still needed for highlight.js
           'https://fonts.googleapis.com',
           "'unsafe-inline'" // Required for dynamic theme switching
         ],
         fontSrc: [
           "'self'", 
-          'https://fonts.gstatic.com',
-          'https://cdn.jsdelivr.net',
-          'https://cdnjs.cloudflare.com'
+          'https://fonts.gstatic.com'
         ],
         imgSrc: [
           "'self'", 
           'data:', 
           'https://via.placeholder.com',
-          'https://cdn.jsdelivr.net'
+          'https://cdn.jsdelivr.net',
+          'https://i.ytimg.com'  // Allow YouTube thumbnails
         ],
-        connectSrc: ["'self'"],
+        connectSrc: [
+          "'self'", 
+          "https://cdnjs.cloudflare.com",
+          "https://i.ytimg.com"  // Allow service worker to cache YouTube thumbnails
+        ],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
         frameSrc: ["'none'"],
@@ -298,8 +306,324 @@ apiRouter.get('/search', (req, res) => {
   });
 });
 
+// YouTube Top 100 Songs endpoint
+apiRouter.get('/youtube-songs', (req, res) => {
+  try {
+    const csvFilePath = path.join(__dirname, 'data', 'youtube-top-100-songs-2025.csv');
+    
+    // Check if file exists
+    if (!fs.existsSync(csvFilePath)) {
+      return res.status(404).json({ error: 'CSV file not found' });
+    }
+
+    const songs = [];
+    const searchTerm = (req.query.search || '').toLowerCase();
+
+    // Use csv-parser for proper CSV parsing
+    fs.createReadStream(csvFilePath)
+      .pipe(csv())
+      .on('data', (row) => {
+        // Clean and process the row data
+        const song = {
+          rank: songs.length + 1,
+          title: cleanCsvValue(row.title || row.fulltitle || 'Unknown Title'),
+          channel: cleanCsvValue(row.channel || 'Unknown Channel'),
+          views: formatViews(row.view_count),
+          duration: formatDuration(row.duration_string || row.duration),
+          followers: formatNumber(row.channel_follower_count),
+          category: cleanCsvValue(row.categories || 'Music'),
+          description: cleanDescription(row.description || '')
+        };
+
+        // Apply search filter if provided
+        if (!searchTerm || 
+            song.title.toLowerCase().includes(searchTerm) ||
+            song.channel.toLowerCase().includes(searchTerm) ||
+            song.category.toLowerCase().includes(searchTerm)) {
+          songs.push(song);
+        }
+      })
+      .on('end', () => {
+        console.log(`✅ Loaded ${songs.length} songs from CSV`);
+        res.json(songs);
+      })
+      .on('error', (error) => {
+        console.error('❌ CSV parsing error:', error);
+        res.status(500).json({ error: 'Failed to parse CSV file' });
+      });
+
+  } catch (error) {
+    console.error('❌ API error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Helper functions for data cleaning and formatting
+function cleanCsvValue(value) {
+  if (!value || value === 'undefined' || value === 'null') return '';
+  return String(value).trim().replace(/^"|"$/g, '');
+}
+
+function cleanDescription(description) {
+  if (!description || description === 'undefined' || description === 'null') return '';
+  // Limit description length and clean up
+  return String(description).trim().substring(0, 200) + (description.length > 200 ? '...' : '');
+}
+
+function formatViews(viewCount) {
+  if (!viewCount || viewCount === 'undefined' || viewCount === 'null') return 'N/A';
+  
+  const num = parseInt(viewCount);
+  if (isNaN(num)) return 'N/A';
+  
+  if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toString();
+}
+
+function formatNumber(number) {
+  if (!number || number === 'undefined' || number === 'null') return 'N/A';
+  
+  const num = parseInt(number);
+  if (isNaN(num)) return 'N/A';
+  
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toString();
+}
+
+function formatDuration(duration) {
+  if (!duration || duration === 'undefined' || duration === 'null') return 'N/A';
+  
+  // If it's already formatted (contains :), return as is
+  if (String(duration).includes(':')) {
+    return duration;
+  }
+  
+  // If it's a number (seconds), convert to MM:SS format
+  const seconds = parseInt(duration);
+  if (isNaN(seconds)) return 'N/A';
+  
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+// Load songs into cache
+async function loadSongsCache() {
+  return new Promise((resolve, reject) => {
+    const csvFilePath = path.join(__dirname, 'data', 'youtube-top-100-songs-2025.csv');
+    
+    if (!fs.existsSync(csvFilePath)) {
+      reject(new Error('CSV file not found'));
+      return;
+    }
+
+    const songs = [];
+
+    fs.createReadStream(csvFilePath)
+      .pipe(csv())
+      .on('data', (row) => {
+        songs.push(row);
+      })
+      .on('end', () => {
+        songsCache = songs;
+        songsLastLoaded = Date.now();
+        console.log(`✅ Loaded ${songs.length} songs into cache`);
+        resolve(songs);
+      })
+      .on('error', (error) => {
+        console.error('❌ CSV loading error:', error);
+        reject(error);
+      });
+  });
+}
+
+// Get songs from cache or load if not cached
+async function getSongs() {
+  const now = Date.now();
+  
+  // Check if cache is valid
+  if (songsCache && songsLastLoaded && (now - songsLastLoaded) < SONGS_CACHE_TTL) {
+    return songsCache;
+  }
+  
+  // Load fresh data
+  try {
+    return await loadSongsCache();
+  } catch (error) {
+    console.error('❌ Failed to load songs:', error);
+    return songsCache || []; // Return cached data if available, otherwise empty array
+  }
+}
+
+// Song detail endpoint - get individual song by rank/index
+apiRouter.get('/song/:id', async (req, res) => {
+  try {
+    const songId = parseInt(req.params.id);
+    
+    if (isNaN(songId) || songId < 1) {
+      return res.status(400).json({ error: 'Invalid song ID' });
+    }
+
+    // Get songs from cache
+    const songs = await getSongs();
+    
+    if (songs.length === 0) {
+      return res.status(500).json({ error: 'No songs available' });
+    }
+
+    if (songId > songs.length) {
+      return res.status(404).json({ error: 'Song not found' });
+    }
+
+    // Get the song (array is 0-indexed, but IDs are 1-indexed)
+    const row = songs[songId - 1];
+    
+    // Return all available data for detail view
+    const foundSong = {
+      id: songId,
+      rank: songId,
+      title: cleanCsvValue(row.title || row.fulltitle || 'Unknown Title'),
+      fullTitle: cleanCsvValue(row.fulltitle || row.title || 'Unknown Title'),
+      description: cleanCsvValue(row.description || ''),
+      channel: cleanCsvValue(row.channel || 'Unknown Channel'),
+      channelUrl: cleanCsvValue(row.channel_url || ''),
+      views: formatViews(row.view_count),
+      viewsRaw: parseInt(row.view_count) || 0,
+      duration: formatDuration(row.duration_string || row.duration),
+      durationRaw: parseInt(row.duration) || 0,
+      followers: formatNumber(row.channel_follower_count),
+      followersRaw: parseInt(row.channel_follower_count) || 0,
+      category: cleanCsvValue(row.categories || 'Music'),
+      tags: cleanCsvValue(row.tags || ''),
+      liveStatus: cleanCsvValue(row.live_status || ''),
+      thumbnail: cleanCsvValue(row.thumbnail || ''),
+      // Parse description for additional metadata
+      links: extractLinksFromDescription(row.description || ''),
+      socialMedia: extractSocialMediaFromDescription(row.description || ''),
+      releaseInfo: extractReleaseInfoFromDescription(row.description || '')
+    };
+
+    res.json(foundSong);
+
+  } catch (error) {
+    console.error('❌ Song detail API error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Helper functions for parsing description metadata
+function extractLinksFromDescription(description) {
+  const links = [];
+  const urlRegex = /https?:\/\/[^\s\n]+/g;
+  const matches = description.match(urlRegex);
+  if (matches) {
+    matches.forEach(url => {
+      links.push({
+        url: url.trim(),
+        type: categorizeLink(url),
+        domain: new URL(url).hostname
+      });
+    });
+  }
+  return links;
+}
+
+function extractSocialMediaFromDescription(description) {
+  const socialMedia = [];
+  const socialPatterns = {
+    instagram: /https?:\/\/(?:www\.)?instagram\.com\/[^\s\n]+/g,
+    tiktok: /https?:\/\/(?:www\.)?tiktok\.com\/[^\s\n]+/g,
+    twitter: /https?:\/\/(?:www\.|x\.)?(?:twitter\.com|x\.com)\/[^\s\n]+/g,
+    facebook: /https?:\/\/(?:www\.)?facebook\.com\/[^\s\n]+/g,
+    youtube: /https?:\/\/(?:www\.)?youtube\.com\/[^\s\n]+/g,
+    spotify: /https?:\/\/(?:open\.)?spotify\.com\/[^\s\n]+/g,
+    apple: /https?:\/\/music\.apple\.com\/[^\s\n]+/g
+  };
+
+  Object.entries(socialPatterns).forEach(([platform, regex]) => {
+    const matches = description.match(regex);
+    if (matches) {
+      matches.forEach(url => {
+        socialMedia.push({
+          platform: platform,
+          url: url.trim(),
+          icon: getSocialMediaIcon(platform)
+        });
+      });
+    }
+  });
+
+  return socialMedia;
+}
+
+function extractReleaseInfoFromDescription(description) {
+  const releaseInfo = {};
+  
+  // Look for streaming/download mentions
+  if (description.toLowerCase().includes('download') || description.toLowerCase().includes('stream')) {
+    releaseInfo.hasStreamingLinks = true;
+  }
+  
+  // Look for album mentions
+  const albumMatch = description.match(/album[:\s]+([^\n]+)/i);
+  if (albumMatch) {
+    releaseInfo.album = albumMatch[1].trim();
+  }
+  
+  // Look for vinyl/CD mentions
+  if (description.toLowerCase().includes('vinyl') || description.toLowerCase().includes('cd')) {
+    releaseInfo.hasPhysicalRelease = true;
+  }
+
+  return releaseInfo;
+}
+
+function categorizeLink(url) {
+  const domain = new URL(url).hostname.toLowerCase();
+  if (domain.includes('spotify')) return 'Spotify';
+  if (domain.includes('apple')) return 'Apple Music';
+  if (domain.includes('youtube')) return 'YouTube';
+  if (domain.includes('instagram')) return 'Instagram';
+  if (domain.includes('tiktok')) return 'TikTok';
+  if (domain.includes('twitter') || domain.includes('x.com')) return 'Twitter/X';
+  if (domain.includes('facebook')) return 'Facebook';
+  if (domain.includes('lnk.to')) return 'Universal Link';
+  return 'Website';
+}
+
+function getSocialMediaIcon(platform) {
+  const icons = {
+    instagram: 'bi-instagram',
+    tiktok: 'bi-tiktok',
+    twitter: 'bi-twitter-x',
+    facebook: 'bi-facebook',
+    youtube: 'bi-youtube',
+    spotify: 'bi-spotify',
+    apple: 'bi-apple'
+  };
+  return icons[platform] || 'bi-link-45deg';
+}
+
 // Mount API router
 app.use('/api', apiRouter);
+
+// Song detail page route
+app.get('/song/:id', (req, res) => {
+  res.render('song-detail', {
+    title: 'Song Details',
+    songId: req.params.id,
+    cspNonce: res.locals.cspNonce, // Explicitly pass the nonce
+    content: {
+      heading: `<i class="bi bi-music-note-beamed"></i> Song Details`,
+      text: `Detailed information about song #${req.params.id} from YouTube Top 100`,
+      useCustomTemplate: true  // This tells the layout to render the template content
+    },
+    pages: topLevelPages
+  });
+});
 
 // IMPORTANT: Define the page routes BEFORE the 404 handler
 // Dynamically generate routes based on pages.json
@@ -347,6 +671,13 @@ app.listen(port, async () => {
   
   // Initialize plugins after server starts
   await initializePlugins();
+  
+  // Initialize songs cache
+  try {
+    await loadSongsCache();
+  } catch (error) {
+    console.error('❌ Failed to load songs cache on startup:', error.message);
+  }
   
   // Execute app start hook
   try {

@@ -1,0 +1,225 @@
+<%- include('partials/page-header') %>
+
+<!-- Loading State -->
+<div id="loading-container" class="text-center py-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <p class="mt-3">Loading song details...</p>
+</div>
+
+<!-- Error State -->
+<div id="error-container" class="alert alert-danger d-none" role="alert">
+  <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> Error</h4>
+  <p id="error-message">Failed to load song details.</p>
+  <hr>
+  <a href="/data-tables" class="btn btn-outline-danger">
+    <i class="bi bi-arrow-left"></i> Back to Songs List
+  </a>
+</div>
+
+<!-- Song Detail Content -->
+<div id="song-container" class="d-none">
+  <!-- Hero Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-lg bg-gradient">
+        <div class="card-body p-4 p-md-5">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <div class="badge bg-primary mb-3" id="song-rank">
+                <i class="bi bi-trophy"></i> Rank #<span id="rank-number"></span>
+              </div>
+              <h1 class="display-4 fw-bold mb-3" id="song-title"></h1>
+              <h3 class="text-muted mb-4" id="song-channel">
+                <i class="bi bi-person-circle me-2"></i>
+                <span id="channel-name"></span>
+              </h3>
+              <div class="row g-3">
+                <div class="col-auto">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-eye-fill text-primary me-2"></i>
+                    <strong id="song-views"></strong>
+                    <small class="text-muted ms-1">views</small>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-clock-fill text-success me-2"></i>
+                    <strong id="song-duration"></strong>
+                    <small class="text-muted ms-1">duration</small>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-people-fill text-warning me-2"></i>
+                    <strong id="song-followers"></strong>
+                    <small class="text-muted ms-1">followers</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div id="thumbnail-container" class="d-none">
+                <img id="song-thumbnail" class="img-fluid rounded-3 shadow" alt="Song thumbnail" style="max-height: 200px;">
+              </div>
+              <div id="no-thumbnail" class="p-4 bg-light rounded-3">
+                <i class="bi bi-music-note-beamed display-1 text-muted"></i>
+                <p class="text-muted mb-0">No thumbnail available</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="row">
+    <!-- Left Column - Main Info -->
+    <div class="col-lg-8">
+      <!-- Song Information -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0"><i class="bi bi-info-circle me-2"></i>Song Information</h3>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <h5><i class="bi bi-music-note me-2"></i>Full Title</h5>
+              <p id="song-full-title" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-tag me-2"></i>Category</h5>
+              <p id="song-category">
+                <span class="badge bg-secondary" id="category-badge"></span>
+              </p>
+            </div>
+            <div class="col-md-6" id="channel-url-container">
+              <h5><i class="bi bi-link-45deg me-2"></i>Channel</h5>
+              <a id="channel-link" href="#" target="_blank" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-box-arrow-up-right me-1"></i>Visit Channel
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="card mb-4" id="description-card">
+        <div class="card-header bg-info text-white">
+          <h3 class="mb-0"><i class="bi bi-card-text me-2"></i>Description</h3>
+        </div>
+        <div class="card-body">
+          <div id="song-description" class="description-content"></div>
+          <button id="toggle-description" class="btn btn-outline-info btn-sm mt-3 d-none">
+            <i class="bi bi-chevron-down me-1"></i>Show More
+          </button>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="card mb-4" id="tags-card">
+        <div class="card-header bg-secondary text-white">
+          <h3 class="mb-0"><i class="bi bi-tags me-2"></i>Tags</h3>
+        </div>
+        <div class="card-body">
+          <div id="song-tags" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Stats -->
+    <div class="col-lg-4">
+      <!-- Quick Stats -->
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0"><i class="bi bi-graph-up me-2"></i>Statistics</h4>
+        </div>
+        <div class="card-body">
+          <div class="row g-3 text-center">
+            <div class="col-12">
+              <div class="p-3 bg-light rounded">
+                <h2 class="display-6 text-primary mb-0" id="views-large"></h2>
+                <small class="text-muted">Total Views</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-2 bg-light rounded">
+                <h4 class="text-success mb-0" id="duration-large"></h4>
+                <small class="text-muted">Duration</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-2 bg-light rounded">
+                <h4 class="text-warning mb-0" id="followers-large"></h4>
+                <small class="text-muted">Followers</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to List -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center py-4">
+          <h5 class="mb-3">Explore More Songs</h5>
+          <div class="btn-group" role="group">
+            <a href="/data-tables" class="btn btn-primary">
+              <i class="bi bi-arrow-left me-2"></i>Back to All Songs
+            </a>
+            <button id="prev-song" class="btn btn-outline-secondary" title="Previous Song">
+              <i class="bi bi-chevron-left"></i> Previous
+            </button>
+            <button id="next-song" class="btn btn-outline-secondary" title="Next Song">
+              Next <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for this page is loaded in the layout when songId is present -->
+
+<style<% if (typeof cspNonce !== 'undefined') { %> nonce="<%- cspNonce %>"<% } %>>
+.description-content {
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.description-content a {
+  word-break: break-all;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card-header.bg-gradient {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    border-radius: 0.375rem !important;
+    margin-bottom: 0.5rem;
+  }
+}
+</style>
+
+<%- include('partials/page-footer') %>

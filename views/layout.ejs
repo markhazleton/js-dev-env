@@ -21,17 +21,11 @@
     </script>
 
     <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/dependencies.css" rel="stylesheet" />
     <link href="/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/default.min.css"
-      integrity="sha384-4Y0nObtF3CbKnh+lpzmAVdAMtQXl+ganWiiv73RcGVdRdfVIya8Cao1C8ZsVRRDz"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
 
     <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <!-- PWA Support -->
     <link rel="manifest" href="/manifest.json" />
@@ -136,21 +130,150 @@
         </div>
       </div>
     </footer>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <script src="/js/dependencies.min.js"></script>
     <script src="/js/service-worker-register.js"></script>
     <script src="/js/theme-toggle.js"></script>
     <script src="/js/theme-demo.js"></script>
-    <!-- Just before the closing body tag -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"
-      integrity="sha384-GdEWAbCjn+ghjX0gLx7/N1hyTVmPAjdC2OvoAA0RyNcAOhqwtT8qnbCxWle2+uJX"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
     <script src="/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    <% if (typeof songId !== 'undefined') { %>
+    <!-- Song Detail Page JavaScript -->
+    <script<% if (typeof cspNonce !== 'undefined') { %> nonce="<%- cspNonce %>"<% } %>>
+    console.log('Song detail page loading for songId:', '<%= songId %>');
+    
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const songId = '<%= songId %>';
+      
+      // Get container elements
+      const loadingContainer = document.getElementById('loading-container');
+      const songContainer = document.getElementById('song-container');
+      
+      fetch('/api/song/' + songId)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          console.log('Song data loaded:', data.title);
+          
+          // Show content container first
+          if (loadingContainer) loadingContainer.classList.add('d-none');
+          if (songContainer) songContainer.classList.remove('d-none');
+          
+          // Populate all text elements
+          const elements = [
+            { id: 'song-title', value: data.title || 'Unknown Title' },
+            { id: 'rank-number', value: data.rank || 'N/A' },
+            { id: 'channel-name', value: data.channel || 'Unknown Channel' },
+            { id: 'song-views', value: data.views || 'N/A' },
+            { id: 'song-duration', value: data.duration || 'N/A' },
+            { id: 'song-followers', value: data.followers || 'N/A' },
+            { id: 'views-large', value: data.views || 'N/A' },
+            { id: 'duration-large', value: data.duration || 'N/A' },
+            { id: 'followers-large', value: data.followers || 'N/A' },
+            { id: 'song-full-title', value: data.fullTitle || data.title || 'Unknown Title' },
+            { id: 'category-badge', value: data.category || 'Music' }
+          ];
+          
+          elements.forEach(function(item) {
+            const element = document.getElementById(item.id);
+            if (element) {
+              element.textContent = item.value;
+            }
+          });
+          
+          // Handle channel link
+          const channelLink = document.getElementById('channel-link');
+          const channelUrlContainer = document.getElementById('channel-url-container');
+          if (channelLink && data.channelUrl) {
+            channelLink.href = data.channelUrl;
+            if (channelUrlContainer) channelUrlContainer.classList.remove('d-none');
+          } else if (channelUrlContainer) {
+            channelUrlContainer.classList.add('d-none');
+          }
+          
+          // Handle thumbnail
+          const thumbnailImg = document.getElementById('song-thumbnail');
+          const thumbnailContainer = document.getElementById('thumbnail-container');
+          const noThumbnail = document.getElementById('no-thumbnail');
+          if (thumbnailImg && data.thumbnail) {
+            thumbnailImg.src = data.thumbnail;
+            thumbnailImg.alt = data.title + ' thumbnail';
+            if (thumbnailContainer) thumbnailContainer.classList.remove('d-none');
+            if (noThumbnail) noThumbnail.classList.add('d-none');
+          } else {
+            if (thumbnailContainer) thumbnailContainer.classList.add('d-none');
+            if (noThumbnail) noThumbnail.classList.remove('d-none');
+          }
+          
+          // Handle description
+          const descContainer = document.getElementById('song-description');
+          const descCard = document.getElementById('description-card');
+          if (descContainer && data.description) {
+            // Format description with line breaks and links
+            const formattedDesc = data.description
+              .replace(/\n/g, '<br>')
+              .replace(/https?:\/\/[^\s\n]+/g, function(url) {
+                return '<a href="' + url + '" target="_blank" class="text-primary text-decoration-none">' + url + ' <i class="bi bi-box-arrow-up-right small"></i></a>';
+              });
+            descContainer.innerHTML = formattedDesc;
+            if (descCard) descCard.classList.remove('d-none');
+          } else if (descCard) {
+            descCard.classList.add('d-none');
+          }
+          
+          // Handle tags
+          const tagsContainer = document.getElementById('song-tags');
+          const tagsCard = document.getElementById('tags-card');
+          if (tagsContainer && data.tags) {
+            const tagList = data.tags.split(/[;,]/).map(function(tag) { return tag.trim(); }).filter(function(tag) { return tag; });
+            if (tagList.length > 0) {
+              tagsContainer.innerHTML = tagList.map(function(tag) {
+                return '<span class="badge bg-light text-dark border">' + tag + '</span>';
+              }).join(' ');
+              if (tagsCard) tagsCard.classList.remove('d-none');
+            } else if (tagsCard) {
+              tagsCard.classList.add('d-none');
+            }
+          } else if (tagsCard) {
+            tagsCard.classList.add('d-none');
+          }
+          
+          // Setup navigation
+          const prevBtn = document.getElementById('prev-song');
+          const nextBtn = document.getElementById('next-song');
+          const currentRank = parseInt(data.rank) || 1;
+          
+          if (prevBtn) {
+            if (currentRank > 1) {
+              prevBtn.onclick = function() { window.location.href = '/song/' + (currentRank - 1); };
+              prevBtn.disabled = false;
+            } else {
+              prevBtn.disabled = true;
+            }
+          }
+          
+          if (nextBtn) {
+            if (currentRank < 100) {
+              nextBtn.onclick = function() { window.location.href = '/song/' + (currentRank + 1); };
+              nextBtn.disabled = false;
+            } else {
+              nextBtn.disabled = true;
+            }
+          }
+          
+          // Update page title
+          document.title = (data.title || 'Unknown') + ' - ' + (data.channel || 'Unknown') + ' | Song Details';
+        })
+        .catch(function(error) {
+          console.error('API Error:', error);
+        });
+    });
+    </script>
+    <% } %>
   </body>
 </html>
