@@ -51,18 +51,40 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <% if (typeof pages !== 'undefined' && pages.length > 0) { %> <%
-            pages.forEach(function(page) { %>
-            <li class="nav-item">
-              <a
-                class="nav-link <%= (page.url === currentPath) ? 'active' : '' %>"
-                href="<%= page.url %>"
-                aria-current="<%= (page.url === currentPath) ? 'page' : 'false' %>"
-              >
-                <%= page.title %>
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
               </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
             </li>
-            <% }); %> <% } %>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
             <!-- Dark mode toggle -->
             <li class="nav-item ms-2 d-flex align-items-center">
               <div class="form-check form-switch">

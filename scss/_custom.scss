@@ -42,6 +42,75 @@
   color: variables.$primary !important;
 }
 
+// Enhanced dropdown navigation styling
+.navbar-nav {
+  .dropdown-menu {
+    border: 1px solid var(--bs-border-color);
+    background-color: var(--bs-body-bg);
+    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    margin-top: 0.25rem;
+    
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+      transition: all 0.15s ease-in-out;
+      border-radius: 0.25rem;
+      margin: 0 0.25rem;
+      
+      &:hover,
+      &:focus {
+        background-color: var(--bs-primary);
+        color: white;
+        transform: translateX(2px);
+      }
+      
+      .bi {
+        opacity: 0.8;
+        transition: opacity 0.15s ease-in-out;
+      }
+      
+      &:hover .bi,
+      &:focus .bi {
+        opacity: 1;
+      }
+    }
+    
+    .dropdown-divider {
+      margin: 0.5rem 0.5rem;
+      border-color: var(--bs-border-color);
+    }
+  }
+  
+  .dropdown-toggle {
+    &::after {
+      transition: transform 0.15s ease-in-out;
+    }
+    
+    &.show::after {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// Dark mode dropdown enhancements
+[data-bs-theme="dark"] {
+  .navbar-nav .dropdown-menu {
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3);
+    border-color: var(--bs-gray-700);
+    
+    .dropdown-item {
+      color: var(--bs-gray-100);
+      
+      &:hover,
+      &:focus {
+        background-color: var(--bs-primary);
+        color: white;
+      }
+    }
+  }
+}
+
 // Page components
 .page-header {
   h1 {
