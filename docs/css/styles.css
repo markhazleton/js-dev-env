@@ -11998,6 +11998,150 @@ textarea.form-control-lg {
   color: #ff5733;
 }
 
+.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+}
+.bg-gradient,
+.bg-gradient *,
+.bg-gradient h1, .bg-gradient h2, .bg-gradient h3, .bg-gradient h4, .bg-gradient h5, .bg-gradient h6,
+.bg-gradient p, .bg-gradient span, .bg-gradient div, .bg-gradient strong,
+.bg-gradient .display-4, .bg-gradient .fw-bold, .bg-gradient .mb-3, .bg-gradient .mb-4,
+.bg-gradient #song-title, .bg-gradient #song-channel, .bg-gradient #channel-name,
+.bg-gradient #song-views, .bg-gradient #song-duration, .bg-gradient #song-followers,
+.bg-gradient #rank-number, .bg-gradient #song-rank,
+.bg-gradient .badge, .bg-gradient .badge *,
+.bg-gradient .bi, .bg-gradient i.bi, .bg-gradient i[class*=bi-] {
+  color: white !important;
+}
+.bg-gradient .text-muted {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.bg-gradient .text-primary {
+  color: #87ceeb !important;
+}
+.bg-gradient .text-success {
+  color: #90ee90 !important;
+}
+.bg-gradient .text-warning {
+  color: #ffeb3b !important;
+}
+.bg-gradient small {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.bg-gradient .badge {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bg-light {
+  background-color: var(--bs-light) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-bs-theme=light] .bg-light {
+  background-color: #f8f9fa !important;
+  border: 1px solid #dee2e6;
+}
+[data-bs-theme=light] .bg-light .text-primary,
+[data-bs-theme=light] .bg-light h2.text-primary,
+[data-bs-theme=light] .bg-light h4.text-primary {
+  color: #0d6efd !important;
+}
+[data-bs-theme=light] .bg-light .text-success,
+[data-bs-theme=light] .bg-light h4.text-success {
+  color: #198754 !important;
+}
+[data-bs-theme=light] .bg-light .text-warning,
+[data-bs-theme=light] .bg-light h4.text-warning {
+  color: #dc6600 !important;
+}
+[data-bs-theme=light] .bg-light .text-muted,
+[data-bs-theme=light] .bg-light small {
+  color: #6c757d !important;
+}
+[data-bs-theme=light] .bg-light h2, [data-bs-theme=light] .bg-light h4 {
+  color: #212529 !important;
+}
+[data-bs-theme=light] .bg-gradient .text-muted,
+[data-bs-theme=light] .bg-gradient .text-primary,
+[data-bs-theme=light] .bg-gradient .text-success,
+[data-bs-theme=light] .bg-gradient .text-warning,
+[data-bs-theme=light] .bg-gradient .text-info,
+[data-bs-theme=light] .bg-gradient .text-secondary,
+[data-bs-theme=light] .bg-gradient .text-dark,
+[data-bs-theme=light] .bg-gradient .text-light {
+  color: white !important;
+}
+
+[data-bs-theme=dark] .bg-light {
+  background-color: var(--bs-gray-800) !important;
+  border: 1px solid var(--bs-gray-700);
+}
+[data-bs-theme=dark] .bg-light .text-primary {
+  color: #87ceeb !important;
+}
+[data-bs-theme=dark] .bg-light .text-success {
+  color: #90ee90 !important;
+}
+[data-bs-theme=dark] .bg-light .text-warning {
+  color: #ffeb3b !important;
+}
+[data-bs-theme=dark] .bg-light .text-muted,
+[data-bs-theme=dark] .bg-light small {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+#no-thumbnail {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-bs-theme=dark] #no-thumbnail {
+  background-color: var(--bs-gray-800) !important;
+  border: 1px solid var(--bs-gray-700);
+}
+[data-bs-theme=dark] #no-thumbnail .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+[data-bs-theme=dark] #no-thumbnail .bi {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.description-content {
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+.description-content a {
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+[data-bs-theme=dark] .description-content a {
+  color: #87ceeb !important;
+}
+[data-bs-theme=dark] .description-content a:hover {
+  color: #b0e0e6 !important;
+}
+[data-bs-theme=dark] .card-body .text-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+[data-bs-theme=light] .card-body .text-muted {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+@media (max-width: 767.98px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  .btn-group {
+    flex-direction: column;
+  }
+  .btn-group .btn {
+    border-radius: 0.375rem !important;
+    margin-bottom: 0.5rem;
+  }
+}
 .component-section {
   padding-top: 1rem;
   margin-bottom: 3rem;

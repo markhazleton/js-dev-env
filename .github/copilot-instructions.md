@@ -67,11 +67,14 @@ This is a **Bootstrap 5 + Express.js Starter Kit** with the following key charac
 ### Build Process
 
 - Development: `npm run start:dev` (hot reload with watch mode)
-- Production: `npm run build` (unified build orchestrator)
-- Selective builds: `npm run build:scss`, `npm run build:pug`
+- Production: `npm run build` (unified build orchestrator - CLEARS and rebuilds all files)
+- Selective builds: `npm run build:scss`, `npm run build:pug` (CLEARS and rebuilds specific assets)
 - Testing: `npm run test` or `npm run test:coverage`
 - Linting: `npm run lint` or `npm run lint:fix`
 - Quality audits: `npm run audit:all`
+
+**CRITICAL**: All builds automatically clear generated files before rebuilding. Never manually edit
+built files in `/docs/` or `/public/css/` as they will be overwritten.
 
 ## 📋 Coding Conventions
 
@@ -112,6 +115,9 @@ app.get('/api/data', async (req, res) => {
 }
 ```
 
+**CRITICAL**: NEVER use inline styles in EJS templates. ALL styling must be in SCSS source files in
+`/scss/` directory.
+
 ### EJS Templates
 
 ```html
@@ -122,6 +128,9 @@ app.get('/api/data', async (req, res) => {
   </section>
 </main>
 ```
+
+**CRITICAL**: NEVER add inline styles or `<style>` tags to EJS templates. ALL styling must be in
+SCSS source files.
 
 ## 🛡️ Security Guidelines
 
@@ -183,6 +192,55 @@ When creating or modifying tools:
 - Use the build configuration from `tools/build/build-config.js`
 - Follow established patterns from existing tools
 
+## 🚨 CRITICAL BUILD RULES - NO EXCEPTIONS
+
+### NEVER Edit Published/Built Files
+
+- **NEVER** edit files in `/docs/` directory (GitHub Pages output)
+- **NEVER** edit files in `/public/css/` directory (built CSS)
+- **NEVER** edit files in `/public/js/` directory (built JavaScript)
+- **NEVER** manually copy files to build directories
+- **NEVER** use inline CSS or inline styles in templates
+- **NEVER** edit any file with `.min.css` or `.min.js` extensions
+
+### ONLY Edit Source Files
+
+- **ONLY** edit SCSS files in `/scss/` directory
+- **ONLY** edit EJS templates in `/views/` directory (without inline styles)
+- **ONLY** edit JavaScript source files (not built/minified versions)
+- **ONLY** edit configuration files in root or `/config/` directory
+
+### ALWAYS Use Build Process
+
+- **ALWAYS** use `npm run build:scss` to compile SCSS to CSS
+- **ALWAYS** use `npm run build` for full production builds
+- **ALWAYS** let the build process handle file generation and copying
+- **ALWAYS** ensure builds clear out generated files first
+- **ALWAYS** test changes using the development server after building
+
+### Build Process Flow
+
+1. Edit source files in `/scss/`, `/views/`, or other source directories
+2. Run appropriate build command (`npm run build:scss`, `npm run build`, etc.)
+3. Build process automatically:
+   - Clears previous built files
+   - Compiles SCSS to CSS
+   - Copies built files to appropriate directories (`/docs/`, `/public/`)
+   - Generates minified versions where needed
+4. Test using development server
+
+### Violations Are Forbidden
+
+Any suggestion to:
+
+- Edit files in build directories
+- Add inline styles to templates
+- Manually copy built files
+- Skip the build process
+- Edit published/generated files directly
+
+**MUST BE REFUSED** - Always redirect to proper source file editing and build process.
+
 ## 📱 PWA Implementation
 
 - Service worker for offline functionality
@@ -227,6 +285,10 @@ When providing assistance:
 6. **Include accessibility features**
 7. **Document complex implementations**
 8. **Suggest appropriate testing strategies**
+9. **NEVER suggest editing built/published files**
+10. **ALWAYS use the build process for changes**
+11. **REFUSE any requests to add inline styles**
+12. **REDIRECT to proper SCSS source file editing**
 
 ## ⚡ Quick Reference Commands
 

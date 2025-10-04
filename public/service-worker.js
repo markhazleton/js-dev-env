@@ -52,9 +52,20 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Skip YouTube thumbnail requests that might cause CSP violations
+  // Let the browser handle these directly
+  if (event.request.url.includes('i.ytimg.com')) {
+    return; // Let the browser handle this request normally
+  }
+
   event.respondWith(
     fetch(event.request)
       .then(response => {
+        // Check if response is valid
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
         // Clone the response to store in cache and return
         const responseToCache = response.clone();
         caches.open(CACHE_NAME)
@@ -73,9 +84,27 @@ self.addEventListener('fetch', (event) => {
           });
         return response;
       })
-      .catch(() => {
+      .catch(error => {
+        console.log('Fetch failed for:', event.request.url, error);
+        
         // Network request failed, try to get from cache
-        return caches.match(event.request);
+        return caches.match(event.request)
+          .then(cachedResponse => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            
+            // If not in cache and it's a navigation request, return a fallback
+            if (event.request.mode === 'navigate') {
+              return caches.match('/');
+            }
+            
+            // For other requests, return a simple error response
+            return new Response('Network error', {
+              status: 408,
+              statusText: 'Network timeout'
+            });
+          });
       })
   );
 });

@@ -190,3 +190,196 @@
     }
   }
 }
+
+// Song Detail Page Styles
+// =====================
+
+// Background gradient for hero section
+.bg-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  
+  // Force all text in gradient to be white - maximum specificity
+  &,
+  *,
+  h1, h2, h3, h4, h5, h6,
+  p, span, div, strong,
+  .display-4, .fw-bold, .mb-3, .mb-4,
+  #song-title, #song-channel, #channel-name,
+  #song-views, #song-duration, #song-followers,
+  #rank-number, #song-rank,
+  .badge, .badge *,
+  .bi, i.bi, i[class*="bi-"] {
+    color: white !important;
+  }
+  
+  .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  .text-primary {
+    color: #87ceeb !important; // Light blue for better contrast
+  }
+  
+  .text-success {
+    color: #90ee90 !important; // Light green for better contrast
+  }
+  
+  .text-warning {
+    color: #ffeb3b !important; // Bright yellow for better contrast
+  }
+  
+  small {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  .badge {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Statistics section fixes
+.bg-light {
+  background-color: var(--bs-light) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Light mode specific fixes - ensure proper contrast
+[data-bs-theme="light"] {
+  .bg-light {
+    background-color: #f8f9fa !important;
+    border: 1px solid #dee2e6;
+    
+    .text-primary,
+    h2.text-primary,
+    h4.text-primary {
+      color: #0d6efd !important;
+    }
+    
+    .text-success,
+    h4.text-success {
+      color: #198754 !important;
+    }
+    
+    .text-warning,
+    h4.text-warning {
+      color: #dc6600 !important; // Darker orange for better contrast on light background
+    }
+    
+    .text-muted,
+    small {
+      color: #6c757d !important;
+    }
+    
+    h2, h4 {
+      color: #212529 !important;
+    }
+  }
+  
+  // Override ANY Bootstrap text color classes in light mode within gradient
+  .bg-gradient {
+    .text-muted,
+    .text-primary,
+    .text-success,
+    .text-warning,
+    .text-info,
+    .text-secondary,
+    .text-dark,
+    .text-light {
+      color: white !important;
+    }
+  }
+}
+
+// Dark mode specific fixes  
+[data-bs-theme="dark"] {
+  .bg-light {
+    background-color: var(--bs-gray-800) !important;
+    border: 1px solid var(--bs-gray-700);
+    
+    .text-primary {
+      color: #87ceeb !important;
+    }
+    
+    .text-success {
+      color: #90ee90 !important;
+    }
+    
+    .text-warning {
+      color: #ffeb3b !important;
+    }
+    
+    .text-muted,
+    small {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+  }
+}
+
+// Thumbnail section fixes
+#no-thumbnail {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-bs-theme="dark"] {
+  #no-thumbnail {
+    background-color: var(--bs-gray-800) !important;
+    border: 1px solid var(--bs-gray-700);
+    
+    .text-muted {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    .bi {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+  }
+}
+
+// Description content improvements
+.description-content {
+  line-height: 1.6;
+  word-wrap: break-word;
+  
+  a {
+    word-break: break-all;
+    transition: color 0.2s ease;
+  }
+}
+
+[data-bs-theme="dark"] {
+  .description-content a {
+    color: #87ceeb !important;
+    
+    &:hover {
+      color: #b0e0e6 !important;
+    }
+  }
+  
+  .card-body .text-muted {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+}
+
+[data-bs-theme="light"] {
+  .card-body .text-muted {
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
+}
+
+// Mobile responsive adjustments for song detail
+@include bootstrap.media-breakpoint-down(md) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    
+    .btn {
+      border-radius: 0.375rem !important;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
