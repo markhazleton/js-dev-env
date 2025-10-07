@@ -24,6 +24,7 @@
 
 - [✨ Features](#-features)
 - [🚀 Quick Start](#-quick-start)
+- [📚 Documentation](#-documentation)
 - [🏗️ Project Structure](#️-project-structure)
 - [🎯 Use Cases](#-use-cases)
 - [🛠️ Development](#️-development)
@@ -135,6 +136,41 @@ docker-compose up --build
 docker build -t js-dev-env .
 docker run -p 3000:3000 js-dev-env
 ```
+
+## 📚 Documentation
+
+Comprehensive documentation organized by audience and purpose:
+
+### 🚀 **Getting Started**
+
+- **[Quick Start Guide](/docs/developer-guide/quick-start.md)** - 5-minute setup with learning path
+- **[Contributing Guide](/CONTRIBUTING.md)** - Complete contributor's guide with architecture details
+- **[Security Policy](/SECURITY.md)** - Security guidelines and reporting
+
+### 🛠️ **Developer Resources**
+
+- **[Build Process Guide](/docs/developer-guide/build-process.md)** - Understanding builds and deployment
+- **[Dependency Testing Guide](/docs/developer-guide/dependency-testing.md)** - Managing and testing dependencies
+- **[Developer Guide Index](/docs/developer-guide/)** - All developer documentation
+
+### 📖 **Project Information**
+
+- **[Enhancements](/docs/project-info/enhancements.md)** - Feature history and implementations
+- **[Solutions Summary](/docs/project-info/solutions-summary.md)** - Architectural decisions explained
+- **[Project Info Index](/docs/project-info/)** - Project history and evolution
+
+### 🤖 **AI Development Sessions**
+
+- **[Copilot Sessions](/copilot/)** - AI-assisted development working documentation
+- Real-time development decision tracking
+- Architectural planning and analysis documents
+
+### 🎯 **Documentation Philosophy**
+
+- **Quick Start First** - Get running in 5 minutes
+- **Progressive Learning** - From beginner to advanced
+- **Decision Context** - Understand the "why" behind implementations
+- **Living Documentation** - Continuously updated with the project
 
 ## 🏗️ Project Structure
 
