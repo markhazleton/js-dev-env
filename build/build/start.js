@@ -12,7 +12,7 @@ async function start() {
   
   try {
     // Start the main application
-    execSync('node index.js', { stdio: 'inherit', cwd: process.cwd() });
+    execSync('node src/index.js', { stdio: 'inherit', cwd: process.cwd() });
   } catch (error) {
     console.error('❌ Server failed to start:', error.message);
     process.exit(1);

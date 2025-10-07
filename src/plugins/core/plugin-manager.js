@@ -26,7 +26,7 @@ class PluginManager extends EventEmitter {
 
     const {
       pluginDirectory = path.join(process.cwd(), 'plugins'),
-      configFile = path.join(process.cwd(), 'plugins.config.js')
+      configFile = path.join(process.cwd(), 'src', 'config', 'plugins.config.js')
     } = options;
 
     this.pluginDirectory = pluginDirectory;

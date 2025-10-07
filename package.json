@@ -1,6 +1,6 @@
 {
   "name": "js-dev-env",
-  "version": "1.0.1-build.93",
+  "version": "1.0.1-build.99",
   "main": "src/index.js",
   "engines": {
     "node": ">=18.0.0",
