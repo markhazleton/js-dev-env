@@ -6,6 +6,10 @@ artifacts/
 .build-cache/
 lhci/
 
+# Build output directories
+public/
+!public/**/.gitkeep
+
 node_modules
 .DS_Store
 _site
