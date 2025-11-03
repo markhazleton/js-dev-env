@@ -5,10 +5,6 @@
  * Manage feature flags and project configuration
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const readline = require('readline');
-const chalk = require('chalk');
 const { features, presets, isFeatureEnabled, getEnabledFeatures } = require('../../src/config/features');
 
 // Parse command line arguments

@@ -60,7 +60,7 @@ self.addEventListener('fetch', (event) => {
     if (requestUrl.hostname === 'i.ytimg.com' || requestUrl.hostname.endsWith('.ytimg.com')) {
       return; // Let the browser handle this request normally
     }
-  } catch (e) {
+  } catch {
     // Invalid URL, let it pass through
     return;
   }

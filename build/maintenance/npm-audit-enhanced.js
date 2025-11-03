@@ -42,7 +42,7 @@ function checkActualVersions() {
       } else {
         console.log(`  ${pkg}: ${colorize('Not installed', 'yellow')}`);
       }
-    } catch (error) {
+    } catch {
       console.log(`  ${pkg}: ${colorize('Error reading version', 'red')}`);
     }
   }
@@ -65,20 +65,20 @@ function runNpmAudit() {
     console.log(`  Info: ${colorize(audit.metadata.vulnerabilities.info, 'cyan')}`);
     
     return audit;
-  } catch (error) {
+  } catch {
     console.log(colorize('npm audit returned vulnerabilities', 'yellow'));
     
     try {
       const auditResult = execSync('npm audit --json', { encoding: 'utf8', stdio: 'pipe' });
       return JSON.parse(auditResult);
-    } catch (parseError) {
+    } catch {
       console.log(colorize('Could not parse audit results', 'red'));
       return null;
     }
   }
 }
 
-function checkKnownSecureVersions(installedVersions, auditData) {
+function checkKnownSecureVersions(installedVersions, _auditData) {
   console.log(colorize('\n🔍 Checking against known secure versions...', 'blue'));
   
   const secureVersions = {
@@ -103,7 +103,7 @@ function checkKnownSecureVersions(installedVersions, auditData) {
   return actualIssues;
 }
 
-function generateRecommendations(actualIssues, auditData) {
+function generateRecommendations(actualIssues, _auditData) {
   console.log(colorize('\n💡 Recommendations:', 'cyan'));
   
   if (actualIssues === 0) {

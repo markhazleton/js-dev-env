@@ -42,15 +42,6 @@ const dependencyAnalysis = {
     checkFiles: ['**/*.js', '**/*.ejs'],
     checkPatterns: ['require.*uuid', 'import.*uuid', 'uuid\\.']
   },
-  'validator': {
-    priority: 'MEDIUM',
-    description: 'String validation library',
-    testStrategy: 'Search codebase for validator usage',
-    safeToRemove: true,
-    testCommands: ['npm test'],
-    checkFiles: ['**/*.js', '**/*.ejs'],
-    checkPatterns: ['require.*validator', 'import.*validator', 'validator\\.']
-  },
   'dotenv': {
     priority: 'HIGH',
     description: 'Environment variable management',
@@ -68,15 +59,6 @@ const dependencyAnalysis = {
     testCommands: ['npm start'],
     checkFiles: ['index.js', 'app.js'],
     checkPatterns: ['require.*morgan', 'import.*morgan', 'morgan\\.']
-  },
-  'cross-env': {
-    priority: 'LOW',
-    description: 'Cross-platform environment variable setting',
-    testStrategy: 'Check if you use cross-platform environment variables',
-    safeToRemove: true,
-    testCommands: ['npm test'],
-    checkFiles: ['package.json'],
-    checkPatterns: ['cross-env']
   }
 };
 

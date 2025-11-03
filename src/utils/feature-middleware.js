@@ -3,9 +3,6 @@
  * Express middleware for exposing feature flags to templates
  */
 
-const path = require('path');
-const fs = require('fs');
-
 // Import feature configuration
 const { isFeatureEnabled, getEnabledFeatures, features } = require('../config/features');
 

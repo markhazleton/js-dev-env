@@ -608,7 +608,7 @@ function categorizeLink(url) {
     if (hostname.endsWith('facebook.com') || hostname === 'facebook.com') return 'Facebook';
     if (hostname.endsWith('lnk.to') || hostname === 'lnk.to') return 'Universal Link';
     return 'Website';
-  } catch (e) {
+  } catch {
     // If URL parsing fails, return default
     return 'Website';
   }

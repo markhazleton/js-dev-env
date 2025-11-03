@@ -41,8 +41,8 @@ const dependencyCategories = {
   },
   optional: {
     description: 'Optional features - remove if not using',
-    dependencies: ['bootstrap', 'bootstrap-icons', 'uuid', 'validator', 'dotenv', 'morgan'],
-    devDependencies: ['cross-env']
+    dependencies: ['bootstrap', 'bootstrap-icons', 'uuid', 'dotenv', 'morgan'],
+    devDependencies: []
   }
 };
 

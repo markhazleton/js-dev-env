@@ -32,7 +32,7 @@ describe('JsonDatabase', () => {
     });
 
     test('should use provided data directory', () => {
-      const customDb = new JsonDatabase('data/custom-test');
+      const _customDb = new JsonDatabase('data/custom-test');
       const customDir = path.join(process.cwd(), 'data', 'custom-test');
       
       expect(fs.existsSync(customDir)).toBe(true);
@@ -42,7 +42,7 @@ describe('JsonDatabase', () => {
     });
 
     test('should create nested directories', () => {
-      const nestedDb = new JsonDatabase('data/nested/test/dir');
+      const _nestedDb = new JsonDatabase('data/nested/test/dir');
       const nestedDir = path.join(process.cwd(), 'data', 'nested', 'test', 'dir');
       
       expect(fs.existsSync(nestedDir)).toBe(true);

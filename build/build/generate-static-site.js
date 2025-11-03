@@ -51,7 +51,7 @@ async function renderPage(pageData, isHomePage = false) {
   const viewsDir = path.join(__dirname, '..', '..', 'src/views');
   
   // Generate build info for static site
-  const currentBuildInfo = buildInfo.generateBuildInfo();
+  buildInfo.generateBuildInfo();
   
   // Prepare data for template
   const templateData = {
