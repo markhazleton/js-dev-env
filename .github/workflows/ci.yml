@@ -51,7 +51,7 @@ jobs:
           name: codecov-umbrella
 
       - name: Run security audit
-        run: npm run security:validate
+        run: npm run security:audit
 
       - name: Analyze dependencies
         run: npm run analyze:deps
@@ -83,7 +83,7 @@ jobs:
         run: npm run build
 
       - name: Run SEO audit
-        run: npm run seo:audit
+        run: npm run audit:seo
 
       - name: Generate Git analysis report
         run: npm run report:git
