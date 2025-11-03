@@ -1,7 +1,5 @@
 const buildInfo = require('../../utils/build-info');
-const versionManager = require('../../utils/version-manager');
 const fs = require('fs');
-const path = require('path');
 
 jest.mock('fs');
 

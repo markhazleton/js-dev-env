@@ -19,7 +19,7 @@ if (!fs.existsSync(docsDir)) {
 }
 
 // Function to convert absolute paths for GitHub Pages subdirectory deployment
-function convertPathsForGitHubPages(html, depth = 0) {
+function convertPathsForGitHubPages(html) {
   // For GitHub Pages subdirectory (e.g., /js-dev-env/), keep absolute paths
   // The paths should start with /js-dev-env/ for proper resolution
   const basePath = '/js-dev-env/';
@@ -100,10 +100,8 @@ async function renderPage(pageData, isHomePage = false) {
 
     // Determine output file name and depth for relative paths
     let fileName;
-    let depth = 0;
     if (isHomePage || pageData.url === '/') {
       fileName = 'index.html';
-      depth = 0;
     } else {
       // Create directory structure for nested URLs
       const urlParts = pageData.url.split('/').filter(part => part);
@@ -113,15 +111,13 @@ async function renderPage(pageData, isHomePage = false) {
           fs.mkdirSync(dirPath, { recursive: true });
         }
         fileName = path.join(...urlParts, 'index.html');
-        depth = urlParts.length;
       } else {
         fileName = 'index.html';
-        depth = 0;
       }
     }
 
     // Convert absolute paths to relative paths for GitHub Pages
-    fullPage = convertPathsForGitHubPages(fullPage, depth);
+    fullPage = convertPathsForGitHubPages(fullPage);
 
     // Write the file
     const outputPath = path.join(docsDir, fileName);
