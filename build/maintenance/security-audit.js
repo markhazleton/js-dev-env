@@ -119,7 +119,9 @@ async function main() {
       }
       
       // Check for inline scripts (potential CSP violations)
-      const inlineScripts = content.match(/<script[^>]*>[\s\S]*?<\/script>/gi);
+      // Use a more robust script tag detection that doesn't use bad regex patterns
+      const scriptTagRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+      const inlineScripts = content.match(scriptTagRegex);
       if (inlineScripts) {
         for (const script of inlineScripts) {
           if (!script.includes('src=') && !script.includes('nonce=')) {

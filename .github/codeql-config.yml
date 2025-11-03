@@ -1,0 +1,40 @@
+name: "CodeQL Configuration"
+
+# Paths to exclude from code scanning
+paths-ignore:
+  # Built/generated JavaScript files
+  - 'docs/js/dependencies.js'
+  - 'docs/js/dependencies.min.js'
+  - 'docs/js/custom.js'
+  - 'docs/js/custom.min.js'
+  - 'src/public/js/dependencies.js'
+  - 'public/js/dependencies.js'
+  
+  # Built CSS files
+  - 'docs/css/*.css'
+  - 'src/public/css/*.css'
+  - 'public/css/*.css'
+  
+  # Built HTML files
+  - 'docs/**/*.html'
+  
+  # Built service worker
+  - 'docs/service-worker.js'
+  
+  # Test coverage and reports
+  - 'coverage/**'
+  - 'temp/**'
+  - 'artifacts/**'
+  
+  # Node modules
+  - 'node_modules/**'
+
+# Paths to always scan (source files only)
+paths:
+  - 'src/**/*.js'
+  - 'build/**/*.js'
+  - '!src/public/js/dependencies.js'
+
+# Query suites to run
+queries:
+  - uses: security-and-quality

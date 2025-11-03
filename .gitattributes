@@ -1,0 +1,29 @@
+# Mark generated/built files as such for GitHub's language detection and code scanning
+# This helps GitHub Code Scanning understand which files are generated
+
+# Built JavaScript files (auto-generated)
+docs/js/dependencies.js linguist-generated=true
+docs/js/dependencies.min.js linguist-generated=true
+docs/js/custom.js linguist-generated=true
+docs/js/custom.min.js linguist-generated=true
+src/public/js/dependencies.js linguist-generated=true
+public/js/dependencies.js linguist-generated=true
+
+# Built CSS files (auto-generated)
+docs/css/styles.css linguist-generated=true
+docs/css/dependencies.css linguist-generated=true
+src/public/css/styles.css linguist-generated=true
+public/css/styles.css linguist-generated=true
+
+# Built HTML files (auto-generated static site)
+docs/**/*.html linguist-generated=true
+
+# Built service worker (auto-generated)
+docs/service-worker.js linguist-generated=true
+
+# Coverage reports
+coverage/** linguist-generated=true
+
+# Temporary files
+temp/** linguist-generated=true
+artifacts/** linguist-generated=true

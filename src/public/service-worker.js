@@ -54,8 +54,15 @@ self.addEventListener('fetch', (event) => {
 
   // Skip YouTube thumbnail requests that might cause CSP violations
   // Let the browser handle these directly
-  if (event.request.url.includes('i.ytimg.com')) {
-    return; // Let the browser handle this request normally
+  // Use proper URL parsing and domain validation instead of substring matching
+  try {
+    const requestUrl = new URL(event.request.url);
+    if (requestUrl.hostname === 'i.ytimg.com' || requestUrl.hostname.endsWith('.ytimg.com')) {
+      return; // Let the browser handle this request normally
+    }
+  } catch (e) {
+    // Invalid URL, let it pass through
+    return;
   }
 
   event.respondWith(

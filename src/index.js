@@ -260,7 +260,8 @@ apiRouter.post('/contact', (req, res) => {
   if (!name || name.trim().length < 2) {
     errors.push('Name is required and must be at least 2 characters');
   }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Use a simpler, non-polynomial regex for email validation
+  if (!email || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
     errors.push('Valid email address is required');
   }
   if (!message || message.trim().length < 10) {
@@ -306,8 +307,17 @@ apiRouter.get('/search', (req, res) => {
   });
 });
 
+// Rate limiter for YouTube songs endpoint
+const youtubeSongsLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // YouTube Top 100 Songs endpoint
-apiRouter.get('/youtube-songs', (req, res) => {
+apiRouter.get('/youtube-songs', youtubeSongsLimiter, (req, res) => {
   try {
     const csvFilePath = path.join(__dirname, 'data', 'youtube-top-100-songs-2025.csv');
     
@@ -582,16 +592,25 @@ function extractReleaseInfoFromDescription(description) {
 }
 
 function categorizeLink(url) {
-  const domain = new URL(url).hostname.toLowerCase();
-  if (domain.includes('spotify')) return 'Spotify';
-  if (domain.includes('apple')) return 'Apple Music';
-  if (domain.includes('youtube')) return 'YouTube';
-  if (domain.includes('instagram')) return 'Instagram';
-  if (domain.includes('tiktok')) return 'TikTok';
-  if (domain.includes('twitter') || domain.includes('x.com')) return 'Twitter/X';
-  if (domain.includes('facebook')) return 'Facebook';
-  if (domain.includes('lnk.to')) return 'Universal Link';
-  return 'Website';
+  // Properly validate URL and check against specific domains (not just substring matches)
+  try {
+    const urlObj = new URL(url);
+    const hostname = urlObj.hostname.toLowerCase();
+    
+    // Check against specific domains using endsWith to prevent substring false positives
+    if (hostname.endsWith('spotify.com') || hostname === 'spotify.com') return 'Spotify';
+    if (hostname.endsWith('apple.com') || hostname === 'apple.com') return 'Apple Music';
+    if (hostname.endsWith('youtube.com') || hostname === 'youtube.com' || hostname.endsWith('youtu.be') || hostname === 'youtu.be') return 'YouTube';
+    if (hostname.endsWith('instagram.com') || hostname === 'instagram.com') return 'Instagram';
+    if (hostname.endsWith('tiktok.com') || hostname === 'tiktok.com') return 'TikTok';
+    if (hostname.endsWith('twitter.com') || hostname === 'twitter.com' || hostname === 'x.com' || hostname.endsWith('x.com')) return 'Twitter/X';
+    if (hostname.endsWith('facebook.com') || hostname === 'facebook.com') return 'Facebook';
+    if (hostname.endsWith('lnk.to') || hostname === 'lnk.to') return 'Universal Link';
+    return 'Website';
+  } catch (e) {
+    // If URL parsing fails, return default
+    return 'Website';
+  }
 }
 
 function getSocialMediaIcon(platform) {
