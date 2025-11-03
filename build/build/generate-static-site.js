@@ -73,7 +73,12 @@ async function renderPage(pageData, isHomePage = false) {
 
   try {
     // Determine which template to use
-    const templateFile = pageData.template === 'components' ? 'components.ejs' : 'page.ejs';
+    // Use the specified template if it exists, otherwise fall back to page.ejs
+    const requestedTemplate = `${pageData.template}.ejs`;
+    const requestedTemplatePath = path.join(viewsDir, requestedTemplate);
+    
+    // Check if the requested template exists
+    const templateFile = fs.existsSync(requestedTemplatePath) ? requestedTemplate : 'page.ejs';
     const templatePath = path.join(viewsDir, templateFile);
     
     // Read and render the template
