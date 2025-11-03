@@ -236,11 +236,20 @@
           const descContainer = document.getElementById('song-description');
           const descCard = document.getElementById('description-card');
           if (descContainer && data.description) {
+            // Escape HTML to prevent XSS
+            function escapeHtml(text) {
+              var div = document.createElement('div');
+              div.textContent = text;
+              return div.innerHTML;
+            }
+            
             // Format description with line breaks and links
-            const formattedDesc = data.description
+            const escapedDesc = escapeHtml(data.description);
+            const formattedDesc = escapedDesc
               .replace(/\n/g, '<br>')
               .replace(/https?:\/\/[^\s\n]+/g, function(url) {
-                return '<a href="' + url + '" target="_blank" class="text-primary text-decoration-none">' + url + ' <i class="bi bi-box-arrow-up-right small"></i></a>';
+                var safeUrl = url.replace(/"/g, '&quot;');
+                return '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none">' + escapeHtml(url) + ' <i class="bi bi-box-arrow-up-right small"></i></a>';
               });
             descContainer.innerHTML = formattedDesc;
             if (descCard) descCard.classList.remove('d-none');
@@ -252,10 +261,16 @@
           const tagsContainer = document.getElementById('song-tags');
           const tagsCard = document.getElementById('tags-card');
           if (tagsContainer && data.tags) {
+            function escapeHtml(text) {
+              var div = document.createElement('div');
+              div.textContent = text;
+              return div.innerHTML;
+            }
+            
             const tagList = data.tags.split(/[;,]/).map(function(tag) { return tag.trim(); }).filter(function(tag) { return tag; });
             if (tagList.length > 0) {
               tagsContainer.innerHTML = tagList.map(function(tag) {
-                return '<span class="badge bg-light text-dark border">' + tag + '</span>';
+                return '<span class="badge bg-light text-dark border">' + escapeHtml(tag) + '</span>';
               }).join(' ');
               if (tagsCard) tagsCard.classList.remove('d-none');
             } else if (tagsCard) {

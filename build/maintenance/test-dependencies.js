@@ -132,7 +132,8 @@ function testRemoveDependency(depName) {
   try {
     // Remove the dependency
     console.log(`  🗑️  Removing ${depName}...`);
-    execSync(`npm uninstall ${depName}`, { stdio: 'pipe' });
+    const { spawnSync } = require('child_process');
+    spawnSync('npm', ['uninstall', depName], { stdio: 'pipe' });
     
     // Test the application
     const analysis = dependencyAnalysis[depName];
@@ -145,7 +146,8 @@ function testRemoveDependency(depName) {
         return true;
       } else {
         console.log(`  ❌ ${depName} is needed - restoring...`);
-        execSync(`npm install ${depName}`, { stdio: 'pipe' });
+        const { spawnSync } = require('child_process');
+        spawnSync('npm', ['install', depName], { stdio: 'pipe' });
         fs.copyFileSync(backupPath, 'package.json');
         return false;
       }

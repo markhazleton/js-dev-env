@@ -163,9 +163,20 @@ console.log('External song-detail.js loaded!');
     }
 
     function formatDescription(description) {
-      // Convert URLs to clickable links
-      return description.replace(/https?:\/\/[^\s\n]+/g, function(url) {
-        return `<a href="${url}" target="_blank" class="text-primary text-decoration-none">${url} <i class="bi bi-box-arrow-up-right small"></i></a>`;
+      // Escape HTML to prevent XSS
+      const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      };
+      
+      const escaped = escapeHtml(description);
+      
+      // Convert URLs to clickable links (after escaping)
+      return escaped.replace(/https?:\/\/[^\s\n]+/g, function(url) {
+        // Re-escape the URL for the href attribute
+        const safeUrl = url.replace(/"/g, '&quot;');
+        return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none">${escapeHtml(url)} <i class="bi bi-box-arrow-up-right small"></i></a>`;
       }).replace(/\n/g, '<br>');
     }
 
@@ -191,8 +202,15 @@ console.log('External song-detail.js loaded!');
         return;
       }
 
+      // Escape HTML in tags to prevent XSS
+      const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      };
+
       tagsContainer.innerHTML = tagList.map(tag => 
-        `<span class="badge bg-light text-dark border">${tag}</span>`
+        `<span class="badge bg-light text-dark border">${escapeHtml(tag)}</span>`
       ).join('');
     }
 

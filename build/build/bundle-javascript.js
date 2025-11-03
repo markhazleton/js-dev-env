@@ -8,7 +8,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 // Configuration
 const config = {
@@ -147,9 +146,10 @@ function minifyFile(inputFile, outputFile) {
     try {
         console.log(`🗜️  Minifying: ${path.basename(inputFile)}`);
         
-        // Use uglify-js to minify
-        const command = `npx uglifyjs "${inputFile}" -o "${outputFile}" --compress --mangle`;
-        execSync(command, { stdio: 'pipe' });
+        // Use uglify-js to minify - Use array form to prevent command injection
+        const { spawnSync } = require('child_process');
+        const result = spawnSync('npx', ['uglifyjs', inputFile, '-o', outputFile, '--compress', '--mangle'], { stdio: 'pipe' });
+        if (result.error) throw result.error;
         
         const originalSize = fs.statSync(inputFile).size;
         const minifiedSize = fs.statSync(outputFile).size;

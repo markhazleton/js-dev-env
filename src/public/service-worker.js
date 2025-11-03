@@ -7,15 +7,15 @@ const CACHE_NAME = 'bootstrap-express-v1';
 
 // Files to cache for offline access
 const urlsToCache = [
-  '/',
-  '/css/styles.css',
-  '/css/dependencies.css',
-  '/js/dependencies.min.js',
-  '/fonts/bootstrap-icons/bootstrap-icons.css',
-  '/fonts/bootstrap-icons/fonts/bootstrap-icons.woff',
-  '/fonts/bootstrap-icons/fonts/bootstrap-icons.woff2',
-  '/js/theme-toggle.js',
-  '/js/component-library.js'
+  './',
+  './css/styles.css',
+  './css/dependencies.css',
+  './js/dependencies.min.js',
+  './fonts/bootstrap-icons/bootstrap-icons.css',
+  './fonts/bootstrap-icons/fonts/bootstrap-icons.woff',
+  './fonts/bootstrap-icons/fonts/bootstrap-icons.woff2',
+  './js/theme-toggle.js',
+  './js/component-library.js'
 ];
 
 // Install the service worker and cache assets
@@ -103,7 +103,7 @@ self.addEventListener('fetch', (event) => {
             
             // If not in cache and it's a navigation request, return a fallback
             if (event.request.mode === 'navigate') {
-              return caches.match('/');
+              return caches.match('./');
             }
             
             // For other requests, return a simple error response

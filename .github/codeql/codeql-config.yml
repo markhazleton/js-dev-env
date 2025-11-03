@@ -1,0 +1,24 @@
+name: "CodeQL Configuration"
+
+# Exclude paths that should not be scanned
+paths-ignore:
+  - 'src/public/js/dependencies.js'
+  - 'src/public/js/dependencies.min.js'
+  - 'docs/**/*.js'
+  - 'coverage/**'
+  - 'artifacts/**'
+  - 'temp/**'
+  - 'node_modules/**'
+  - '**/*.min.js'
+  - '**/bundle.js'
+
+# Include only relevant paths
+paths:
+  - 'src/**'
+  - 'build/**'
+  - '!**/*.min.js'
+  - '!**/dependencies.js'
+
+# Query configuration
+queries:
+  - uses: security-and-quality
