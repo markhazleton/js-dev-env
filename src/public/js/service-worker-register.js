@@ -7,8 +7,18 @@
 // Register service worker for PWA support
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    // Use relative path for service worker to work with GitHub Pages subdirectory
-    const swPath = new URL('./service-worker.js', document.baseURI).pathname;
+    // Calculate the path to the root of the site
+    // pathname looks like: /js-dev-env/getting-started/ or /js-dev-env/
+    const pathname = window.location.pathname;
+    
+    // Find the root by looking for the first directory after domain
+    // For GitHub Pages: /js-dev-env/... -> /js-dev-env/
+    // For root domain: /... -> /
+    const pathParts = pathname.split('/').filter(p => p);
+    const rootPath = pathParts.length > 0 ? `/${pathParts[0]}/` : '/';
+    
+    // Service worker must be at the root of the site scope
+    const swPath = `${rootPath}service-worker.js`;
     
     navigator.serviceWorker
       .register(swPath)

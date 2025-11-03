@@ -18,29 +18,33 @@ if (!fs.existsSync(docsDir)) {
   console.log(`Created directory: ${docsDir}`);
 }
 
-// Function to convert absolute paths to relative paths for GitHub Pages
+// Function to convert absolute paths for GitHub Pages subdirectory deployment
 function convertPathsForGitHubPages(html, depth = 0) {
-  // Calculate the relative path prefix based on depth
-  const prefix = depth === 0 ? './' : '../'.repeat(depth);
+  // For GitHub Pages subdirectory (e.g., /js-dev-env/), keep absolute paths
+  // The paths should start with /js-dev-env/ for proper resolution
+  const basePath = '/js-dev-env/';
   
-  // Convert absolute paths to relative paths
+  // Convert absolute root paths to include GitHub Pages base path
   let convertedHtml = html
     // CSS and other assets
-    .replace(/href="\/css\//g, `href="${prefix}css/`)
-    .replace(/href="\/fonts\//g, `href="${prefix}fonts/`)
-    .replace(/href="\/js\//g, `href="${prefix}js/`)
-    .replace(/src="\/js\//g, `src="${prefix}js/`)
-    .replace(/href="\/manifest\.json"/g, `href="${prefix}manifest.json"`)
-    .replace(/href="\/favicon\.ico"/g, `href="${prefix}favicon.ico"`)
-    .replace(/"\/service-worker\.js"/g, `"${prefix}service-worker.js"`);
+    .replace(/href="\/css\//g, `href="${basePath}css/`)
+    .replace(/href="\/fonts\//g, `href="${basePath}fonts/`)
+    .replace(/href="\/js\//g, `href="${basePath}js/`)
+    .replace(/src="\/js\//g, `src="${basePath}js/`)
+    .replace(/href="\/manifest\.json"/g, `href="${basePath}manifest.json"`)
+    .replace(/href="\/favicon\.svg"/g, `href="${basePath}favicon.svg"`)
+    .replace(/href="\/favicon\.ico"/g, `href="${basePath}favicon.ico"`)
+    .replace(/src="\/images\//g, `src="${basePath}images/`)
+    .replace(/src="\/img\//g, `src="${basePath}img/`)
+    .replace(/"\/service-worker\.js"/g, `"${basePath}service-worker.js"`);
   
-  // Convert navigation links (more specific approach)
+  // Convert navigation links
   // Handle home page link
-  convertedHtml = convertedHtml.replace(/href="\/"(?=[\s>])/g, `href="${prefix}index.html"`);
+  convertedHtml = convertedHtml.replace(/href="\/"(?=[\s>])/g, `href="${basePath}"`);
   
-  // Handle other page links
+  // Handle other page links (e.g., /getting-started -> /js-dev-env/getting-started)
   convertedHtml = convertedHtml.replace(/href="\/([^"/]+)"(?=[\s>])/g, (match, pageName) => {
-    return `href="${prefix}${pageName}/index.html"`;
+    return `href="${basePath}${pageName}"`;
   });
   
   return convertedHtml;

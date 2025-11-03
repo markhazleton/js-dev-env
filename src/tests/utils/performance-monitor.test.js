@@ -301,4 +301,134 @@ describe('Performance Monitor', () => {
       expect(performanceMonitor.buildMetrics.length).toBeGreaterThan(0);
     });
   });
+
+  describe('Threshold Configuration', () => {
+    test('should have default thresholds defined', () => {
+      expect(monitor.thresholds).toBeDefined();
+      expect(monitor.thresholds.buildTime).toBeDefined();
+      expect(monitor.thresholds.responseTime).toBeDefined();
+      expect(monitor.thresholds.bundleSize).toBeDefined();
+    });
+
+    test('should allow threshold updates', () => {
+      const newThreshold = 5000;
+      monitor.thresholds.buildTime = newThreshold;
+      expect(monitor.thresholds.buildTime).toBe(newThreshold);
+    });
+  });
+
+  describe('Memory Tracking', () => {
+    test('should track memory usage in metrics', () => {
+      const report = monitor.generateReport();
+      expect(report.summary).toBeDefined();
+      // Memory tracking is in analysis, not summary
+      expect(report.analysis).toBeDefined();
+    });
+  });
+
+  describe('Edge Cases', () => {
+    test('should handle zero duration metrics', () => {
+      const metric = monitor.recordBuildMetric('instant-build', 0, 1000);
+      expect(metric.duration).toBe(0);
+    });
+
+    test('should handle very large durations', () => {
+      const metric = monitor.recordBuildMetric('slow-build', 3600000, 1000); // 1 hour
+      expect(metric.duration).toBe(3600000);
+    });
+
+    test('should handle empty metrics analysis', () => {
+      const freshMonitor = new PerformanceMonitor();
+      const analysis = freshMonitor.analyzePerformance();
+      
+      expect(analysis.buildPerformance.totalBuilds).toBe(0);
+      expect(analysis.runtimePerformance.totalRequests).toBe(0);
+      expect(analysis.recommendations).toBeDefined();
+    });
+
+    test('should handle metrics with missing metadata', () => {
+      monitor.startTiming('minimal-op');
+      const metric = monitor.endTiming('minimal-op');
+      
+      expect(metric).toBeDefined();
+      expect(metric.operationId).toBe('minimal-op');
+    });
+  });
+
+  describe('Report Persistence', () => {
+    test('should create report directory if not exists', () => {
+      const reportPath = path.join(__dirname, '..', '..', 'temp', 'nested', 'test-report.json');
+      
+      monitor.recordBuildMetric('test', 1000, 10000);
+      
+      // This would create nested directories
+      expect(() => {
+        monitor.saveMetrics(reportPath);
+      }).not.toThrow();
+      
+      // Cleanup
+      if (fs.existsSync(reportPath)) {
+        fs.unlinkSync(reportPath);
+      }
+    });
+
+    test('should overwrite existing report file', () => {
+      const reportPath = path.join(__dirname, '..', '..', 'temp', 'test-report.json');
+      
+      // Save first report
+      monitor.recordBuildMetric('first', 1000, 10000);
+      monitor.saveMetrics(reportPath);
+      
+      // Clear and save second report
+      monitor.buildMetrics = [];
+      monitor.recordBuildMetric('second', 2000, 20000);
+      monitor.saveMetrics(reportPath);
+      
+      const savedReport = JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
+      expect(savedReport.buildMetrics.length).toBe(1);
+      expect(savedReport.buildMetrics[0].buildType).toBe('second');
+    });
+  });
+
+  describe('Metric Filtering', () => {
+    beforeEach(() => {
+      monitor.recordBuildMetric('fast', 500, 10000, { success: true });
+      monitor.recordBuildMetric('slow', 35000, 100000, { success: true });
+      monitor.recordBuildMetric('failed', 1000, 0, { success: false });
+    });
+
+    test('should identify slow builds correctly', () => {
+      const analysis = monitor.analyzeBuildPerformance();
+      expect(analysis.slowestBuilds.length).toBeGreaterThan(0);
+      expect(analysis.slowestBuilds[0].buildType).toBe('slow');
+    });
+
+    test('should track build success/failure', () => {
+      const successfulBuilds = monitor.buildMetrics.filter(m => m.success === true);
+      const failedBuilds = monitor.buildMetrics.filter(m => m.success === false);
+      
+      expect(successfulBuilds.length).toBe(2);
+      expect(failedBuilds.length).toBe(1);
+    });
+  });
+
+  describe('Time Window Analysis', () => {
+    test('should analyze metrics within time window', () => {
+      const now = Date.now();
+      
+      // Add old metric
+      monitor.buildMetrics.push({
+        buildType: 'old',
+        duration: 1000,
+        outputSize: 0,
+        timestamp: new Date(now - 2 * 60 * 60 * 1000).toISOString() // 2 hours ago
+      });
+      
+      // Add recent metric
+      monitor.recordBuildMetric('recent', 1000, 10000);
+      
+      const analysis = monitor.analyzeBuildPerformance();
+      expect(analysis.totalBuilds).toBe(2);
+    });
+  });
 });
