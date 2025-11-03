@@ -34,20 +34,54 @@ console.log('External song-detail.js loaded!');
 
     function loadSongDetails() {
       console.log('loadSongDetails called with songId:', songId);
-      const apiUrl = `/api/song/${songId}`;
-      console.log('Fetching from URL:', apiUrl);
       
-      fetch(apiUrl)
+      // Check if we're on a static site (GitHub Pages) or dynamic site (Express server)
+      // Try to load from static JSON file first, fall back to API if needed
+      const staticDataUrl = '/js-dev-env/data/youtube-top-100-songs-2025.json';
+      const apiUrl = `/api/song/${songId}`;
+      
+      console.log('Attempting to load from static data:', staticDataUrl);
+      
+      fetch(staticDataUrl)
         .then(response => {
-          console.log('API Response status:', response.status);
-          console.log('API Response ok:', response.ok);
           if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            console.log('Static data not found, trying API:', apiUrl);
+            // Fall back to API endpoint
+            return fetch(apiUrl).then(apiResponse => {
+              if (!apiResponse.ok) {
+                throw new Error(`HTTP ${apiResponse.status}: ${apiResponse.statusText}`);
+              }
+              return apiResponse.json();
+            });
           }
           return response.json();
         })
-        .then(song => {
-          console.log('Song data received:', song);
+        .then(data => {
+          console.log('Data loaded successfully');
+          
+          let song;
+          
+          // Check if data is an array (static JSON) or object (API response)
+          if (Array.isArray(data)) {
+            console.log('Loading from static JSON array');
+            const songIndex = parseInt(songId) - 1;
+            
+            if (songIndex < 0 || songIndex >= data.length) {
+              throw new Error('Song not found');
+            }
+            
+            // Get song from array and add rank
+            song = {
+              ...data[songIndex],
+              rank: parseInt(songId),
+              id: parseInt(songId)
+            };
+          } else {
+            console.log('Loading from API response');
+            song = data;
+          }
+          
+          console.log('Song data:', song);
           
           if (song.error) {
             throw new Error(song.error);

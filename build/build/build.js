@@ -88,10 +88,12 @@ async function build() {
   if (flags.all || flags.assets) {
     tasks.push({ name: 'Copy Icons', command: 'node build/build/copy-icons.js --target=docs' });
     tasks.push({ name: 'Copy Static Assets', command: 'node build/build/copy-static-assets.js' });
+    tasks.push({ name: 'Convert YouTube Data', command: 'node build/build/convert-youtube-data.js' });
   }
   
   if (flags.all || flags.pug) {
     tasks.push({ name: 'Generate Static Site', command: 'node build/build/generate-static-site.js' });
+    tasks.push({ name: 'Generate Song Pages', command: 'node build/build/generate-song-pages.js' });
   }
   
   // Run tasks sequentially for now (TODO: implement parallel execution)
