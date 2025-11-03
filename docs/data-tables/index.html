@@ -463,8 +463,11 @@ app.get('/api/data-paginated', (req, res) => {
   window.titleFormatter = function(value, row, index) {
     if (!value) return '';
     
+    // Detect if we're on GitHub Pages or local dev
+    const basePath = window.location.pathname.includes('/js-dev-env/') ? '/js-dev-env' : '';
+    
     // Create clickable link to song detail page
-    return `<a href="/song/${row.rank}" class="text-decoration-none text-primary fw-bold" title="View song details">
+    return `<a href="${basePath}/song/${row.rank}" class="text-decoration-none text-primary fw-bold" title="View song details">
       ${value}
       <i class="bi bi-box-arrow-up-right ms-1 small"></i>
     </a>`;
@@ -605,7 +608,7 @@ app.get('/api/data-paginated', (req, res) => {
             
             <div class="mt-1">
               <small class="text-muted">
-                v1.0.1-build.114 | Built: 11/3/2025
+                v1.0.1-build.117 | Built: 11/3/2025
               </small>
             </div>
             

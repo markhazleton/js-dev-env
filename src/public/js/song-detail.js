@@ -26,10 +26,13 @@ console.log('External song-detail.js loaded!');
     });
 
     // Get song ID from URL path
-    const pathParts = window.location.pathname.split('/');
-    const songId = pathParts[pathParts.length - 1];
+    // Filter out empty strings and look for the numeric ID
+    const pathParts = window.location.pathname.split('/').filter(p => p);
+    // Find 'song' in the path and get the next part
+    const songIndex = pathParts.indexOf('song');
+    const songId = songIndex !== -1 && pathParts[songIndex + 1] ? pathParts[songIndex + 1] : '';
     
-    console.log('Song ID from URL:', songId);
+    console.log('Song detail page loading for songId:', songId);
     console.log('Current URL:', window.location.pathname);
 
     function loadSongDetails() {

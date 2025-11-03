@@ -28,17 +28,37 @@ This is a **Bootstrap 5 + Express.js Starter Kit** with the following key charac
 
 ### Project Structure
 
-- `/tools/` - Function-based development tools organization
-  - `/tools/build/` - Build system and static site generation
-  - `/tools/seo/` - SEO validation, accessibility, and SSL monitoring
-  - `/tools/git/` - Git analysis and repository metrics
-  - `/tools/maintenance/` - Maintenance automation and dependency management
-- `/data/pages.json` - JSON-based CMS for content
-- `/scss/` - SASS source files with Bootstrap customization
-- `/views/` - EJS templates and partials
-- `/tests/` - Jest test suite
-- `/public/` - Development assets
-- `/docs/` - Built static site (auto-generated)
+- `/build/build/` - Build system and static site generation
+  - `build.js` - Main build orchestrator with task management
+  - `generate-static-site.js` - Converts EJS templates to static HTML
+  - `generate-song-pages.js` - Generates 100 individual song detail pages
+  - `convert-youtube-data.js` - Converts CSV data to JSON for static loading
+  - `bundle-css-dependencies.js` - Bundles CSS dependencies
+  - `bundle-javascript.js` - Bundles JavaScript files
+  - `copy-icons.js` - Copies Bootstrap Icons to output
+  - `copy-static-assets.js` - Copies static files to docs
+  - `clean.js` - Cleans build output directories
+- `/build/seo/` - SEO validation, accessibility, and SSL monitoring
+- `/build/git/` - Git analysis and repository metrics
+- `/build/maintenance/` - Maintenance automation and dependency management
+- `/src/data/` - Data files for content
+  - `pages.json` - JSON-based CMS for page definitions
+  - `youtube-top-100-songs-2025.csv` - Source data for song catalog
+- `/src/scss/` - SASS source files with Bootstrap customization
+- `/src/views/` - EJS templates and partials
+  - `layout.ejs` - Main layout template
+  - `page.ejs` - Default page template
+  - `components.ejs` - Components showcase template
+  - `advanced-components.ejs` - Advanced Bootstrap components
+  - `data-tables.ejs` - Bootstrap Table integration
+  - `song-detail.ejs` - Individual song detail template
+- `/src/public/` - Development source assets
+  - `/js/` - JavaScript source files
+  - `/images/` - Image assets
+- `/src/tests/` - Jest test suite
+- `/docs/` - Built static site (auto-generated, GitHub Pages output)
+  - `/song/{1-100}/` - Generated song detail pages
+  - `/data/youtube-top-100-songs-2025.json` - Converted JSON data
 - `/temp/` - Temporary outputs and reports (gitignored)
 - `/artifacts/` - CI/CD artifacts (gitignored)
 - `/reports/` - Permanent reports (tracked)
@@ -160,25 +180,182 @@ When working with the component library:
 
 ## 🚀 Deployment Considerations
 
-- Static site generation for GitHub Pages
-- Docker containerization support
-- Environment-specific configurations
-- Asset optimization and caching
-- SEO and performance optimization
+### GitHub Pages Static Site Generation
+
+This project uses a sophisticated build system to convert a dynamic Express.js application into a fully static site for GitHub Pages deployment:
+
+#### Static Site Generation Strategy
+
+1. **Template Conversion**: EJS templates are rendered to static HTML with proper path resolution
+2. **Custom Template Support**: The generator dynamically detects and uses custom templates from `/src/views/`
+3. **Path Conversion**: Absolute paths are converted to GitHub Pages subdirectory format (`/js-dev-env/`)
+4. **Data File Generation**: CSV data is converted to JSON for client-side loading
+
+#### Key Components
+
+- **generate-static-site.js**: Main static site generator
+  - Automatically detects and uses custom templates (e.g., `advanced-components.ejs`, `data-tables.ejs`)
+  - Converts paths for GitHub Pages subdirectory deployment
+  - Generates proper directory structure for nested URLs
+  
+- **generate-song-pages.js**: Generates 100 individual song detail pages
+  - Creates `/docs/song/1/` through `/docs/song/100/` directories
+  - Each page has its own `index.html` for proper routing
+  - Uses `song-detail.ejs` template for consistent layout
+
+- **convert-youtube-data.js**: CSV to JSON converter
+  - Reads `youtube-top-100-songs-2025.csv`
+  - Outputs clean JSON to `/docs/data/` for static loading
+  - Integrated into build pipeline
+
+#### Static vs Dynamic Data Loading
+
+**For static sites (GitHub Pages):**
+- Data loaded from `/docs/data/youtube-top-100-songs-2025.json`
+- Bootstrap Table configured with `data-url="/js-dev-env/data/..."`
+- Song detail JavaScript falls back to loading from JSON array
+- No API endpoints required
+
+**For dynamic Express server:**
+- API endpoints at `/api/youtube-songs` and `/api/song/:id`
+- Server-side routing for `/song/:id` pages
+- Real-time data loading from CSV with caching
+- Full Express middleware stack available
+
+#### Path Resolution Rules
+
+1. **Navigation Links**: `/` → `/js-dev-env/`, `/page` → `/js-dev-env/page`
+2. **CSS/JS Assets**: `/css/styles.css` → `/js-dev-env/css/styles.css`
+3. **Fonts**: `/fonts/bootstrap-icons/` → `/js-dev-env/fonts/bootstrap-icons/`
+4. **Images**: `/images/` → `/js-dev-env/images/`, `/img/` → `/js-dev-env/img/`
+5. **Manifest/Favicon**: `/manifest.json` → `/js-dev-env/manifest.json`
+
+#### Build Pipeline for GitHub Pages
+
+```bash
+npm run build  # Executes in order:
+1. Clean docs directory (preserves .nojekyll)
+2. Compile SCSS to CSS
+3. Bundle CSS dependencies
+4. Bundle JavaScript files
+5. Copy Bootstrap Icons
+6. Copy static assets
+7. Convert YouTube CSV to JSON
+8. Generate static HTML pages (main site)
+9. Generate 100 song detail pages
+```
+
+#### GitHub Pages Configuration
+
+- **Branch**: main
+- **Folder**: /docs
+- **URL Pattern**: `https://username.github.io/repository-name/`
+- **Base Path**: `/js-dev-env/` (handled automatically by build)
+
+#### Troubleshooting Static Sites
+
+**404 Errors on Resources:**
+- Ensure all paths use the base path prefix
+- Check that static site generation completed successfully
+- Verify files exist in `/docs/` directory structure
+
+**Bootstrap Table Not Loading Data:**
+- Confirm JSON file exists at `/docs/data/youtube-top-100-songs-2025.json`
+- Check `data-url` attribute uses correct base path
+- Verify CSV conversion ran during build
+
+**Song Detail Pages 404:**
+- Ensure `generate-song-pages.js` ran during build
+- Check that 100 directories exist in `/docs/song/`
+- Verify `song-detail.js` has static fallback logic
+
+**Service Worker Issues:**
+- Service worker registration uses dynamic base path detection
+- Extracts subdirectory from `window.location.pathname`
+- Falls back gracefully if not on GitHub Pages
+
+#### Docker containerization support
+#### Environment-specific configurations
+#### Asset optimization and caching
+#### SEO and performance optimization
 
 ## 🔧 Tools Structure Guidelines
 
 When working with the tools structure:
 
-- Use the **function-based organization** in `/tools/`
-- **Build tools** go in `/tools/build/` (orchestration, compilation, asset processing)
-- **SEO and quality tools** go in `/tools/seo/` (validation, accessibility, SSL monitoring)
-- **Git analysis tools** go in `/tools/git/` (repository metrics, activity reporting)
-- **Maintenance tools** go in `/tools/maintenance/` (automation, dependency management)
+- Use the **function-based organization** in `/build/`
+- **Build tools** go in `/build/build/` (orchestration, compilation, asset processing)
+- **SEO and quality tools** go in `/build/seo/` (validation, accessibility, SSL monitoring)
+- **Git analysis tools** go in `/build/git/` (repository metrics, activity reporting)
+- **Maintenance tools** go in `/build/maintenance/` (automation, dependency management)
 - Generate reports to `/temp/reports/` for temporary outputs
 - Use consistent error handling and progress logging
 - Implement command-line argument parsing for selective execution
-- Follow the build orchestration patterns established in `tools/build/build.js`
+- Follow the build orchestration patterns established in `build/build/build.js`
+
+### Custom Template Support
+
+The static site generator (`generate-static-site.js`) automatically detects custom templates:
+
+```javascript
+// Template selection logic
+const requestedTemplate = `${pageData.template}.ejs`;
+const requestedTemplatePath = path.join(viewsDir, requestedTemplate);
+const templateFile = fs.existsSync(requestedTemplatePath) ? requestedTemplate : 'page.ejs';
+```
+
+**How it works:**
+1. Reads `template` field from `pages.json`
+2. Checks if corresponding `.ejs` file exists in `/src/views/`
+3. Uses custom template if found, falls back to `page.ejs`
+4. No hardcoded template mapping required
+
+**Adding new templates:**
+1. Create template file: `/src/views/your-template.ejs`
+2. Add page to `pages.json`: `"template": "your-template"`
+3. Build automatically detects and uses it
+
+### Data Conversion for Static Sites
+
+When working with data that needs to be available on static sites:
+
+1. **Source Data**: Store in `/src/data/` as CSV, JSON, or other formats
+2. **Conversion Script**: Create in `/build/build/convert-*.js`
+3. **Output Location**: Write to `/docs/data/` for GitHub Pages
+4. **Build Integration**: Add to build pipeline in `build.js`
+5. **Client-Side Loading**: Use absolute paths with base prefix
+
+**Example pattern:**
+```javascript
+// In conversion script
+const outputPath = path.join(__dirname, '..', '..', 'docs', 'data', 'output.json');
+fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
+
+// In template/JavaScript
+const dataUrl = '/js-dev-env/data/output.json';
+fetch(dataUrl).then(res => res.json()).then(data => { /* use data */ });
+```
+
+### Generating Multiple Pages from Data
+
+For dynamic content that needs static pages (like song details):
+
+1. **Create Generator Script**: `/build/build/generate-[content]-pages.js`
+2. **Read Data Source**: Load from JSON/CSV in `/docs/data/`
+3. **Iterate and Render**: For each item, render template with EJS
+4. **Create Directory Structure**: `/docs/[content]/[id]/index.html`
+5. **Convert Paths**: Use `convertPathsForGitHubPages()` function
+6. **Add to Build**: Include in `build.js` task list
+
+**Example structure:**
+```
+/docs/song/1/index.html
+/docs/song/2/index.html
+...
+/docs/song/100/index.html
+```
+
+Each page has full HTML, CSS, and JS for independent loading.
 
 ## 🔧 Build Script Patterns
 
@@ -189,8 +366,64 @@ When creating or modifying tools:
 - Log progress and completion status with emoji indicators
 - Support both development and production modes
 - Generate JSON reports to `/temp/reports/` for automation
-- Use the build configuration from `tools/build/build-config.js`
+- Use the build configuration from `build/build/build-config.js`
 - Follow established patterns from existing tools
+
+### Path Conversion for GitHub Pages
+
+All generated HTML must use the correct path format for GitHub Pages subdirectory deployment:
+
+```javascript
+function convertPathsForGitHubPages(html) {
+  const basePath = '/js-dev-env/';
+  
+  return html
+    // Assets
+    .replace(/href="\/css\//g, `href="${basePath}css/`)
+    .replace(/src="\/js\//g, `src="${basePath}js/`)
+    .replace(/href="\/fonts\//g, `href="${basePath}fonts/`)
+    .replace(/src="\/images\//g, `src="${basePath}images/`)
+    // Navigation
+    .replace(/href="\/"(?=[\s>])/g, `href="${basePath}"`)
+    .replace(/href="\/([^"/]+)"(?=[\s>])/g, `href="${basePath}$1"`);
+}
+```
+
+**Critical points:**
+- Use absolute paths with base prefix, NOT relative paths
+- Convert ALL resource references (CSS, JS, fonts, images)
+- Convert navigation links to use base path
+- Apply to ALL generated HTML files
+
+### JavaScript for Dual Environments
+
+When writing JavaScript that needs to work on both static sites and dynamic servers:
+
+```javascript
+// Try static data first, fall back to API
+const staticDataUrl = '/js-dev-env/data/data.json';
+const apiUrl = '/api/data';
+
+fetch(staticDataUrl)
+  .then(response => {
+    if (!response.ok) {
+      // Fall back to API for local development
+      return fetch(apiUrl).then(r => r.json());
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Handle both array (static) and object (API) formats
+    const items = Array.isArray(data) ? data : data.items;
+    // Process items...
+  });
+```
+
+**Pattern benefits:**
+- Works on GitHub Pages (static JSON)
+- Works on local Express server (API endpoints)
+- No code changes needed between environments
+- Graceful fallback handling
 
 ## 🚨 CRITICAL BUILD RULES - NO EXCEPTIONS
 
@@ -205,10 +438,12 @@ When creating or modifying tools:
 
 ### ONLY Edit Source Files
 
-- **ONLY** edit SCSS files in `/scss/` directory
-- **ONLY** edit EJS templates in `/views/` directory (without inline styles)
-- **ONLY** edit JavaScript source files (not built/minified versions)
+- **ONLY** edit SCSS files in `/src/scss/` directory
+- **ONLY** edit EJS templates in `/src/views/` directory (without inline styles)
+- **ONLY** edit JavaScript source files in `/src/public/js/` (not built/minified versions)
+- **ONLY** edit data files in `/src/data/` directory
 - **ONLY** edit configuration files in root or `/config/` directory
+- **ONLY** edit build scripts in `/build/` directory
 
 ### ALWAYS Use Build Process
 
@@ -220,14 +455,18 @@ When creating or modifying tools:
 
 ### Build Process Flow
 
-1. Edit source files in `/scss/`, `/views/`, or other source directories
+1. Edit source files in `/src/scss/`, `/src/views/`, `/src/public/js/`, or `/src/data/` directories
 2. Run appropriate build command (`npm run build:scss`, `npm run build`, etc.)
 3. Build process automatically:
-   - Clears previous built files
+   - Clears previous built files in `/docs/` (preserves .nojekyll)
    - Compiles SCSS to CSS
-   - Copies built files to appropriate directories (`/docs/`, `/public/`)
-   - Generates minified versions where needed
-4. Test using development server
+   - Bundles CSS and JavaScript dependencies
+   - Copies Bootstrap Icons to `/docs/fonts/`
+   - Copies static assets to `/docs/`
+   - Converts CSV data to JSON in `/docs/data/`
+   - Generates static HTML pages from EJS templates
+   - Generates individual pages for dynamic content (e.g., 100 song pages)
+4. Test using development server or GitHub Pages preview
 
 ### Violations Are Forbidden
 
