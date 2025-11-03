@@ -9,6 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 const crypto = require('crypto');
 const cacheUtils = require('./utils/cache');
 const buildInfo = require('./utils/build-info');
