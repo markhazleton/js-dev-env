@@ -32,33 +32,48 @@ The following security issues in **source code** have been fixed:
    - **Fix**: Replaced unsafe regex with more robust script tag detection
    - **Impact**: Prevents ReDoS in security scanning tool
 
-### ⚠️ Third-Party Library Issues (Built Files)
+### ⚠️ Third-Party Library Issues (Removed)
 
-The following security issues are in **third-party minified libraries** that are bundled into `dependencies.js`:
+**UPDATED 2025-11-03**: The following third-party libraries have been **REMOVED** due to unmaintained status and security vulnerabilities:
 
-#### Affected Files (ALL Auto-Generated):
-- `docs/js/dependencies.js`
-- `src/public/js/dependencies.js`
-- `public/js/dependencies.js`
+#### Removed: tableexport.jquery.plugin v1.33.0
 
-#### Issues from tableexport.jquery.plugin v1.33.0:
+**Reason for Removal:**
+- Library hasn't been updated since 2020
+- Depends on `xlsx` package which is no longer maintained on npm
+- Contains multiple high-severity vulnerabilities with no available fixes
 
-**Incomplete String Escaping - Alerts #36-46, #55-64**
-- **Lines**: 119-120
-- **Source**: tableExport.min.js (minified third-party library)
-- **Impact**: Potential XSS if user-controlled data flows through export functionality
-- **Mitigation**:
-  - ✅ Marked as generated files in `.gitattributes`
-  - ✅ Excluded from CodeQL scanning via `.github/codeql-config.yml`
-  - ✅ Library is at latest version (1.33.0 - no newer versions available)
-  - ✅ Usage is isolated to data export functionality
-  - ⚠️ Library hasn't been updated since 2020
+**Dependabot Alerts Resolved by Removal:**
+- **Alert #66**: SheetJS Regular Expression Denial of Service (ReDoS) - HIGH severity
+  - CVE-2024-22363
+  - Affected: xlsx < 0.20.2
+  - No patched version available via npm
   
-**DOM Text Reinterpreted as HTML - Alerts #52-53**
-- **Lines**: 79, 87
-- **Source**: tableExport.min.js (minified third-party library)
-- **Impact**: Potential XSS if user-controlled data is exported
-- **Mitigation**: Same as above
+- **Alert #65**: Prototype Pollution in SheetJS - HIGH severity
+  - Affected: xlsx < 0.19.3
+  - No patched version available via npm
+
+**Previous Code Scanning Issues Also Resolved:**
+- Incomplete String Escaping - Alerts #36-46, #55-64
+- DOM Text Reinterpreted as HTML - Alerts #52-53
+
+**Impact:**
+- Table export functionality (Excel/CSV export) is no longer available
+- All security vulnerabilities from tableexport.jquery.plugin and xlsx are eliminated
+- Bootstrap Table can still display data, but without export features
+
+**Alternative Solutions:**
+If export functionality is needed in the future, consider:
+1. Server-side export generation
+2. Use a maintained library like `exceljs` or `papaparse` (CSV only)
+3. Download maintained SheetJS version from https://cdn.sheetjs.com/ (not recommended for production)
+
+**Files Modified:**
+- `package.json`: Removed tableexport.jquery.plugin dependency
+- `build/build/bundle-javascript.js`: Removed tableExport.min.js from bundle
+- Built files will be regenerated without the vulnerable library
+
+---
 
 ### 🔒 Security Recommendations
 
@@ -73,9 +88,10 @@ The following security issues are in **third-party minified libraries** that are
    - Then rebuild using `npm run build`
 
 3. **Dependency Management**:
-   - tableexport.jquery.plugin is at the latest version
-   - Consider replacing with a more actively maintained alternative
-   - Monitor for updates: https://github.com/hhurz/tableExport.jquery.plugin
+   - Removed unmaintained libraries (tableexport.jquery.plugin, xlsx)
+   - Regularly audit dependencies with `npm audit`
+   - Monitor Dependabot alerts and update promptly
+   - Consider alternatives when libraries are no longer maintained
 
 4. **Build Process**:
    - Builds automatically clear and regenerate all files in `/docs/`

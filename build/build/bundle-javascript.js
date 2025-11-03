@@ -22,8 +22,7 @@ const config = {
         'bootstrap/dist/js/bootstrap.bundle.min.js',
         'jquery/dist/jquery.min.js',
         'bootstrap-table/dist/bootstrap-table.min.js',
-        'bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js',
-        'tableexport.jquery.plugin/tableExport.min.js'
+        'bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js'
     ],
     
     // Custom JS files to include
