@@ -38,10 +38,8 @@ console.log('External song-detail.js loaded!');
     function loadSongDetails() {
       console.log('loadSongDetails called with songId:', songId);
       
-      // Check if we're on a static site (GitHub Pages) or dynamic site (Express server)
-      // Try to load from static JSON file first, fall back to API if needed
+      // Load from static JSON file (GitHub Pages static site)
       const staticDataUrl = '/js-dev-env/data/youtube-top-100-songs-2025.json';
-      const apiUrl = `/api/song/${songId}`;
       
       console.log('Attempting to load from static data:', staticDataUrl);
       
