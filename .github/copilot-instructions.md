@@ -182,6 +182,10 @@ When working with the component library:
 
 ### GitHub Pages Static Site Generation
 
+**CRITICAL PROJECT PRIORITY**: This project is **PRIMARILY a GitHub Pages static site**. The Express.js server exists only for local development and testing. ALL features must work on static GitHub Pages deployment.
+
+**Key Principle**: When implementing any feature, ALWAYS ask: "Will this work on GitHub Pages without a server?" If the answer is no, the feature must be redesigned.
+
 This project uses a sophisticated build system to convert a dynamic Express.js application into a fully static site for GitHub Pages deployment:
 
 #### Static Site Generation Strategy
@@ -210,17 +214,24 @@ This project uses a sophisticated build system to convert a dynamic Express.js a
 
 #### Static vs Dynamic Data Loading
 
-**For static sites (GitHub Pages):**
-- Data loaded from `/docs/data/youtube-top-100-songs-2025.json`
-- Bootstrap Table configured with `data-url="/js-dev-env/data/..."`
-- Song detail JavaScript falls back to loading from JSON array
-- No API endpoints required
+**PRODUCTION (GitHub Pages - PRIMARY DEPLOYMENT):**
+- ✅ Data loaded from `/docs/data/youtube-top-100-songs-2025.json`
+- ✅ Bootstrap Table configured with `data-url="/js-dev-env/data/..."`
+- ✅ Song detail JavaScript loads from static JSON array
+- ✅ 100 pre-generated HTML pages at `/docs/song/{1-100}/`
+- ✅ No server required, pure client-side rendering
+- ✅ No API endpoints - everything is static files
 
-**For dynamic Express server:**
-- API endpoints at `/api/youtube-songs` and `/api/song/:id`
-- Server-side routing for `/song/:id` pages
-- Real-time data loading from CSV with caching
-- Full Express middleware stack available
+**DEVELOPMENT (Express Server - LOCAL TESTING ONLY):**
+- 🔧 API endpoints at `/api/youtube-songs` and `/api/song/:id` (fallback)
+- 🔧 Server-side routing for `/song/:id` pages (alternative)
+- 🔧 Real-time data loading from CSV with caching (testing)
+- 🔧 Full Express middleware stack available (development)
+
+**Implementation Priority:**
+1. **MUST HAVE**: Works on GitHub Pages (static files)
+2. **NICE TO HAVE**: Also works with Express server (local dev)
+3. **NEVER**: Require Express server for production functionality
 
 #### Path Resolution Rules
 
@@ -252,22 +263,54 @@ npm run build  # Executes in order:
 - **URL Pattern**: `https://username.github.io/repository-name/`
 - **Base Path**: `/js-dev-env/` (handled automatically by build)
 
+#### URL Parsing for Static Sites
+
+**CRITICAL for GitHub Pages URLs:**
+
+GitHub Pages URLs end with trailing slashes (e.g., `/js-dev-env/song/1/`), which requires robust URL parsing:
+
+```javascript
+// ❌ WRONG - Fails with trailing slashes
+const pathParts = window.location.pathname.split('/');
+const songId = pathParts[pathParts.length - 1]; // Returns "" for /song/1/
+
+// ✅ CORRECT - Handles trailing slashes
+const pathParts = window.location.pathname.split('/').filter(p => p);
+const songIndex = pathParts.indexOf('song');
+const songId = pathParts[songIndex + 1]; // Returns "1" for both /song/1 and /song/1/
+```
+
+**Best practices:**
+- Always filter empty strings from split results: `.split('/').filter(p => p)`
+- Find landmark segments in path array, get relative positions
+- Test with both trailing slash and no trailing slash URLs
+- Handle edge cases (missing segments, malformed URLs)
+
 #### Troubleshooting Static Sites
 
 **404 Errors on Resources:**
-- Ensure all paths use the base path prefix
+- Ensure all paths use the base path prefix (`/js-dev-env/`)
 - Check that static site generation completed successfully
 - Verify files exist in `/docs/` directory structure
+- Use absolute paths with base prefix, NOT relative paths
 
 **Bootstrap Table Not Loading Data:**
 - Confirm JSON file exists at `/docs/data/youtube-top-100-songs-2025.json`
 - Check `data-url` attribute uses correct base path
 - Verify CSV conversion ran during build
+- Ensure data-url points to static JSON, not API endpoint
 
 **Song Detail Pages 404:**
 - Ensure `generate-song-pages.js` ran during build
 - Check that 100 directories exist in `/docs/song/`
 - Verify `song-detail.js` has static fallback logic
+- Test URL parsing handles trailing slashes correctly
+
+**API 404 Errors on Static Sites:**
+- Static sites cannot call Express API endpoints
+- All data must be pre-converted to JSON files
+- JavaScript must try static JSON first, fall back to API for local dev
+- Verify fetch URLs point to `/js-dev-env/data/` not `/api/`
 
 **Service Worker Issues:**
 - Service worker registration uses dynamic base path detection
@@ -397,33 +440,49 @@ function convertPathsForGitHubPages(html) {
 
 ### JavaScript for Dual Environments
 
+**CRITICAL**: This project is **primarily designed for GitHub Pages static deployment**. All JavaScript must prioritize static data loading over API calls.
+
 When writing JavaScript that needs to work on both static sites and dynamic servers:
 
 ```javascript
-// Try static data first, fall back to API
+// ALWAYS try static data first, fall back to API for local development
 const staticDataUrl = '/js-dev-env/data/data.json';
 const apiUrl = '/api/data';
 
 fetch(staticDataUrl)
   .then(response => {
     if (!response.ok) {
-      // Fall back to API for local development
+      // Fall back to API for local development only
+      console.log('Static data not found, trying API (local dev)');
       return fetch(apiUrl).then(r => r.json());
     }
+    console.log('Loading from static JSON');
     return response.json();
   })
   .then(data => {
     // Handle both array (static) and object (API) formats
     const items = Array.isArray(data) ? data : data.items;
     // Process items...
+  })
+  .catch(error => {
+    console.error('Error loading data:', error);
+    // Show user-friendly error message
   });
 ```
 
 **Pattern benefits:**
-- Works on GitHub Pages (static JSON)
-- Works on local Express server (API endpoints)
+- Works on GitHub Pages (static JSON) - PRIMARY USE CASE
+- Works on local Express server (API endpoints) - DEVELOPMENT ONLY
 - No code changes needed between environments
 - Graceful fallback handling
+- Clear logging for debugging
+
+**CRITICAL Rules:**
+1. Static data loading is PRIMARY, API is fallback
+2. All data sources must have static JSON equivalents
+3. Never assume API will be available in production
+4. Test thoroughly on GitHub Pages before considering complete
+5. Log clearly which data source is being used
 
 ## 🚨 CRITICAL BUILD RULES - NO EXCEPTIONS
 
@@ -528,6 +587,42 @@ When providing assistance:
 10. **ALWAYS use the build process for changes**
 11. **REFUSE any requests to add inline styles**
 12. **REDIRECT to proper SCSS source file editing**
+13. **PRIORITIZE GitHub Pages static site compatibility**
+14. **QUESTION any feature requiring server-side processing**
+15. **VERIFY URL parsing handles trailing slashes**
+16. **ENSURE all data has static JSON equivalents**
+17. **TEST on GitHub Pages before marking complete**
+
+### Static Site First Checklist
+
+Before implementing any feature, verify:
+
+- [ ] Works without Node.js/Express server
+- [ ] Uses static JSON files, not API endpoints
+- [ ] All paths include GitHub Pages base path (`/js-dev-env/`)
+- [ ] URL parsing handles trailing slashes correctly
+- [ ] No server-side rendering required
+- [ ] Can be pre-generated during build process
+- [ ] Tested on actual GitHub Pages deployment (not just local)
+- [ ] Gracefully falls back to API for local development only
+
+### Common Static Site Mistakes to Avoid
+
+**❌ DON'T:**
+- Rely on Express API endpoints for production functionality
+- Use `pathname.split('/').pop()` for URL parsing (fails with trailing slash)
+- Forget to convert CSV/database data to JSON during build
+- Use relative paths (e.g., `../css/styles.css`)
+- Assume server-side routing will work
+- Skip testing on actual GitHub Pages URL with subdirectory
+
+**✅ DO:**
+- Pre-generate all HTML pages during build
+- Parse URLs with `.split('/').filter(p => p)` to handle trailing slashes
+- Convert all data sources to static JSON files
+- Use absolute paths with base prefix (e.g., `/js-dev-env/css/styles.css`)
+- Generate directory structure with `index.html` files
+- Test on GitHub Pages with full subdirectory path
 
 ## ⚡ Quick Reference Commands
 

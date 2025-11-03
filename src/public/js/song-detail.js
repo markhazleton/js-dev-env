@@ -48,43 +48,38 @@ console.log('External song-detail.js loaded!');
       fetch(staticDataUrl)
         .then(response => {
           if (!response.ok) {
-            console.log('Static data not found, trying API:', apiUrl);
-            // Fall back to API endpoint
-            return fetch(apiUrl).then(apiResponse => {
-              if (!apiResponse.ok) {
-                throw new Error(`HTTP ${apiResponse.status}: ${apiResponse.statusText}`);
-              }
-              return apiResponse.json();
-            });
+            console.error(`Static data fetch failed: ${response.status} ${response.statusText}`);
+            throw new Error(`Failed to load song data: ${response.statusText}`);
           }
+          console.log('Static data fetched successfully');
           return response.json();
         })
         .then(data => {
-          console.log('Data loaded successfully');
+          console.log('Data parsed successfully, array length:', data.length);
           
-          let song;
-          
-          // Check if data is an array (static JSON) or object (API response)
-          if (Array.isArray(data)) {
-            console.log('Loading from static JSON array');
-            const songIndex = parseInt(songId) - 1;
-            
-            if (songIndex < 0 || songIndex >= data.length) {
-              throw new Error('Song not found');
-            }
-            
-            // Get song from array and add rank
-            song = {
-              ...data[songIndex],
-              rank: parseInt(songId),
-              id: parseInt(songId)
-            };
-          } else {
-            console.log('Loading from API response');
-            song = data;
+          // Data should be an array for static site
+          if (!Array.isArray(data)) {
+            console.error('Expected array but got:', typeof data);
+            throw new Error('Invalid data format');
           }
           
-          console.log('Song data:', song);
+          console.log('Loading from static JSON array');
+          const songIndex = parseInt(songId) - 1;
+          console.log('Looking for song at index:', songIndex, '(rank', songId, ')');
+          
+          if (songIndex < 0 || songIndex >= data.length) {
+            console.error(`Song index ${songIndex} out of range [0, ${data.length - 1}]`);
+            throw new Error(`Song #${songId} not found`);
+          }
+          
+          // Get song from array and add rank
+          const song = {
+            ...data[songIndex],
+            rank: parseInt(songId),
+            id: parseInt(songId)
+          };
+          
+          console.log('Song data loaded:', song.title);
           
           if (song.error) {
             throw new Error(song.error);
