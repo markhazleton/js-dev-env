@@ -630,8 +630,8 @@ function getSocialMediaIcon(platform) {
 // Mount API router
 app.use('/api', apiRouter);
 
-// Song detail page route
-app.get('/song/:id', (req, res) => {
+// Song detail page routes (both /song/:id and /songs/:id)
+app.get(['/song/:id', '/songs/:id'], (req, res) => {
   res.render('song-detail', {
     title: 'Song Details',
     songId: req.params.id,
