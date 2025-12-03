@@ -67,7 +67,6 @@ app.use((req, res, next) => {
         imgSrc: [
           "'self'", 
           'data:', 
-          'https://via.placeholder.com',
           'https://cdn.jsdelivr.net',
           'https://i.ytimg.com'  // Allow YouTube thumbnails
         ],
@@ -111,6 +110,10 @@ app.set('layout', 'layout');  // This ensures views use layout.ejs by default
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve data directory for development (JSON files)
+// This allows data-tables to load the JSON file in dev mode
+app.use('/data', express.static(path.join(__dirname, '..', 'docs', 'data')));
 
 // Add build info to all templates
 app.use(buildInfo.middleware());

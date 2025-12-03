@@ -74,7 +74,7 @@
             data-page-list="[10, 25, 50, 100, All]"
             data-page-size="25"
             data-filter-control="true"
-            data-url="/js-dev-env/data/youtube-top-100-songs-2025.json"
+            data-url="<%= typeof basePathPrefix !== 'undefined' && basePathPrefix ? basePathPrefix + '/data/youtube-top-100-songs-2025.json' : '/data/youtube-top-100-songs-2025.json' %>"
             data-side-pagination="client"
             data-response-handler="responseHandler"
             data-loading-template="loadingTemplate"

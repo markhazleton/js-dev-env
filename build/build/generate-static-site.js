@@ -68,7 +68,9 @@ async function renderPage(pageData, isHomePage = false) {
     // Add build info for static site
     buildInfo: buildInfo.getBuildInfo(),
     // Add a dummy cspNonce for static site generation
-    cspNonce: 'static-site-dummy-nonce'
+    cspNonce: 'static-site-dummy-nonce',
+    // Add base path prefix for GitHub Pages
+    basePathPrefix: '/js-dev-env'
   };
 
   try {

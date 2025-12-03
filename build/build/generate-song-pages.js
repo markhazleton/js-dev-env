@@ -71,7 +71,8 @@ async function renderSongPage(songIndex) {
       useCustomTemplate: true
     },
     buildInfo: buildInfo.getBuildInfo(),
-    cspNonce: 'static-site-dummy-nonce'
+    cspNonce: 'static-site-dummy-nonce',
+    basePathPrefix: '/js-dev-env'
   };
 
   try {

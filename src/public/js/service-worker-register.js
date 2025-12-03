@@ -9,13 +9,20 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     // Calculate the path to the root of the site
     // pathname looks like: /js-dev-env/getting-started/ or /js-dev-env/
+    // or on dev server: /data-tables/ or just /
     const pathname = window.location.pathname;
     
-    // Find the root by looking for the first directory after domain
-    // For GitHub Pages: /js-dev-env/... -> /js-dev-env/
-    // For root domain: /... -> /
-    const pathParts = pathname.split('/').filter(p => p);
-    const rootPath = pathParts.length > 0 ? `/${pathParts[0]}/` : '/';
+    // Detect if we're on GitHub Pages (has js-dev-env in path)
+    const isGitHubPages = pathname.includes('/js-dev-env/');
+    
+    let rootPath;
+    if (isGitHubPages) {
+      // For GitHub Pages: /js-dev-env/... -> /js-dev-env/
+      rootPath = '/js-dev-env/';
+    } else {
+      // For local dev server: always use root /
+      rootPath = '/';
+    }
     
     // Service worker must be at the root of the site scope
     const swPath = `${rootPath}service-worker.js`;
