@@ -43,10 +43,10 @@
 
 | Technology | Purpose | Version |
 |------------|---------|---------|
-| ![Express.js](https://img.shields.io/badge/Express.js-5.1.0-blue?logo=express) | Backend Framework | Latest |
-| ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.7-purple?logo=bootstrap) | CSS Framework | Latest |
+| ![Express.js](https://img.shields.io/badge/Express.js-5.2.1-blue?logo=express) | Backend Framework | Latest |
+| ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-purple?logo=bootstrap) | CSS Framework | Latest |
 | ![EJS](https://img.shields.io/badge/EJS-3.1.10-red?logo=javascript) | Template Engine | Latest |
-| ![SASS](https://img.shields.io/badge/SASS-1.89.2-pink?logo=sass) | CSS Preprocessor | Latest |
+| ![SASS](https://img.shields.io/badge/SASS-1.97.1-pink?logo=sass) | CSS Preprocessor | Latest |
 | ![Node.js](https://img.shields.io/badge/Node.js-18+-green?logo=node.js) | Runtime Environment | 18+ |
 
 </div>
@@ -90,7 +90,11 @@
 - **CI/CD Pipeline** with GitHub Actions
 - **Docker Containerization** for consistent deployment
 - **Static Site Generation** for hosting flexibility
+- **Dynamic Page Generation** (100+ pages from single template)
+- **CSV to JSON Conversion** for static data loading
 - **SEO Optimization** with structured data
+- **Path Conversion** for subdirectory deployment
+- **Automated Build System** with performance tracking
 
 ## 🚀 Quick Start
 
@@ -181,45 +185,57 @@ js-dev-env/
 │   │   ├── ci.yml                 # Continuous Integration
 │   │   └── deploy.yml             # GitHub Pages deployment
 │   └── ISSUE_TEMPLATE/            # Issue templates
-├── 📁 data/                       # Content management
-│   └── pages.json                 # JSON-based CMS
+├── 📁 build/                      # Build system and tools
+│   ├── build/                     # Build orchestration
+│   │   ├── build.js               # Main build orchestrator
+│   │   ├── generate-static-site.js # Static site generator
+│   │   ├── generate-song-pages.js  # Dynamic page generator
+│   │   ├── convert-youtube-data.js # CSV to JSON converter
+│   │   └── bundle-*.js            # Asset bundlers
+│   ├── seo/                       # SEO and accessibility tools
+│   ├── git/                       # Git analysis tools
+│   ├── maintenance/               # Maintenance automation
+│   └── setup/                     # Interactive setup wizards
+├── 📁 src/                        # Source files
+│   ├── data/                      # Content management
+│   │   ├── pages.json             # JSON-based CMS
+│   │   └── youtube-top-100-songs-2025.csv # Sample data
+│   ├── scss/                      # SASS source files
+│   │   ├── _variables.scss        # Bootstrap overrides
+│   │   ├── _custom.scss           # Custom styles
+│   │   └── main.scss              # Main stylesheet
+│   ├── views/                     # EJS templates
+│   │   ├── partials/              # Reusable components
+│   │   ├── components.ejs         # Basic component library
+│   │   ├── advanced-components.ejs # Advanced components
+│   │   ├── data-tables.ejs        # Data table showcase
+│   │   ├── song-detail.ejs        # Song detail template
+│   │   ├── layout.ejs             # Main layout
+│   │   ├── page.ejs               # Generic page template
+│   │   └── error-404.ejs          # Error page
+│   ├── public/                    # Development assets
+│   │   ├── js/                    # JavaScript source
+│   │   └── images/                # Image assets
+│   ├── tests/                     # Test suite
+│   ├── config/                    # Configuration files
+│   ├── plugins/                   # Plugin system
+│   ├── templates/                 # Template generators
+│   ├── utils/                     # Utility modules
+│   └── index.js                   # Main Express server
 ├── 📁 docs/                       # Built static site (auto-generated)
-├── 📁 public/                     # Static assets
+│   ├── song/                      # Generated song detail pages
+│   │   ├── 1/index.html           # Individual song pages
+│   │   └── 100/index.html         # 100 pre-generated pages
+│   ├── data/                      # Static JSON data
+│   │   └── youtube-top-100-songs-2025.json
 │   ├── css/                       # Compiled CSS
-│   ├── js/                        # Client-side JavaScript
+│   ├── js/                        # Bundled JavaScript
 │   ├── fonts/                     # Bootstrap Icons & fonts
-│   ├── images/                    # Image assets
-│   ├── manifest.json              # PWA manifest
-│   └── service-worker.js          # Offline functionality
-├── 📁 scripts/                    # Build and utility scripts
-│   ├── clean-docs.js              # Clean build directory
-│   ├── copy-icons.js              # Bootstrap Icons setup
-│   ├── copy-static-assets.js      # Asset management
-│   ├── generate-static-site.js    # Static site generator
-│   ├── security-audit.js          # Security checks
-│   └── dev-helper.js              # Development utilities
-├── 📁 scss/                       # SASS source files
-│   ├── _variables.scss            # Bootstrap overrides
-│   ├── _custom.scss               # Custom styles
-│   ├── _components-pages.scss     # Component-specific styles
-│   └── main.scss                  # Main stylesheet
-├── 📁 tests/                      # Test suite
-│   ├── app.test.js                # Application tests
-│   └── setup.js                   # Test configuration
-├── 📁 utils/                      # Utility modules
-│   ├── cache.js                   # Caching system
-│   ├── database.js                # Database abstraction
-│   ├── performance.js             # Performance monitoring
-│   ├── security.js                # Security utilities
-│   └── json-database.js           # JSON database
-├── 📁 views/                      # EJS templates
-│   ├── partials/                  # Reusable components
-│   ├── components.ejs             # Basic component library
-│   ├── advanced-components.ejs    # Advanced components
-│   ├── layout.ejs                 # Main layout
-│   ├── page.ejs                   # Generic page template
-│   └── error-404.ejs              # Error page
-├── index.js                       # Main Express server
+│   └── manifest.json              # PWA manifest
+├── 📁 copilot/                    # AI development sessions
+│   └── sessions/                  # Session documentation
+├── 📁 temp/                       # Temporary files (gitignored)
+│   └── reports/                   # Generated reports
 ├── package.json                   # Dependencies and scripts
 ├── docker-compose.yml             # Docker configuration
 ├── Dockerfile                     # Container definition
@@ -258,19 +274,80 @@ Ideal for developers learning modern web development practices and Bootstrap 5.
 
 ### 📋 Available Scripts
 
+#### Essential Commands
+
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| `npm run start:dev` | **Development server** with hot reload | Primary development |
-| `npm run build` | **Production build** for deployment | Before deployment |
-| `npm test` | **Run test suite** with Jest | Testing |
-| `npm run lint` | **Code linting** with ESLint | Code quality |
-| `npm run docker:dev` | **Docker development** environment | Containerized dev |
+| `npm run dev` | **Development server** with hot reload | Primary development |
+| `npm run build` | **Production build** orchestrator | Before deployment |
+| `npm run test` | **Run test suite** with Jest | Testing |
+| `npm start` | **Build and start** production server | Production |
 
-### 🔧 Development Workflow
+#### Development Workflow
 
-```bash
-# Start development environment
-npm run start:dev
+| Script | Purpose |
+|--------|---------|
+| `npm run start:server` | Start Express server with nodemon |
+| `npm run watch-css` | Watch SASS files for changes |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Generate coverage report |
+
+#### Build System
+
+| Script | Purpose |
+|--------|---------|
+| `npm run build:dev` | Build for development |
+| `npm run build:github-pages` | Build for GitHub Pages |
+| `npm run clean` | Clean build artifacts |
+
+#### Quality & Security
+
+| Script | Purpose |
+|--------|---------|
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Auto-fix linting issues |
+| `npm run audit:all` | Run all quality audits |
+| `npm run audit:seo` | SEO validation |
+| `npm run audit:ssl` | SSL certificate check |
+| `npm run security:audit` | Security vulnerability scan |
+
+#### Analysis & Reports
+
+| Script | Purpose |
+|--------|---------|
+| `npm run report:git` | Git activity analysis |
+| `npm run report:monthly` | Monthly maintenance report |
+| `npm run analyze:deps` | Dependency analysis |
+| `npm run analyze:performance` | Performance analysis |
+
+#### Version Management
+
+| Script | Purpose |
+|--------|---------|
+| `npm run version:patch` | Bump patch version |
+| `npm run version:minor` | Bump minor version |
+| `npm run version:major` | Bump major version |
+| `npm run version:info` comprehensive component libraries with live examples:
+
+### 📦 **Basic Components** (`/components`)
+
+- **Buttons** - All variants, sizes, and states
+- **Typography** - Headings, text utilities, and formatting
+- **Cards** - Various card layouts and styles
+- **Alerts** - All alert types with icons
+- **Forms** - Complete form elements with validation
+- **Modals** - Interactive modal examples
+- **Tables** - Responsive table designs
+- **Icons** - Bootstrap Icons showcase (2,000+ icons)
+
+### 🔥 **Advanced Components** (`/advanced-components`)
+
+- **Accordion** - Collapsible content panels
+- **Carousel** - Image/content sliders with controls
+- **Offcanvas** - Sliding panel navigation
+- **Tabs & Pills** - Tabbed content navigation
+- **Collapse** - Show/hide content functionality
+- **Dropdev
 
 # In another terminal, run tests in watch mode
 npm run test:watch
@@ -278,10 +355,76 @@ npm run test:watch
 # Check code quality
 npm run lint
 
+# Run all audits
+npm run audit:all
+
 # Build for production
 npm run build
+
+# Generate reports
+npm run report:monthly
 ```
 
+### 🏗️ Build System
+
+The project uses a sophisticated **function-based build orchestration system**:
+
+```bash
+# Main build orchestrator (clears and rebuilds everything)
+npm run build
+
+# Selective builds
+npm run build:scss      # SCSS only
+npm run build:pug       # Templates only
+npm run build:scripts   # JavaScript only
+
+# The build process:
+# 1. Cleans /docs directory (preserves .nojekyll)
+# 2. Compiles SCSS to CSS
+# 3. Bundles CSS dependencies
+# 4. Bundles JavaScript files
+# 5. Copies Bootstrap Icons
+# 6. Copies static assets
+# 7. Converts CSV data to JSON
+# 8. Generates static HTML pages
+# 9. Generates 100 song detail pages
+```
+
+### 📊 Tools Structure
+
+Development tools are organized by function in `/build/`:
+
+- **`/build/build/`** - Build orchestration and asset processing
+- **`/build/seo/`** - SEO validation and accessibility checks
+- **`/build/git/`** - Git analysis and reporting
+- **`/build/maintenance/`** - Maintenance automation and dependency management
+- **`/build/setup/`** - Interactive setup wizards
+
+All tools generate reports to `/temp/reports/` for automation integration.*Bootstrap Table Integration** - Feature-rich data tables
+- **Pagination** - Built-in pagination controls
+- **Search & Filter** - Real-time data filtering
+- **Sorting** - Multi-column sorting
+- **Export** - CSV/JSON export functionality
+- **Responsive Design** - Mobile-optimized tables
+- **Static JSON Loading** - GitHub Pages compatible
+
+### 🎵 **Dynamic Content Example** (`/song/1-100`)
+
+- **100 Pre-generated Pages** - Individual song detail pages
+- **Static Site Generation** - No server required
+- **JSON Data Loading** - Client-side data fetching
+- **Responsive Layout** - Mobile-first design
+- **SEO Optimized** - Individual meta tags per page
+
+### 🖼️ **Interactive Examples**
+
+Each component includes:
+
+- **Live Preview** - See components in action
+- **Copy-Paste Code** - Ready-to-use HTML snippets
+- **Responsive Design** - Mobile-optimized layouts
+- **Accessibility** - WCAG compliant implementations
+- **GitHub Pages Compatible** - Works without server
 ### 🎨 Customization
 
 #### **Theme Customization**
@@ -305,7 +448,32 @@ $border-radius: 0.375rem;
 
 #### **Adding Custom Components**
 
-1. Create component in `views/partials/`
+1. 
+
+### 🔧 **Static Site Generation**
+
+The build system includes powerful static site generation:
+
+- **EJS to HTML Conversion** - Renders all templates to static HTML
+- **Custom Template Detection** - Automatically discovers custom templates
+- **Path Conversion** - Converts paths for GitHub Pages subdirectory deployment
+- **Multi-Page Generation** - Creates 100+ pages from data sources
+- **Data Conversion** - Converts CSV to JSON for client-side loading
+- **Asset Optimization** - Bundles and minifies CSS/JS
+- **Bootstrap Icons** - Copies 2,000+ icons to output
+
+**Generated Structure:**
+```
+docs/
+├── index.html                              # Home page
+├── components/index.html                   # Component library
+├── advanced-components/index.html          # Advanced components
+├── data-tables/index.html                  # Data tables showcase
+├── song/1/index.html                       # Generated song pages
+├── song/100/index.html                     # 100 individual pages
+├── data/youtube-top-100-songs-2025.json   # Converted data
+└── [all other static assets]
+```Create component in `views/partials/`
 2. Add styles in `scss/_custom.scss`
 3. Include in page templates
 
@@ -343,27 +511,52 @@ The starter kit includes two comprehensive component libraries:
 
 Each component includes:
 
-- **Live Preview** - See components in action
-- **Copy-Paste Code** - Ready-to-use HTML snippets
-- **Responsive Design** - Mobile-optimized layouts
-- **Accessibility** - WCAG compliant implementations
+- **Live Preview** - See csrc/data/pages.json`:
 
-## 🌐 Deployment
+```json
+{
+  "title": "New Page",
+  "url": "/new-page",
+  "template": "page",
+  "content": {
+    "heading": "🎉 Welcome to My New Page",
+    "text": "This page was created with the JSON-based CMS",
+    "body": "<div class=\"alert alert-success\">Content goes here!</div>"
+  }
+}
+```
 
-### 🎯 **GitHub Pages (Recommended)**
+### 🎨 **Custom Templates**
 
-Automatic deployment with every push to main:
+Create custom templates in `src/views/`:
 
-```yaml
-# .github/workflows/ci.yml
-name: CI/CD Pipeline
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-jobs:
-  build-and-deploy:
+```javascript
+// src/views/my-custom-template.ejs
+// Reference in pages.json: "template": "my-custom-template"
+```
+
+The static site generator automatically detects and uses custom templates, falling back to `page.ejs` if not found.
+
+### 📊 **Data-Driven Content**
+
+Generate multiple pages from data files:
+
+```javascript
+// src/data/youtube-top-100-songs-2025.csv → docs/data/youtube-top-100-songs-2025.json
+// Build system converts CSV to JSON and generates 100 individual pages
+```
+
+**Example**: Song detail pages (`/song/1` through `/song/100`) are automatically generated during build from CSV data.
+
+### 🔄 **Automatic Features**
+
+- **Route Generation** - Pages automatically become accessible
+- **Navigation Updates** - Menu items added automatically
+- **SEO Optimization** - Meta tags generated from content
+- **Static Site Generation** - HTML files created for GitHub Pages
+- **Custom Template Detection** - Automatic template discovery
+- **Data Conversion** - CSV/JSON conversion during build
+- **Multi-Page Generation** - Create hundreds of pages from data
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
