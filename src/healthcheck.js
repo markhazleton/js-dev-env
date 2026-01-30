@@ -29,7 +29,8 @@ const req = http.request(options, (res) => {
 
 req.on('error', (error) => {
   // Sanitize error message to prevent log injection
-  const sanitizedError = error instanceof Error ? error.code || 'CONNECTION_ERROR' : 'UNKNOWN_ERROR';
+  const errorMsg = error instanceof Error ? error.code || 'CONNECTION_ERROR' : 'UNKNOWN_ERROR';
+  const sanitizedError = errorMsg.replace(/[\n\r]/g, '');
   console.error('Health check failed:', sanitizedError);
   process.exit(1);
 });

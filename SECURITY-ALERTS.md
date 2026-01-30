@@ -149,7 +149,18 @@ The CodeQL configuration will be used automatically on the next scan. To trigger
      - Uploads SARIF results for GitHub Security tab
    - **Impact**: Enables continuous automated security monitoring
 
+7. **Log Injection Vulnerabilities - Alerts #85, #86**
+   - **Files**: `src/healthcheck.js` (line 33), `src/utils/security.js` (line 57)
+   - **Status**: ✅ FIXED (2026-01-30)
+   - **Fix**: Sanitized error messages before logging by removing newlines and carriage returns
+   - **Changes**:
+     - healthcheck.js: Added `.replace(/[\n\r]/g, '')` to sanitize error codes before logging
+     - security.js: Added `.replace(/[\n\r]/g, '')` to sanitize error names before logging
+   - **Impact**: Prevents log forgery attacks where malicious users could inject fake log entries
+   - **Method**: Used CodeQL recommendation to remove newline characters that could split log entries
+   - **Reference**: [OWASP Log Injection](https://owasp.org/www-community/attacks/Log_Injection), [CWE-117](https://cwe.mitre.org/data/definitions/117.html)
+
 ---
 
 **Last Updated**: 2026-01-30
-**Status**: All source code issues fixed, automated scanning enabled, third-party issues mitigated
+**Status**: All source code issues fixed (including log injection), automated scanning enabled, third-party issues mitigated
