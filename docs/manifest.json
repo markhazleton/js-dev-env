@@ -1,7 +1,7 @@
 {
-  "name": "Bootstrap Express Starter Kit",
-  "short_name": "Bootstrap Kit",
-  "description": "A simple, lightweight starter kit for building websites with Bootstrap 5 and Express.js",
+  "name": "JsBootSpark",
+  "short_name": "JsBootSpark",
+  "description": "A modern Bootstrap 5 + Express.js starter kit for building beautiful web applications",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

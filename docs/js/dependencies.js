@@ -1,4 +1,4 @@
-/* JS Dependencies Bundle - Generated 2026-01-28T00:54:44.515Z */
+/* JS Dependencies Bundle - Generated 2026-01-30T17:44:29.728Z */
 
 /* bootstrap/dist/js/bootstrap.bundle.min.js */
 /*!

@@ -7,14 +7,14 @@
       name="description"
       content="<%= typeof pageDescription !== 'undefined' ? pageDescription : 'A simple CMS built with Bootstrap 5 and EJS' %>"
     />
-    <title><%= title %> | JS-Dev Starter</title>
+    <title><%= title %> | JsBootSpark</title>
 
     <!-- Structured data for SEO -->
     <script type="application/ld+json"<% if (typeof cspNonce !== 'undefined') { %> nonce="<%- cspNonce %>"<% } %>>
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "<%= typeof title !== 'undefined' ? title + ' | JS-Dev Starter' : 'JS-Dev Starter' %>",
+        "name": "<%= typeof title !== 'undefined' ? title + ' | JsBootSpark' : 'JsBootSpark' %>",
         "url": "<%= typeof absoluteUrl !== 'undefined' ? absoluteUrl : 'https://yourwebsite.com' %>",
         "description": "<%= typeof pageDescription !== 'undefined' ? pageDescription : 'A simple CMS built with Bootstrap 5 and EJS' %>"
       }
@@ -36,7 +36,7 @@
     <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand" href="/"
-          ><i class="bi bi-house"></i> JS-Dev Starter</a
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
         >
         <button
           class="navbar-toggler"
@@ -72,6 +72,18 @@
                 <li><a class="dropdown-item" href="/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
               </ul>
             </li>
 
@@ -119,7 +131,7 @@
         <div class="row">
           <div class="col-md-6">
             <span class="text-muted"
-              >© <%= new Date().getFullYear() %> JS-Dev Starter. All rights
+              >© <%= new Date().getFullYear() %> JsBootSpark. All rights
               reserved.</span
             >
             <span class="text-muted ms-2">|</span>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Team Collaboration Demo | JsBootSpark</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Team Collaboration Demo | JsBootSpark",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/js-dev-env/css/styles.css" rel="stylesheet" />
+    <link href="/js-dev-env/css/dependencies.css" rel="stylesheet" />
+    <link href="/js-dev-env/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/js-dev-env/favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/js-dev-env/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/js-dev-env/"
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/js-dev-env/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/js-dev-env/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
+            </li>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/js-dev-env/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/js-dev-env/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/js-dev-env/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/js-dev-env/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/js-dev-env/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/js-dev-env/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/js-dev-env/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+      
+      <h1 class="mb-4"><i class="bi bi-people-fill"></i> Team Collaboration</h1>
+      <p class="lead">A modern team workspace showcasing Bootstrap's collaborative interface components.</p>
+      <div class="content-body"><div class="container-fluid py-4">
+  <!-- Header with Search -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h4 class="mb-0"><i class="bi bi-building me-2"></i>Acme Corporation Workspace</h4>
+              <p class="text-muted mb-0">12 team members online</p>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control border-start-0" placeholder="Search projects, files, or team members...">
+                <button class="btn btn-primary" type="button"><i class="bi bi-filter"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Team Members Sidebar -->
+    <div class="col-xl-3">
+      <!-- Online Team Members -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-circle-fill text-success me-2" style="font-size: 0.5rem;"></i>Online Now</h5>
+          <span class="badge bg-success">12</span>
+        </div>
+        <div class="card-body p-0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center">
+              <div class="position-relative me-3">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">SM</div>
+                <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 12px; height: 12px;"></span>
+              </div>
+              <div class="flex-grow-1">
+                <p class="mb-0 fw-medium">Sarah Mitchell</p>
+                <small class="text-muted">Product Manager</small>
+              </div>
+              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-chat"></i></button>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <div class="position-relative me-3">
+                <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">JC</div>
+                <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 12px; height: 12px;"></span>
+              </div>
+              <div class="flex-grow-1">
+                <p class="mb-0 fw-medium">James Chen</p>
+                <small class="text-muted">Lead Developer</small>
+              </div>
+              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-chat"></i></button>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <div class="position-relative me-3">
+                <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">AR</div>
+                <span class="position-absolute bottom-0 end-0 bg-warning border border-white rounded-circle" style="width: 12px; height: 12px;"></span>
+              </div>
+              <div class="flex-grow-1">
+                <p class="mb-0 fw-medium">Anna Rodriguez</p>
+                <small class="text-muted">UX Designer</small>
+              </div>
+              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-chat"></i></button>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <div class="position-relative me-3">
+                <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">MK</div>
+                <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 12px; height: 12px;"></span>
+              </div>
+              <div class="flex-grow-1">
+                <p class="mb-0 fw-medium">Michael Kim</p>
+                <small class="text-muted">DevOps Engineer</small>
+              </div>
+              <button class="btn btn-sm btn-outline-primary"><i class="bi bi-chat"></i></button>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer bg-transparent border-0 text-center">
+          <a href="#" class="text-decoration-none">View all 12 members <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent border-0">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-bookmark me-2"></i>Quick Links</h5>
+        </div>
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="bi bi-folder text-primary me-3"></i>
+            <span>Shared Documents</span>
+            <span class="badge bg-primary ms-auto">24</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="bi bi-calendar-event text-success me-3"></i>
+            <span>Team Calendar</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="bi bi-kanban text-warning me-3"></i>
+            <span>Project Boards</span>
+            <span class="badge bg-warning text-dark ms-auto">3</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <i class="bi bi-graph-up text-info me-3"></i>
+            <span>Analytics</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-xl-6">
+      <!-- Project Kanban Board -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-kanban me-2"></i>Sprint Board - Website Redesign</h5>
+          <div>
+            <button class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-filter"></i></button>
+            <button class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Add Task</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <!-- To Do Column -->
+            <div class="col-md-4">
+              <div class="bg-light rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="mb-0 fw-semibold"><i class="bi bi-circle text-secondary me-2"></i>To Do</h6>
+                  <span class="badge bg-secondary">4</span>
+                </div>
+                <div class="card mb-2 border-0 shadow-sm">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="badge bg-danger">High</span>
+                      <small class="text-muted">WR-142</small>
+                    </div>
+                    <p class="mb-2 fw-medium">Update homepage hero section</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">AR</div>
+                      </div>
+                      <small class="text-muted"><i class="bi bi-chat me-1"></i>3</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-2 border-0 shadow-sm">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="badge bg-warning text-dark">Medium</span>
+                      <small class="text-muted">WR-143</small>
+                    </div>
+                    <p class="mb-2 fw-medium">Design new pricing page</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex">
+                        <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">SM</div>
+                      </div>
+                      <small class="text-muted"><i class="bi bi-paperclip me-1"></i>2</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- In Progress Column -->
+            <div class="col-md-4">
+              <div class="bg-light rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="mb-0 fw-semibold"><i class="bi bi-hourglass-split text-primary me-2"></i>In Progress</h6>
+                  <span class="badge bg-primary">3</span>
+                </div>
+                <div class="card mb-2 border-0 shadow-sm border-start border-primary border-3">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="badge bg-danger">High</span>
+                      <small class="text-muted">WR-138</small>
+                    </div>
+                    <p class="mb-2 fw-medium">Implement responsive navigation</p>
+                    <div class="progress mb-2" style="height: 4px;">
+                      <div class="progress-bar bg-primary" role="progressbar" style="width: 65%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex">
+                        <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">JC</div>
+                      </div>
+                      <small class="text-muted">65%</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-2 border-0 shadow-sm border-start border-primary border-3">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="badge bg-success">Low</span>
+                      <small class="text-muted">WR-139</small>
+                    </div>
+                    <p class="mb-2 fw-medium">Write API documentation</p>
+                    <div class="progress mb-2" style="height: 4px;">
+                      <div class="progress-bar bg-primary" role="progressbar" style="width: 40%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex">
+                        <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">MK</div>
+                      </div>
+                      <small class="text-muted">40%</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Done Column -->
+            <div class="col-md-4">
+              <div class="bg-light rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="mb-0 fw-semibold"><i class="bi bi-check-circle text-success me-2"></i>Done</h6>
+                  <span class="badge bg-success">8</span>
+                </div>
+                <div class="card mb-2 border-0 shadow-sm opacity-75">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="badge bg-secondary">Completed</span>
+                      <small class="text-muted">WR-135</small>
+                    </div>
+                    <p class="mb-2 fw-medium text-decoration-line-through">Setup project repository</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex">
+                        <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">JC</div>
+                      </div>
+                      <small class="text-success"><i class="bi bi-check-lg"></i></small>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-2 border-0 shadow-sm opacity-75">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="badge bg-secondary">Completed</span>
+                      <small class="text-muted">WR-136</small>
+                    </div>
+                    <p class="mb-2 fw-medium text-decoration-line-through">Design system documentation</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex">
+                        <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;">AR</div>
+                      </div>
+                      <small class="text-success"><i class="bi bi-check-lg"></i></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Feed -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent border-0">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-activity me-2"></i>Team Activity</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex mb-4">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 40px; height: 40px;">SM</div>
+            <div class="flex-grow-1">
+              <div class="bg-light rounded p-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <strong>Sarah Mitchell</strong>
+                  <small class="text-muted">2 min ago</small>
+                </div>
+                <p class="mb-2">Uploaded new mockups for the dashboard redesign. Please review when you have a chance!</p>
+                <div class="d-flex gap-2">
+                  <div class="bg-white border rounded p-2 d-flex align-items-center">
+                    <i class="bi bi-file-earmark-image text-primary me-2"></i>
+                    <span class="small">dashboard-v2.fig</span>
+                  </div>
+                  <div class="bg-white border rounded p-2 d-flex align-items-center">
+                    <i class="bi bi-file-earmark-pdf text-danger me-2"></i>
+                    <span class="small">specs.pdf</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-2">
+                <button class="btn btn-sm btn-link text-muted p-0 me-3"><i class="bi bi-heart"></i> 4</button>
+                <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-reply"></i> Reply</button>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex mb-4">
+            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 40px; height: 40px;">JC</div>
+            <div class="flex-grow-1">
+              <div class="bg-light rounded p-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <strong>James Chen</strong>
+                  <small class="text-muted">1 hour ago</small>
+                </div>
+                <p class="mb-0">Merged PR #142 - Implemented new authentication flow. <span class="badge bg-success">+847 lines</span> <span class="badge bg-danger">-234 lines</span></p>
+              </div>
+              <div class="mt-2">
+                <button class="btn btn-sm btn-link text-muted p-0 me-3"><i class="bi bi-heart"></i> 7</button>
+                <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-reply"></i> Reply</button>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 40px; height: 40px;">AR</div>
+            <div class="flex-grow-1">
+              <div class="bg-light rounded p-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <strong>Anna Rodriguez</strong>
+                  <small class="text-muted">3 hours ago</small>
+                </div>
+                <p class="mb-0">Created a new project milestone: <span class="badge bg-primary">Q1 Launch</span> - Target date: March 15, 2026</p>
+              </div>
+              <div class="mt-2">
+                <button class="btn btn-sm btn-link text-muted p-0 me-3"><i class="bi bi-heart"></i> 12</button>
+                <button class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-reply"></i> Reply</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="col-xl-3">
+      <!-- Upcoming Meetings -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-transparent border-0">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-camera-video me-2"></i>Upcoming Meetings</h5>
+        </div>
+        <div class="card-body">
+          <div class="border rounded p-3 mb-3 border-start border-primary border-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h6 class="mb-0">Sprint Planning</h6>
+              <span class="badge bg-danger">In 15 min</span>
+            </div>
+            <p class="text-muted small mb-2"><i class="bi bi-clock me-1"></i>10:00 AM - 11:00 AM</p>
+            <div class="d-flex align-items-center">
+              <div class="d-flex me-2">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.6rem; margin-left: -5px;">SM</div>
+                <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.6rem; margin-left: -5px;">JC</div>
+                <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.6rem; margin-left: -5px;">+4</div>
+              </div>
+              <button class="btn btn-sm btn-primary ms-auto"><i class="bi bi-camera-video"></i> Join</button>
+            </div>
+          </div>
+          <div class="border rounded p-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h6 class="mb-0">Design Review</h6>
+              <span class="badge bg-secondary">2:00 PM</span>
+            </div>
+            <p class="text-muted small mb-2"><i class="bi bi-clock me-1"></i>2:00 PM - 3:00 PM</p>
+            <div class="d-flex align-items-center">
+              <div class="d-flex me-2">
+                <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.6rem; margin-left: -5px;">AR</div>
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.6rem; margin-left: -5px;">SM</div>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary ms-auto"><i class="bi bi-calendar-check"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Stats -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-transparent border-0">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-graph-up me-2"></i>Sprint Progress</h5>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <div class="position-relative d-inline-block">
+              <div class="progress rounded-circle" style="width: 120px; height: 120px; transform: rotate(-90deg);">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 68%; transform-origin: center center;"></div>
+              </div>
+              <div class="position-absolute top-50 start-50 translate-middle">
+                <h3 class="mb-0 fw-bold">68%</h3>
+                <small class="text-muted">Complete</small>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center g-3">
+            <div class="col-4">
+              <h5 class="mb-0 fw-bold">24</h5>
+              <small class="text-muted">Total Tasks</small>
+            </div>
+            <div class="col-4">
+              <h5 class="mb-0 fw-bold text-success">16</h5>
+              <small class="text-muted">Completed</small>
+            </div>
+            <div class="col-4">
+              <h5 class="mb-0 fw-bold text-primary">8</h5>
+              <small class="text-muted">In Progress</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Files -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 fw-semibold"><i class="bi bi-folder me-2"></i>Recent Files</h5>
+          <a href="#" class="btn btn-sm btn-link p-0">View all</a>
+        </div>
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-file-earmark-code text-primary fs-4 me-3"></i>
+              <div class="flex-grow-1 overflow-hidden">
+                <p class="mb-0 fw-medium text-truncate">app.component.ts</p>
+                <small class="text-muted">Modified 5 min ago</small>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-file-earmark-image text-success fs-4 me-3"></i>
+              <div class="flex-grow-1 overflow-hidden">
+                <p class="mb-0 fw-medium text-truncate">hero-banner.png</p>
+                <small class="text-muted">Modified 1 hour ago</small>
+              </div>
+            </div>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-file-earmark-spreadsheet text-success fs-4 me-3"></i>
+              <div class="flex-grow-1 overflow-hidden">
+                <p class="mb-0 fw-medium text-truncate">budget-q1-2026.xlsx</p>
+                <small class="text-muted">Modified 2 hours ago</small>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+      
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2026 JsBootSpark. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+            
+            <div class="mt-1">
+              <small class="text-muted">
+                v1.0.1-build.133 | Built: 1/30/2026
+              </small>
+            </div>
+            
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/js-dev-env/js/dependencies.min.js"></script>
+    <script src="/js-dev-env/js/service-worker-register.js"></script>
+    <script src="/js-dev-env/js/theme-toggle.js"></script>
+    <script src="/js-dev-env/js/theme-demo.js"></script>
+    <script src="/js-dev-env/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    
+  </body>
+</html>
