@@ -506,7 +506,7 @@ class CustomizationWizard {
     let variables;
     try {
       variables = fs.readFileSync(variablesPath, 'utf-8');
-    } catch (error) {
+    } catch (_error) {
       // File doesn't exist or can't be read
       return;
     }
@@ -547,7 +547,7 @@ class CustomizationWizard {
     let data;
     try {
       data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-    } catch (error) {
+    } catch (_error) {
       // File doesn't exist or can't be read, use empty object
       data = {};
     }
