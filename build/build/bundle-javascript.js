@@ -145,10 +145,26 @@ function minifyFile(inputFile, outputFile) {
     try {
         console.log(`🗜️  Minifying: ${path.basename(inputFile)}`);
         
-        // Use uglify-js to minify - Use array form to prevent command injection
-        const { spawnSync } = require('child_process');
-        const result = spawnSync('npx', ['uglifyjs', inputFile, '-o', outputFile, '--compress', '--mangle'], { stdio: 'pipe' });
-        if (result.error) throw result.error;
+        // Use uglify-js module directly instead of spawning process
+        const UglifyJS = require('uglify-js');
+        const code = fs.readFileSync(inputFile, 'utf8');
+        
+        const result = UglifyJS.minify(code, {
+            compress: {
+                dead_code: true,
+                drop_debugger: true
+            },
+            mangle: true,
+            output: {
+                comments: false
+            }
+        });
+        
+        if (result.error) {
+            throw result.error;
+        }
+        
+        fs.writeFileSync(outputFile, result.code, 'utf8');
         
         const originalSize = fs.statSync(inputFile).size;
         const minifiedSize = fs.statSync(outputFile).size;
@@ -159,6 +175,7 @@ function minifyFile(inputFile, outputFile) {
         return { originalSize, minifiedSize, savings };
     } catch (error) {
         console.error(`❌ Minification failed for ${inputFile}: ${error.message}`);
+        console.log(`   ⚠️  Using unminified version`);
         // Copy original file if minification fails
         fs.copyFileSync(inputFile, outputFile);
         return null;

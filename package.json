@@ -1,6 +1,6 @@
 {
   "name": "js-dev-env",
-  "version": "1.0.1-build.137",
+  "version": "1.0.1-build.144",
   "main": "src/index.js",
   "engines": {
     "node": ">=18.0.0",
@@ -18,7 +18,7 @@
     "start:server": "nodemon src/index.js",
     "start:dev": "npm run dev",
     "dev:bundle": "npm run bundle-js && npm run bundle-css-deps",
-    "watch-css": "sass --watch --load-path=node_modules src/scss/main.scss:docs/css/styles.css",
+    "watch-css": "sass --watch --load-path=node_modules --quiet-deps src/scss/main.scss:docs/css/styles.css",
     "// Build System": "# Build and deployment",
     "prebuild": "npm run clean",
     "build:dev": "npm run build-css-dev && npm run copy-icons",
@@ -71,8 +71,8 @@
     "templates:wizard": "node src/templates/template-cli.js wizard",
     "templates:customize": "node src/templates/customization-wizard.js",
     "// Internal Tools": "# Usually not called directly",
-    "build-css": "sass --load-path=node_modules src/scss/main.scss docs/css/styles.css",
-    "build-css-dev": "sass --load-path=node_modules src/scss/main.scss src/public/css/styles.css",
+    "build-css": "sass --load-path=node_modules --quiet-deps src/scss/main.scss docs/css/styles.css",
+    "build-css-dev": "sass --load-path=node_modules --quiet-deps src/scss/main.scss src/public/css/styles.css",
     "bundle-js": "node build/build/bundle-javascript.js",
     "bundle-css-deps": "node build/build/bundle-css-dependencies.js",
     "copy-icons": "node build/build/copy-icons.js",

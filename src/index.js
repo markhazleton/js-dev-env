@@ -680,7 +680,19 @@ app.use((req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  // Only log full stack trace in non-test environments
+  if (process.env.NODE_ENV !== 'test') {
+    console.error(err.stack);
+  }
+  
+  // Handle JSON parse errors with 400 Bad Request
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid JSON format'
+    });
+  }
+  
   res.status(500).render('page', {
     title: 'Error',
     content: {
@@ -692,28 +704,32 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start the server
+// Start the server (only if not in test mode)
+let server;
 const port = process.env.PORT || 3000;
-app.listen(port, async () => {
-  console.log(`Server running at http://localhost:${port}/`);
-  
-  // Initialize plugins after server starts
-  await initializePlugins();
-  
-  // Initialize songs cache
-  try {
-    await loadSongsCache();
-  } catch (error) {
-    console.error('❌ Failed to load songs cache on startup:', error.message);
-  }
-  
-  // Execute app start hook
-  try {
-    await pluginManager.executeHook(PLUGIN_HOOKS.APP_AFTER_START, app);
-  } catch (error) {
-    console.error('Plugin hook error:', error.message);
-  }
-});
 
-// Export the app for testing
-module.exports = { app };
+if (process.env.NODE_ENV !== 'test') {
+  server = app.listen(port, async () => {
+    console.log(`Server running at http://localhost:${port}/`);
+    
+    // Initialize plugins after server starts
+    await initializePlugins();
+    
+    // Initialize songs cache
+    try {
+      await loadSongsCache();
+    } catch (error) {
+      console.error('❌ Failed to load songs cache on startup:', error.message);
+    }
+    
+    // Execute app start hook
+    try {
+      await pluginManager.executeHook(PLUGIN_HOOKS.APP_AFTER_START, app);
+    } catch (error) {
+      console.error('Plugin hook error:', error.message);
+    }
+  });
+}
+
+// Export the app and server for testing
+module.exports = { app, server };

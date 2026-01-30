@@ -322,7 +322,7 @@ describe('Security Utilities', () => {
       const isValid = await security.verifySRIHash('https://example.com/test.js', 'sha384-hash');
 
       expect(isValid).toBe(false);
-      expect(consoleSpy).toHaveBeenCalledWith('Error verifying SRI hash:', expect.any(Error));
+      expect(consoleSpy).toHaveBeenCalledWith('Error verifying SRI hash:', 'Error');
 
       consoleSpy.mockRestore();
     });
