@@ -146,9 +146,13 @@ async function generateSite() {
   
   // Create .nojekyll file for GitHub Pages
   const nojekyllPath = path.join(docsDir, '.nojekyll');
-  if (!fs.existsSync(nojekyllPath)) {
+  try {
     fs.writeFileSync(nojekyllPath, '');
     console.log('Created .nojekyll file for GitHub Pages');
+  } catch (error) {
+    if (error.code !== 'EEXIST') {
+      console.log('.nojekyll file already exists or could not be created');
+    }
   }
   
   console.log('Static site generation complete!');

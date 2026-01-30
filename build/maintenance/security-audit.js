@@ -119,10 +119,14 @@ async function main() {
       }
       
       // Check for inline scripts (potential CSP violations)
-      // Use a more robust script tag detection that properly handles spaces in closing tags
-      const scriptTagRegex = /<script\b[^<]*(?:(?!<\/script\s*>)<[^<]*)*<\/script\s*>/gi;
-      const inlineScripts = content.match(scriptTagRegex);
-      if (inlineScripts) {
+      // Use a simpler approach that handles all variations of closing tags
+      const scriptPattern = /<script\b[^>]*>([\s\S]*?)<\/script[\s\S]*?>/gi;
+      let match;
+      const inlineScripts = [];
+      while ((match = scriptPattern.exec(content)) !== null) {
+        inlineScripts.push(match[0]);
+      }
+      if (inlineScripts.length > 0) {
         for (const script of inlineScripts) {
           if (!script.includes('src=') && !script.includes('nonce=')) {
             securityIssues.push({
