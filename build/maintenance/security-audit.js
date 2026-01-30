@@ -119,8 +119,8 @@ async function main() {
       }
       
       // Check for inline scripts (potential CSP violations)
-      // Use a more robust script tag detection that doesn't use bad regex patterns
-      const scriptTagRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+      // Use a more robust script tag detection that properly handles spaces in closing tags
+      const scriptTagRegex = /<script\b[^<]*(?:(?!<\/script\s*>)<[^<]*)*<\/script\s*>/gi;
       const inlineScripts = content.match(scriptTagRegex);
       if (inlineScripts) {
         for (const script of inlineScripts) {

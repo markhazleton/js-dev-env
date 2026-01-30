@@ -601,15 +601,20 @@ function categorizeLink(url) {
     const urlObj = new URL(url);
     const hostname = urlObj.hostname.toLowerCase();
     
-    // Check against specific domains using endsWith to prevent substring false positives
-    if (hostname.endsWith('spotify.com') || hostname === 'spotify.com') return 'Spotify';
-    if (hostname.endsWith('apple.com') || hostname === 'apple.com') return 'Apple Music';
-    if (hostname.endsWith('youtube.com') || hostname === 'youtube.com' || hostname.endsWith('youtu.be') || hostname === 'youtu.be') return 'YouTube';
-    if (hostname.endsWith('instagram.com') || hostname === 'instagram.com') return 'Instagram';
-    if (hostname.endsWith('tiktok.com') || hostname === 'tiktok.com') return 'TikTok';
-    if (hostname.endsWith('twitter.com') || hostname === 'twitter.com' || hostname === 'x.com' || hostname.endsWith('x.com')) return 'Twitter/X';
-    if (hostname.endsWith('facebook.com') || hostname === 'facebook.com') return 'Facebook';
-    if (hostname.endsWith('lnk.to') || hostname === 'lnk.to') return 'Universal Link';
+    // Helper to check if hostname is exactly the domain or a subdomain
+    const isDomainOrSubdomain = (host, domain) => {
+      return host === domain || host.endsWith('.' + domain);
+    };
+    
+    // Check against specific domains with proper subdomain validation
+    if (isDomainOrSubdomain(hostname, 'spotify.com')) return 'Spotify';
+    if (isDomainOrSubdomain(hostname, 'apple.com')) return 'Apple Music';
+    if (isDomainOrSubdomain(hostname, 'youtube.com') || isDomainOrSubdomain(hostname, 'youtu.be')) return 'YouTube';
+    if (isDomainOrSubdomain(hostname, 'instagram.com')) return 'Instagram';
+    if (isDomainOrSubdomain(hostname, 'tiktok.com')) return 'TikTok';
+    if (isDomainOrSubdomain(hostname, 'twitter.com') || isDomainOrSubdomain(hostname, 'x.com')) return 'Twitter/X';
+    if (isDomainOrSubdomain(hostname, 'facebook.com')) return 'Facebook';
+    if (isDomainOrSubdomain(hostname, 'lnk.to')) return 'Universal Link';
     return 'Website';
   } catch {
     // If URL parsing fails, return default

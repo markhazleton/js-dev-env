@@ -244,17 +244,17 @@
             if (noThumbnail) noThumbnail.classList.remove('d-none');
           }
           
+          // Helper function to escape HTML (defined once to prevent conflicts)
+          function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+          }
+          
           // Handle description
           const descContainer = document.getElementById('song-description');
           const descCard = document.getElementById('description-card');
           if (descContainer && data.description) {
-            // Escape HTML to prevent XSS
-            function escapeHtml(text) {
-              var div = document.createElement('div');
-              div.textContent = text;
-              return div.innerHTML;
-            }
-            
             // Format description with line breaks and links
             const escapedDesc = escapeHtml(data.description);
             const formattedDesc = escapedDesc
@@ -273,12 +273,6 @@
           const tagsContainer = document.getElementById('song-tags');
           const tagsCard = document.getElementById('tags-card');
           if (tagsContainer && data.tags) {
-            function escapeHtml(text) {
-              var div = document.createElement('div');
-              div.textContent = text;
-              return div.innerHTML;
-            }
-            
             const tagList = data.tags.split(/[;,]/).map(function(tag) { return tag.trim(); }).filter(function(tag) { return tag; });
             if (tagList.length > 0) {
               tagsContainer.innerHTML = tagList.map(function(tag) {

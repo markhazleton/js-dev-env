@@ -502,11 +502,14 @@ class CustomizationWizard {
   async applyThemeCustomizations(outputDir, theme) {
     const variablesPath = path.join(outputDir, 'scss', '_variables.scss');
     
-    if (!fs.existsSync(variablesPath)) {
+    // Read file directly with error handling to avoid race condition
+    let variables;
+    try {
+      variables = fs.readFileSync(variablesPath, 'utf-8');
+    } catch (error) {
+      // File doesn't exist or can't be read
       return;
     }
-    
-    let variables = fs.readFileSync(variablesPath, 'utf-8');
     
     if (theme.primaryColor) {
       variables = variables.replace(
@@ -540,8 +543,16 @@ class CustomizationWizard {
     // Update site configuration or data files with branding information
     const dataPath = path.join(outputDir, 'data', 'pages.json');
     
-    if (fs.existsSync(dataPath)) {
-      const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+    // Read file directly with error handling to avoid race condition
+    let data;
+    try {
+      data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+    } catch (error) {
+      // File doesn't exist or can't be read, use empty object
+      data = {};
+    }
+    
+    if (data && typeof data === 'object') {
       
       if (branding.siteName) {
         data.site = data.site || {};

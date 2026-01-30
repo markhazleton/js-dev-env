@@ -52,7 +52,9 @@ async function verifySRIHash(url, expectedHash) {
     const actualHash = await generateSRIHash(url);
     return actualHash === expectedHash;
   } catch (error) {
-    console.error('Error verifying SRI hash:', error);
+    // Sanitize error message to prevent log injection
+    const sanitizedError = error instanceof Error ? error.name : 'Unknown error';
+    console.error('Error verifying SRI hash:', sanitizedError);
     return false;
   }
 }
