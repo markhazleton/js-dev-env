@@ -8,15 +8,6 @@ Sessions are organized by date in the format: `session-YYYY-MM-DD/`
 
 ```
 /copilot/
-├── session-2025-01-14/
-├── session-2025-01-17/
-├── session-2025-01-23/
-├── session-2025-09-06/
-├── session-2025-09-14/
-├── session-2025-09-26/
-├── session-2025-10-03/
-├── session-2025-10-04/
-└── session-2025-10-06/
 ```
 
 ## 🎯 Purpose

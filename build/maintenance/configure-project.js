@@ -21,7 +21,7 @@ function question(prompt) {
 }
 
 async function runWizard() {
-  console.log('🚀 JS-Dev-Env Configuration Wizard\n');
+  console.log('🚀 JsBootSpark Configuration Wizard\n');
   console.log('This wizard will help you configure the project based on your needs.\n');
 
   // Step 1: Determine use case

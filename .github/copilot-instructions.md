@@ -14,7 +14,7 @@ Example structure:
 
 ## 🚀 Project Context
 
-This is a **Bootstrap 5 + Express.js Starter Kit** with the following key characteristics:
+This is **JsBootSpark — Full-stack Bootstrap + Express starter** with the following key characteristics:
 
 ### Core Technologies
 

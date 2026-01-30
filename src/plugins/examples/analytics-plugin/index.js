@@ -35,7 +35,7 @@ class AnalyticsPlugin extends BasePlugin {
   }
 
   getAuthor() {
-    return 'JS Dev Env';
+    return 'JsBootSpark';
   }
 
   async initialize(pluginManager) {

@@ -42,7 +42,7 @@ class BuildOptimizerPlugin extends BasePlugin {
   }
 
   getAuthor() {
-    return 'JS Dev Env';
+    return 'JsBootSpark';
   }
 
   async initialize(pluginManager) {

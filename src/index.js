@@ -226,7 +226,7 @@ apiRouter.get('/health', (req, res) => {
 // Application info endpoint
 apiRouter.get('/info', (req, res) => {
   res.json({
-    name: process.env.SITE_NAME || 'Bootstrap 5 + Express.js Starter Kit',
+    name: process.env.SITE_NAME || 'JsBootSpark',
     version: '1.0.0',
     environment,
     timestamp: new Date(),

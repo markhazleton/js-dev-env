@@ -1,4 +1,4 @@
-# 🚀 Bootstrap 5 + Express.js Starter Kit
+# 🚀 JsBootSpark — Full-stack Bootstrap + Express starter
 
 <div align="center">
 
@@ -12,7 +12,7 @@
 [![Express](https://img.shields.io/badge/Express-5.1.0-blue?style=for-the-badge&logo=express)](https://expressjs.com/)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=for-the-badge&logo=github)](https://markhazleton.github.io/js-dev-env/)
 
-**A production-ready, feature-rich starter kit for building modern, responsive web applications**
+**JsBootSpark is a production-ready, feature-rich starter kit for building modern, responsive web applications**
 
 🌐 **[Live Demo](https://markhazleton.github.io/js-dev-env/)** | 📚 **[Documentation](https://github.com/markhazleton/js-dev-env/wiki)** | 🚀 **[Quick Start](#-quick-start)**
 

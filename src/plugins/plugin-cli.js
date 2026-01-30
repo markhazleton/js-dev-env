@@ -314,7 +314,7 @@ Custom plugin generated from template.
 
 ## Description
 
-This plugin provides custom functionality for the JS Dev Env starter kit.
+This plugin provides custom functionality for the JsBootSpark starter kit.
 
 ## Configuration
 

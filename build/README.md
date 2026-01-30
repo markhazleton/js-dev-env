@@ -1,6 +1,6 @@
 # Development Tools
 
-This directory contains all development tools organized by function for the js-dev-env project. The tools structure provides organized, maintainable, and automated development workflows across build processes, SEO optimization, git analysis, and maintenance tasks.
+This directory contains all development tools organized by function for the JsBootSpark project. The tools structure provides organized, maintainable, and automated development workflows across build processes, SEO optimization, git analysis, and maintenance tasks.
 
 ## Architecture Overview
 
