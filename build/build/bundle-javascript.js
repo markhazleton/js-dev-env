@@ -26,7 +26,6 @@ const config = {
     
     // Custom JS files to include
     customFiles: [
-        'custom.js',
         'song-detail.js',
         'theme-demo.js',
         'theme-toggle.js',
