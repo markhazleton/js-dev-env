@@ -16,8 +16,6 @@ paths-ignore:
 paths:
   - 'src/**'
   - 'build/**'
-  - '!**/*.min.js'
-  - '!**/dependencies.js'
 
 # Query configuration
 queries:
