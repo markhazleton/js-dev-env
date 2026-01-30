@@ -173,22 +173,44 @@ console.log('External song-detail.js loaded!');
       
       if (formattedDesc.length > 500) {
         const shortDesc = formattedDesc.substring(0, 500) + '...';
-        descContainer.innerHTML = shortDesc;
+        setHTMLSafely(descContainer, shortDesc);
         toggleBtn.classList.remove('d-none');
         
         let isExpanded = false;
         toggleBtn.onclick = function() {
           if (isExpanded) {
-            descContainer.innerHTML = shortDesc;
-            toggleBtn.innerHTML = '<i class="bi bi-chevron-down me-1"></i>Show More';
+            setHTMLSafely(descContainer, shortDesc);
+            // Create icon and text safely
+            toggleBtn.textContent = '';
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-chevron-down me-1';
+            toggleBtn.appendChild(icon);
+            toggleBtn.appendChild(document.createTextNode('Show More'));
           } else {
-            descContainer.innerHTML = formattedDesc;
-            toggleBtn.innerHTML = '<i class="bi bi-chevron-up me-1"></i>Show Less';
+            setHTMLSafely(descContainer, formattedDesc);
+            // Create icon and text safely
+            toggleBtn.textContent = '';
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-chevron-up me-1';
+            toggleBtn.appendChild(icon);
+            toggleBtn.appendChild(document.createTextNode('Show Less'));
           }
           isExpanded = !isExpanded;
         };
       } else {
-        descContainer.innerHTML = formattedDesc;
+        setHTMLSafely(descContainer, formattedDesc);
+      }
+    }
+
+    // Helper function to safely set HTML content from sanitized strings
+    function setHTMLSafely(container, htmlString) {
+      // Use DOMParser to create DOM from sanitized HTML string
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlString, 'text/html');
+      container.textContent = '';
+      // Append nodes from parsed document
+      while (doc.body.firstChild) {
+        container.appendChild(doc.body.firstChild);
       }
     }
 
@@ -232,16 +254,16 @@ console.log('External song-detail.js loaded!');
         return;
       }
 
-      // Escape HTML in tags to prevent XSS
-      const escapeHtml = (text) => {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-      };
-
-      tagsContainer.innerHTML = tagList.map(tag => 
-        `<span class="badge bg-light text-dark border">${escapeHtml(tag)}</span>`
-      ).join('');
+      // Clear container and create badge elements safely
+      tagsContainer.textContent = '';
+      tagList.forEach(tag => {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-light text-dark border';
+        badge.textContent = tag; // Safe - uses textContent instead of innerHTML
+        tagsContainer.appendChild(badge);
+        // Add space between badges
+        tagsContainer.appendChild(document.createTextNode(' '));
+      });
     }
 
     function setupNavigation(currentRank) {

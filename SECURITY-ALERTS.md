@@ -125,7 +125,31 @@ The CodeQL configuration will be used automatically on the next scan. To trigger
 - [URL API for Safe URL Parsing](https://developer.mozilla.org/en-US/docs/Web/API/URL)
 - [GitHub Code Scanning](https://docs.github.com/en/code-security/code-scanning)
 
+### ✅ Additional Security Improvements (2026-01-30)
+
+**New Fixes Applied:**
+
+5. **DOM-based XSS via innerHTML - Multiple Alerts**
+   - **Files**: `src/public/js/theme-toggle.js`, `src/public/js/song-detail.js`
+   - **Status**: ✅ FIXED
+   - **Fix**: Replaced all `innerHTML` assignments with safe DOM manipulation methods
+   - **Changes**:
+     - theme-toggle.js: Use `createElement()` and `appendChild()` for icon creation
+     - song-detail.js: Use `DOMParser` with `textContent` and `appendChild()` for description rendering
+     - song-detail.js: Use `createElement()` with `textContent` for tag badges
+   - **Impact**: Eliminates potential DOM-based XSS vulnerabilities
+
+6. **CodeQL Workflow Configuration**
+   - **File**: `.github/workflows/codeql-analysis.yml`
+   - **Status**: ✅ IMPLEMENTED
+   - **Features**:
+     - Automated security scanning on push/PR to main and develop branches
+     - Weekly scheduled scans every Monday at 6 AM UTC
+     - Uses custom CodeQL configuration to exclude generated files
+     - Uploads SARIF results for GitHub Security tab
+   - **Impact**: Enables continuous automated security monitoring
+
 ---
 
-**Last Updated**: 2025-11-03
-**Status**: Source code issues fixed, third-party issues documented and mitigated
+**Last Updated**: 2026-01-30
+**Status**: All source code issues fixed, automated scanning enabled, third-party issues mitigated
