@@ -18,15 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const applyTheme = (theme) => {
     if (theme === 'dark') {
       htmlElement.setAttribute('data-bs-theme', 'dark');
-      if (darkModeToggle) {
+      if (darkModeToggle && darkModeToggle.nextElementSibling) {
         darkModeToggle.checked = true;
-        darkModeToggle.nextElementSibling.innerHTML = '<i class="bi bi-moon-fill"></i>';
+        // Create icon element safely instead of using innerHTML
+        const icon = document.createElement('i');
+        icon.className = 'bi bi-moon-fill';
+        darkModeToggle.nextElementSibling.textContent = '';
+        darkModeToggle.nextElementSibling.appendChild(icon);
       }
     } else {
       htmlElement.setAttribute('data-bs-theme', 'light');
-      if (darkModeToggle) {
+      if (darkModeToggle && darkModeToggle.nextElementSibling) {
         darkModeToggle.checked = false;
-        darkModeToggle.nextElementSibling.innerHTML = '<i class="bi bi-sun-fill"></i>';
+        // Create icon element safely instead of using innerHTML
+        const icon = document.createElement('i');
+        icon.className = 'bi bi-sun-fill';
+        darkModeToggle.nextElementSibling.textContent = '';
+        darkModeToggle.nextElementSibling.appendChild(icon);
       }
     }
   };
