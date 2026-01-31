@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Data Tables | JsBootSpark</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Data Tables | JsBootSpark",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/JsBootSpark/css/styles.css" rel="stylesheet" />
+    <link href="/JsBootSpark/css/dependencies.css" rel="stylesheet" />
+    <link href="/JsBootSpark/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/JsBootSpark/favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/JsBootSpark/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/JsBootSpark/"
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
+            </li>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+       <!-- Page header section -->
+<div class="page-header mb-4">
+  <h1><i class="bi bi-table"></i> Bootstrap Table - Advanced Data Tables</h1>
+  <p class="lead">World-class data table implementation with sorting, filtering, pagination, search, and export capabilities.</p>
+  
+  <hr>
+</div>
+
+<!-- Page intro -->
+<div class="alert alert-info d-flex align-items-start mb-4" role="alert">
+  <i class="bi bi-lightbulb-fill me-3 fs-4"></i>
+  <div>
+    <h5 class="alert-heading">World-Class Data Table Features</h5>
+    <p class="mb-2">This implementation showcases Bootstrap Table's powerful capabilities:</p>
+    <ul class="mb-0">
+      <li><strong>Sorting</strong> - Click column headers to sort</li>
+      <li><strong>Searching</strong> - Real-time search across all columns</li>
+      <li><strong>Pagination</strong> - Navigate large datasets efficiently</li>
+      <li><strong>Column Filtering</strong> - Advanced filtering per column</li>
+      <li><strong>Export</strong> - Download data in multiple formats (CSV, JSON, Excel)</li>
+      <li><strong>Responsive</strong> - Optimized for mobile devices</li>
+      <li><strong>Server-Side Ready</strong> - Can handle millions of records with API integration</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Feature Showcase Section -->
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="bi bi-music-note-beamed me-2"></i>YouTube Top 100 Songs 2025</h3>
+      </div>
+      <div class="card-body">
+        
+        <!-- Toolbar with controls -->
+        <div id="toolbar" class="mb-3">
+          <div class="row g-2">
+            <div class="col-md-3">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search songs..." />
+              </div>
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-success" id="export-csv">
+                <i class="bi bi-file-earmark-csv me-1"></i> CSV
+              </button>
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-primary" id="export-json">
+                <i class="bi bi-file-earmark-code me-1"></i> JSON
+              </button>
+            </div>
+            <div class="col-md-auto">
+              <button class="btn btn-info" id="export-excel">
+                <i class="bi bi-file-earmark-excel me-1"></i> Excel
+              </button>
+            </div>
+            <div class="col-md-auto ms-auto">
+              <button class="btn btn-outline-secondary" id="refresh-table">
+                <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Data Table -->
+        <div class="table-responsive">
+          <table
+            id="songTable"
+            class="table table-striped table-hover"
+            data-toolbar="#toolbar"
+            data-search="true"
+            data-show-columns="true"
+            data-show-columns-toggle-all="true"
+            data-show-refresh="true"
+            data-show-fullscreen="true"
+            data-pagination="true"
+            data-page-list="[10, 25, 50, 100, All]"
+            data-page-size="25"
+            data-filter-control="true"
+            data-url="/JsBootSpark/data/youtube-top-100-songs-2025.json"
+            data-side-pagination="client"
+            data-response-handler="responseHandler"
+            data-loading-template="loadingTemplate"
+            data-icons-prefix="bi"
+            data-icons="{
+              refresh: 'bi-arrow-clockwise',
+              columns: 'bi-list-ul',
+              fullscreen: 'bi-arrows-fullscreen'
+            }">
+            <thead>
+              <tr>
+                <th data-field="rank" data-sortable="true" data-width="80" data-align="center">
+                  <i class="bi bi-hash"></i> Rank
+                </th>
+                <th data-field="title" data-sortable="true" data-filter-control="input" data-formatter="titleFormatter">
+                  <i class="bi bi-music-note"></i> Title
+                </th>
+                <th data-field="channel" data-sortable="true" data-filter-control="input">
+                  <i class="bi bi-person"></i> Channel
+                </th>
+                <th data-field="views" data-sortable="true" data-align="right">
+                  <i class="bi bi-eye"></i> Views
+                </th>
+                <th data-field="duration" data-sortable="true" data-align="center">
+                  <i class="bi bi-clock"></i> Duration
+                </th>
+                <th data-field="followers" data-sortable="true" data-align="right">
+                  <i class="bi bi-people"></i> Followers
+                </th>
+                <th data-field="category" data-sortable="true" data-filter-control="select">
+                  <i class="bi bi-tag"></i> Category
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <small>
+          <i class="bi bi-info-circle me-1"></i>
+          Data source: YouTube Top 100 Songs 2025. 
+          Click column headers to sort, use search box for filtering, or export data using the buttons above.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Implementation Guide Section -->
+<div class="row mt-5">
+  <div class="col-md-12">
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white">
+        <h3 class="mb-0"><i class="bi bi-code-slash me-2"></i>Implementation Guide</h3>
+      </div>
+      <div class="card-body">
+        <div class="accordion" id="implementationAccordion">
+          
+          <!-- Installation -->
+          <div class="accordion-item">
+            <h4 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#installation">
+                <i class="bi bi-download me-2"></i>Step 1: Installation
+              </button>
+            </h4>
+            <div id="installation" class="accordion-collapse collapse show" data-bs-parent="#implementationAccordion">
+              <div class="accordion-body">
+                <p>Install Bootstrap Table via npm:</p>
+                <pre class="bg-dark text-light p-3 rounded"><code>npm install bootstrap-table</code></pre>
+                
+                <p class="mt-3">Or include via CDN:</p>
+                <pre class="bg-light p-3 rounded"><code>&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.23.5/dist/bootstrap-table.min.css"&gt;
+
+&lt;!-- JavaScript --&gt;
+&lt;script src="https://unpkg.com/bootstrap-table@1.23.5/dist/bootstrap-table.min.js"&gt;&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- HTML Structure -->
+          <div class="accordion-item">
+            <h4 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#htmlStructure">
+                <i class="bi bi-file-code me-2"></i>Step 2: HTML Structure
+              </button>
+            </h4>
+            <div id="htmlStructure" class="accordion-collapse collapse" data-bs-parent="#implementationAccordion">
+              <div class="accordion-body">
+                <p>Create a table with data attributes for configuration:</p>
+                <pre class="bg-light p-3 rounded"><code>&lt;table
+  id="myTable"
+  data-toggle="table"
+  data-url="/api/data"
+  data-pagination="true"
+  data-search="true"
+  data-show-columns="true"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th data-field="id" data-sortable="true"&gt;ID&lt;/th&gt;
+      &lt;th data-field="name" data-sortable="true"&gt;Name&lt;/th&gt;
+      &lt;th data-field="email"&gt;Email&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+&lt;/table&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- API Endpoint -->
+          <div class="accordion-item">
+            <h4 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#apiEndpoint">
+                <i class="bi bi-server me-2"></i>Step 3: API Endpoint (Express.js)
+              </button>
+            </h4>
+            <div id="apiEndpoint" class="accordion-collapse collapse" data-bs-parent="#implementationAccordion">
+              <div class="accordion-body">
+                <p>Create an API endpoint to serve your data:</p>
+                <pre class="bg-light p-3 rounded"><code>// Express.js API endpoint
+app.get('/api/data', async (req, res) => {
+  try {
+    // Fetch data from database or file
+    const data = await fetchYourData();
+    
+    // Return data in Bootstrap Table format
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Features -->
+          <div class="accordion-item">
+            <h4 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFeatures">
+                <i class="bi bi-star me-2"></i>Step 4: Advanced Features
+              </button>
+            </h4>
+            <div id="advancedFeatures" class="accordion-collapse collapse" data-bs-parent="#implementationAccordion">
+              <div class="accordion-body">
+                <h5>Custom Formatters</h5>
+                <pre class="bg-light p-3 rounded"><code>// Format large numbers with commas
+function viewCountFormatter(value, row, index) {
+  return parseInt(value).toLocaleString();
+}
+
+// Add in table column definition
+&lt;th data-formatter="viewCountFormatter"&gt;Views&lt;/th&gt;</code></pre>
+
+                <h5 class="mt-3">Export Functionality</h5>
+                <pre class="bg-light p-3 rounded"><code>// Export to CSV
+$('#export-csv').click(function() {
+  $('#myTable').bootstrapTable('export', {
+    type: 'csv',
+    fileName: 'data-export'
+  });
+});</code></pre>
+
+                <h5 class="mt-3">Server-Side Pagination</h5>
+                <pre class="bg-light p-3 rounded"><code>// For large datasets (10,000+ rows)
+data-side-pagination="server"
+data-url="/api/data-paginated"
+
+// Server endpoint with pagination
+app.get('/api/data-paginated', (req, res) => {
+  const { limit, offset, search, sort, order } = req.query;
+  // Query database with pagination parameters
+  const result = queryDatabase(limit, offset, search, sort, order);
+  res.json({
+    total: result.total,
+    rows: result.rows
+  });
+});</code></pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Grid -->
+<div class="row mt-4 mb-5">
+  <div class="col-md-12">
+    <h3 class="mb-4"><i class="bi bi-star-fill me-2"></i>Key Features Demonstrated</h3>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-primary">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-sort-down text-primary me-2"></i>Multi-Column Sorting</h5>
+        <p class="card-text">Click any column header to sort. Click again to reverse the sort order. Supports complex data types including numbers, dates, and strings.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-success">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-funnel text-success me-2"></i>Advanced Filtering</h5>
+        <p class="card-text">Use the search box for global search, or enable column-specific filters. Supports text matching, dropdown selects, and range filters.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-info">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-file-earmark-arrow-down text-info me-2"></i>Data Export</h5>
+        <p class="card-text">Export your filtered and sorted data to CSV, JSON, or Excel formats. Perfect for reports and data analysis workflows.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-warning">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-phone text-warning me-2"></i>Responsive Design</h5>
+        <p class="card-text">Automatically adapts to mobile screens with card view, column hiding, and touch-friendly controls for the best mobile experience.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-danger">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-lightning text-danger me-2"></i>High Performance</h5>
+        <p class="card-text">Virtual scrolling and efficient DOM manipulation handle thousands of rows smoothly. Server-side pagination scales to millions of records.</p>
+      </div>
+    </cards>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="card h-100 border-secondary">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-palette text-secondary me-2"></i>Customizable</h5>
+        <p class="card-text">Full control over appearance with custom formatters, cell styling, row classes, and Bootstrap theme integration.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Documentation Links -->
+<div class="card bg-light mb-4">
+  <div class="card-body">
+    <h4><i class="bi bi-book me-2"></i>Additional Resources</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+          <li><i class="bi bi-link-45deg text-primary me-2"></i><a href="https://bootstrap-table.com/docs/getting-started/introduction/" target="_blank">Official Documentation</a></li>
+          <li><i class="bi bi-link-45deg text-primary me-2"></i><a href="https://examples.bootstrap-table.com/" target="_blank">Live Examples</a></li>
+          <li><i class="bi bi-link-45deg text-primary me-2"></i><a href="https://github.com/wenzhixin/bootstrap-table" target="_blank">GitHub Repository</a></li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+          <li><i class="bi bi-link-45deg text-primary me-2"></i><a href="https://bootstrap-table.com/docs/extensions/introduction/" target="_blank">Extensions</a></li>
+          <li><i class="bi bi-link-45deg text-primary me-2"></i><a href="https://bootstrap-table.com/docs/api/table-options/" target="_blank">API Reference</a></li>
+          <li><i class="bi bi-link-45deg text-primary me-2"></i><a href="/copilot/session-2025-10-04/bootstrap-table-solutions-review.md" target="_blank">Our Review</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Custom JavaScript for this page -->
+<script nonce="static-site-dummy-nonce">
+(function() {
+  'use strict';
+
+  // Title formatter for clickable links
+  window.titleFormatter = function(value, row, index) {
+    if (!value) return '';
+    
+    // Detect if we're on GitHub Pages or local dev
+    const basePath = window.location.pathname.includes('/JsBootSpark/') ? '/JsBootSpark' : '';
+    
+    // Create clickable link to song detail page
+    return `<a href="${basePath}/song/${row.rank}" class="text-decoration-none text-primary fw-bold" title="View song details">
+      ${value}
+      <i class="bi bi-box-arrow-up-right ms-1 small"></i>
+    </a>`;
+  };
+
+  // Response handler to add rank numbers
+  window.responseHandler = function(res) {
+    if (Array.isArray(res)) {
+      return res.map((item, index) => {
+        return {
+          ...item,
+          rank: index + 1
+        };
+      });
+    }
+    return res;
+  };
+
+  // Loading template
+  window.loadingTemplate = function() {
+    return `
+      <div class="d-flex justify-content-center align-items-center py-5">
+        <div class="spinner-border text-primary me-3" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <span class="text-muted">Loading YouTube Top 100 Songs...</span>
+      </div>
+    `;
+  };
+
+  // Initialize table when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    const $table = $('#songTable');
+    
+    // Initialize the table
+    $table.bootstrapTable();
+
+    // Custom search functionality
+    $('#searchInput').on('keyup', function() {
+      $table.bootstrapTable('filterBy', {}, {
+        'filterAlgorithm': (row, filters) => {
+          const searchTerm = $('#searchInput').val().toLowerCase();
+          if (!searchTerm) return true;
+          
+          return Object.values(row).some(value => 
+            String(value).toLowerCase().includes(searchTerm)
+          );
+        }
+      });
+    });
+
+    // Export buttons
+    $('#export-csv').click(function() {
+      $table.bootstrapTable('export', {
+        type: 'csv',
+        fileName: 'youtube-top-100-songs-2025',
+        exportOptions: {
+          fileName: 'youtube-top-100-songs-2025'
+        }
+      });
+    });
+
+    $('#export-json').click(function() {
+      $table.bootstrapTable('export', {
+        type: 'json',
+        fileName: 'youtube-top-100-songs-2025'
+      });
+    });
+
+    $('#export-excel').click(function() {
+      $table.bootstrapTable('export', {
+        type: 'excel',
+        fileName: 'youtube-top-100-songs-2025',
+        exportOptions: {
+          fileName: 'youtube-top-100-songs-2025'
+        }
+      });
+    });
+
+    // Refresh button
+    $('#refresh-table').click(function() {
+      $table.bootstrapTable('refresh');
+    });
+
+    // Add loading state feedback
+    $table.on('load-success.bs.table', function() {
+      console.log('✅ Table data loaded successfully');
+    });
+
+    $table.on('load-error.bs.table', function(e, status, res) {
+      console.error('❌ Table loading error:', status);
+      alert('Error loading data. Please check the console for details.');
+    });
+
+    // Add table stats
+    $table.on('post-body.bs.table', function() {
+      const data = $table.bootstrapTable('getData');
+      console.log(`📊 Displaying ${data.length} songs`);
+    });
+  });
+})();
+</script>
+
+<!-- Page footer section -->
+<div class="page-footer mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <p class="text-muted"><small>Last updated: 1/31/2026</small></p>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-outline-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="bi bi-arrow-up"></i> Back to top
+      </button>
+    </div>
+  </div>
+</div>
+ 
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2026 JsBootSpark. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+            
+            <div class="mt-1">
+              <small class="text-muted">
+                v1.0.1-build.1 | Built: 1/31/2026
+              </small>
+            </div>
+            
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/JsBootSpark/js/dependencies.min.js"></script>
+    <script src="/JsBootSpark/js/service-worker-register.js"></script>
+    <script src="/JsBootSpark/js/theme-toggle.js"></script>
+    <script src="/JsBootSpark/js/theme-demo.js"></script>
+    <script src="/JsBootSpark/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    
+  </body>
+</html>

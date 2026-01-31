@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Components | JsBootSpark</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Components | JsBootSpark",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/JsBootSpark/css/styles.css" rel="stylesheet" />
+    <link href="/JsBootSpark/css/dependencies.css" rel="stylesheet" />
+    <link href="/JsBootSpark/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/JsBootSpark/favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/JsBootSpark/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/JsBootSpark/"
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
+            </li>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+       <!-- Page header section -->
+<div class="page-header mb-4">
+  <h1><i class="bi bi-grid-3x3-gap"></i> Component Library</h1>
+  <p class="lead">Explore the available UI components and their usage examples.</p>
+  
+  <hr>
+</div>
+<!-- At the top of components.ejs, before including any partials -->
+<div class="debug-message">Component page is loading</div>
+
+<div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+  <i class="bi bi-lightbulb-fill me-2"></i>
+  <div>
+    Looking for more advanced components like accordions, carousels, and offcanvas? 
+    <a href="/JsBootSpark/advanced-components" class="alert-link fw-bold">
+      Check out our Advanced Components page <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <!-- Component navigation sidebar -->
+  <div class="col-md-3">
+    <div class="sticky-top pt-3">
+      <div class="list-group">
+        <a href="#buttons" class="list-group-item list-group-item-action">
+          <i class="bi bi-circle"></i> Buttons
+        </a>
+        <a href="#typography" class="list-group-item list-group-item-action">
+          <i class="bi bi-fonts"></i> Typography
+        </a>
+        <a href="#cards" class="list-group-item list-group-item-action">
+          <i class="bi bi-card-text"></i> Cards
+        </a>
+        <a href="#alerts" class="list-group-item list-group-item-action">
+          <i class="bi bi-exclamation-triangle"></i> Alerts
+        </a>
+        <a href="#forms" class="list-group-item list-group-item-action">
+          <i class="bi bi-input-cursor-text"></i> Forms
+        </a>
+        <a href="#modals" class="list-group-item list-group-item-action">
+          <i class="bi bi-window"></i> Modals
+        </a>
+        <a href="#tables" class="list-group-item list-group-item-action">
+          <i class="bi bi-table"></i> Tables
+        </a>
+        <a href="#icons" class="list-group-item list-group-item-action">
+          <i class="bi bi-bootstrap"></i> Icons
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Component examples -->
+  <div class="col-md-9">
+    <!-- Buttons section -->
+    <section id="buttons" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Buttons</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Button Variants</h4>
+          <div class="component-example">
+            <button type="button" class="btn btn-primary me-2 mb-2">
+              Primary
+            </button>
+            <button type="button" class="btn btn-secondary me-2 mb-2">
+              Secondary
+            </button>
+            <button type="button" class="btn btn-success me-2 mb-2">
+              Success
+            </button>
+            <button type="button" class="btn btn-danger me-2 mb-2">
+              Danger
+            </button>
+            <button type="button" class="btn btn-warning me-2 mb-2">
+              Warning
+            </button>
+            <button type="button" class="btn btn-info me-2 mb-2">Info</button>
+            <button type="button" class="btn btn-light me-2 mb-2">Light</button>
+            <button type="button" class="btn btn-dark me-2 mb-2">Dark</button>
+            <button type="button" class="btn btn-link me-2 mb-2">Link</button>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;button type="button" class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button type="button" class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button type="button" class="btn btn-success"&gt;Success&lt;/button&gt;
+&lt;button type="button" class="btn btn-danger"&gt;Danger&lt;/button&gt;
+&lt;button type="button" class="btn btn-warning"&gt;Warning&lt;/button&gt;
+&lt;button type="button" class="btn btn-info"&gt;Info&lt;/button&gt;
+&lt;button type="button" class="btn btn-light"&gt;Light&lt;/button&gt;
+&lt;button type="button" class="btn btn-dark"&gt;Dark&lt;/button&gt;
+&lt;button type="button" class="btn btn-link"&gt;Link&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Button Sizes</h4>
+          <div class="component-example">
+            <button type="button" class="btn btn-primary btn-lg mb-2 me-2">
+              Large button
+            </button>
+            <button type="button" class="btn btn-primary mb-2 me-2">
+              Default button
+            </button>
+            <button type="button" class="btn btn-primary btn-sm mb-2 me-2">
+              Small button
+            </button>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;button type="button" class="btn btn-primary btn-lg"&gt;Large button&lt;/button&gt;
+&lt;button type="button" class="btn btn-primary"&gt;Default button&lt;/button&gt;
+&lt;button type="button" class="btn btn-primary btn-sm"&gt;Small button&lt;/button&gt;</code></pre>
+          </div>
+
+          <h4 class="mt-4">Button with Icon</h4>
+          <div class="component-example">
+            <button type="button" class="btn btn-success mb-2 me-2">
+              <i class="bi bi-check-circle me-1"></i> Confirm
+            </button>
+            <button type="button" class="btn btn-danger mb-2 me-2">
+              <i class="bi bi-x-circle me-1"></i> Cancel
+            </button>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;button type="button" class="btn btn-success"&gt;
+  &lt;i class="bi bi-check-circle me-1"&gt;&lt;/i&gt; Confirm
+&lt;/button&gt;
+&lt;button type="button" class="btn btn-danger"&gt;
+  &lt;i class="bi bi-x-circle me-1"&gt;&lt;/i&gt; Cancel
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Outline Buttons</h4>
+          <div class="component-example">
+            <button type="button" class="btn btn-outline-primary me-2 mb-2">
+              Primary
+            </button>
+            <button type="button" class="btn btn-outline-secondary me-2 mb-2">
+              Secondary
+            </button>
+            <button type="button" class="btn btn-outline-success me-2 mb-2">
+              Success
+            </button>
+            <button type="button" class="btn btn-outline-danger me-2 mb-2">
+              Danger
+            </button>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;button type="button" class="btn btn-outline-primary"&gt;Primary&lt;/button&gt;
+&lt;button type="button" class="btn btn-outline-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button type="button" class="btn btn-outline-success"&gt;Success&lt;/button&gt;
+&lt;button type="button" class="btn btn-outline-danger"&gt;Danger&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Button Group</h4>
+          <div class="component-example">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary">Left</button>
+              <button type="button" class="btn btn-primary">Middle</button>
+              <button type="button" class="btn btn-primary">Right</button>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="btn-group" role="group" aria-label="Basic example"&gt;
+  &lt;button type="button" class="btn btn-primary"&gt;Left&lt;/button&gt;
+  &lt;button type="button" class="btn btn-primary"&gt;Middle&lt;/button&gt;
+  &lt;button type="button" class="btn btn-primary"&gt;Right&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography section -->
+    <section id="typography" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Typography</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Headings</h4>
+          <div class="component-example">
+            <h1>h1. Bootstrap heading</h1>
+            <h2>h2. Bootstrap heading</h2>
+            <h3>h3. Bootstrap heading</h3>
+            <h4>h4. Bootstrap heading</h4>
+            <h5>h5. Bootstrap heading</h5>
+            <h6>h6. Bootstrap heading</h6>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;h1&gt;h1. Bootstrap heading&lt;/h1&gt;
+&lt;h2&gt;h2. Bootstrap heading&lt;/h2&gt;
+&lt;h3&gt;h3. Bootstrap heading&lt;/h3&gt;
+&lt;h4&gt;h4. Bootstrap heading&lt;/h4&gt;
+&lt;h5&gt;h5. Bootstrap heading&lt;/h5&gt;
+&lt;h6&gt;h6. Bootstrap heading&lt;/h6&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Display Headings</h4>
+          <div class="component-example">
+            <h1 class="display-1">Display 1</h1>
+            <h1 class="display-2">Display 2</h1>
+            <h1 class="display-3">Display 3</h1>
+            <h1 class="display-4">Display 4</h1>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;h1 class="display-1"&gt;Display 1&lt;/h1&gt;
+&lt;h1 class="display-2"&gt;Display 2&lt;/h1&gt;
+&lt;h1 class="display-3"&gt;Display 3&lt;/h1&gt;
+&lt;h1 class="display-4"&gt;Display 4&lt;/h1&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Lead Text</h4>
+          <div class="component-example">
+            <p class="lead">
+              This is a lead paragraph. It stands out from regular paragraphs.
+            </p>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;p class="lead"&gt;This is a lead paragraph. It stands out from regular paragraphs.&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Text Utilities</h4>
+          <div class="component-example">
+            <p class="text-primary">.text-primary</p>
+            <p class="text-secondary">.text-secondary</p>
+            <p class="text-success">.text-success</p>
+            <p class="text-danger">.text-danger</p>
+            <p class="text-warning bg-dark">.text-warning</p>
+            <p class="text-info">.text-info</p>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;p class="text-primary"&gt;.text-primary&lt;/p&gt;
+&lt;p class="text-secondary"&gt;.text-secondary&lt;/p&gt;
+&lt;p class="text-success"&gt;.text-success&lt;/p&gt;
+&lt;p class="text-danger"&gt;.text-danger&lt;/p&gt;
+&lt;p class="text-warning"&gt;.text-warning&lt;/p&gt;
+&lt;p class="text-info"&gt;.text-info&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards section -->
+    <section id="cards" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Cards</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Basic Card</h4>
+          <div class="component-example">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  Card subtitle
+                </h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+              </div>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Card title&lt;/h5&gt;
+    &lt;h6 class="card-subtitle mb-2 text-body-secondary"&gt;Card subtitle&lt;/h6&gt;
+    &lt;p class="card-text"&gt;Some quick example text to build on the card title and make up the bulk of the card's content.&lt;/p&gt;
+    &lt;a href="#" class="card-link"&gt;Card link&lt;/a&gt;
+    &lt;a href="#" class="card-link"&gt;Another link&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Card with Image</h4>
+          <div class="component-example">
+            <div class="card">
+              <img
+                src="https://via.placeholder.com/300x150"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="card"&gt;
+  &lt;img src="https://via.placeholder.com/300x150" class="card-img-top" alt="..."&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Card title&lt;/h5&gt;
+    &lt;p class="card-text"&gt;Some quick example text to build on the card title.&lt;/p&gt;
+    &lt;a href="#" class="btn btn-primary"&gt;Go somewhere&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- More sections can be added here for alerts, forms, etc. -->
+
+    <!-- Alerts section -->
+    <section id="alerts" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Alerts</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Basic Alerts</h4>
+          <div class="component-example">
+            <div class="alert alert-primary" role="alert">
+              A simple primary alert—check it out!
+            </div>
+            <div class="alert alert-secondary" role="alert">
+              A simple secondary alert—check it out!
+            </div>
+            <div class="alert alert-success" role="alert">
+              A simple success alert—check it out!
+            </div>
+            <div class="alert alert-danger" role="alert">
+              A simple danger alert—check it out!
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="alert alert-primary" role="alert"&gt;
+  A simple primary alert—check it out!
+&lt;/div&gt;
+&lt;div class="alert alert-secondary" role="alert"&gt;
+  A simple secondary alert—check it out!
+&lt;/div&gt;
+&lt;div class="alert alert-success" role="alert"&gt;
+  A simple success alert—check it out!
+&lt;/div&gt;
+&lt;div class="alert alert-danger" role="alert"&gt;
+  A simple danger alert—check it out!
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Alert with Link</h4>
+          <div class="component-example">
+            <div class="alert alert-info" role="alert">
+              A simple info alert with
+              <a href="#" class="alert-link">an example link</a>. Give it a
+              click if you like.
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="alert alert-info" role="alert"&gt;
+  A simple info alert with &lt;a href="#" class="alert-link"&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;</code></pre>
+          </div>
+
+          <h4 class="mt-4">Alert with Icon</h4>
+          <div class="component-example">
+            <div class="alert alert-warning" role="alert">
+              <i class="bi bi-exclamation-triangle me-2"></i> This is a warning
+              alert with an icon.
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="alert alert-warning" role="alert"&gt;
+  &lt;i class="bi bi-exclamation-triangle me-2"&gt;&lt;/i&gt; This is a warning alert with an icon.
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Forms section -->
+    <section id="forms" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Forms</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Basic Form</h4>
+          <div class="component-example">
+            <form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+                <div id="emailHelp" class="form-text">
+                  We'll never share your email with anyone else.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                />
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="exampleCheck1"
+                />
+                <label class="form-check-label" for="exampleCheck1"
+                  >Check me out</label
+                >
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;form&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="exampleInputEmail1" class="form-label"&gt;Email address&lt;/label&gt;
+    &lt;input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"&gt;
+    &lt;div id="emailHelp" class="form-text"&gt;We'll never share your email with anyone else.&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="exampleInputPassword1" class="form-label"&gt;Password&lt;/label&gt;
+    &lt;input type="password" class="form-control" id="exampleInputPassword1"&gt;
+  &lt;/div&gt;
+  &lt;div class="mb-3 form-check"&gt;
+    &lt;input type="checkbox" class="form-check-input" id="exampleCheck1"&gt;
+    &lt;label class="form-check-label" for="exampleCheck1"&gt;Check me out&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;button type="submit" class="btn btn-primary"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Form Controls</h4>
+          <div class="component-example">
+            <div class="mb-3">
+              <label for="formFile" class="form-label"
+                >Default file input example</label
+              >
+              <input class="form-control" type="file" id="formFile" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Example textarea</label
+              >
+              <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+              ></textarea>
+            </div>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="mb-3"&gt;
+  &lt;label for="formFile" class="form-label"&gt;Default file input example&lt;/label&gt;
+  &lt;input class="form-control" type="file" id="formFile"&gt;
+&lt;/div&gt;
+&lt;div class="mb-3"&gt;
+  &lt;label for="exampleFormControlTextarea1" class="form-label"&gt;Example textarea&lt;/label&gt;
+  &lt;textarea class="form-control" id="exampleFormControlTextarea1" rows="3"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;select class="form-select" aria-label="Default select example"&gt;
+  &lt;option selected&gt;Open this select menu&lt;/option&gt;
+  &lt;option value="1"&gt;One&lt;/option&gt;
+  &lt;option value="2"&gt;Two&lt;/option&gt;
+  &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modals section -->
+    <section id="modals" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Modals</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Basic Modal</h4>
+          <div class="component-example">
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Launch demo modal
+            </button>
+
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      Modal title
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;!-- Button trigger modal --&gt;
+&lt;button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"&gt;
+  Launch demo modal
+&lt;/button&gt;
+
+&lt;!-- Modal --&gt;
+&lt;div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;h5 class="modal-title" id="exampleModalLabel"&gt;Modal title&lt;/h5&gt;
+        &lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;p&gt;Modal body text goes here.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-secondary" data-bs-dismiss="modal"&gt;Close&lt;/button&gt;
+        &lt;button type="button" class="btn btn-primary"&gt;Save changes&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Modal Sizes</h4>
+          <div class="component-example">
+            <!-- Button triggers for different modal sizes -->
+            <button
+              type="button"
+              class="btn btn-primary mb-2 me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#smallModal"
+            >
+              Small modal
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mb-2 me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#largeModal"
+            >
+              Large modal
+            </button>
+
+            <!-- Small Modal -->
+            <div
+              class="modal fade"
+              id="smallModal"
+              tabindex="-1"
+              aria-labelledby="smallModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="smallModalLabel">
+                      Small Modal
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>This is a small modal dialog.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Large Modal -->
+            <div
+              class="modal fade"
+              id="largeModal"
+              tabindex="-1"
+              aria-labelledby="largeModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="largeModalLabel">
+                      Large Modal
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      This is a large modal dialog that provides more space for
+                      content.
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;!-- Small Modal --&gt;
+&lt;button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#smallModal"&gt;
+  Small modal
+&lt;/button&gt;
+
+&lt;div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog modal-sm"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;!-- Modal content here --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Large Modal --&gt;
+&lt;button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"&gt;
+  Large modal
+&lt;/button&gt;
+
+&lt;div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog modal-lg"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;!-- Modal content here --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+
+          <h4 class="mt-4">Scrollable Modal</h4>
+          <div class="component-example">
+            <!-- Button trigger for scrollable modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#scrollableModal"
+            >
+              Scrollable modal
+            </button>
+
+            <!-- Scrollable Modal -->
+            <div
+              class="modal fade"
+              id="scrollableModal"
+              tabindex="-1"
+              aria-labelledby="scrollableModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="scrollableModalLabel">
+                      Scrollable Modal
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      This modal has a lot of content that will scroll within
+                      the modal.
+                    </p>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Fusce in enim a purus finibus molestie. Phasellus vel
+                      pellentesque eros. In hac habitasse platea dictumst. Proin
+                      malesuada sodales nulla, id lacinia est faucibus vel.
+                    </p>
+                    <p>
+                      Curabitur sagittis dui ut lectus maximus, vel congue nisi
+                      volutpat. Phasellus pulvinar lorem at nisi condimentum, eu
+                      dignissim ex finibus. Suspendisse potenti.
+                    </p>
+                    <p>
+                      Nullam ut libero tincidunt, scelerisque diam eget,
+                      lobortis metus. Vestibulum non nisi ac leo feugiat
+                      sollicitudin. Suspendisse eu mi rutrum, efficitur lorem
+                      at, sagittis est.
+                    </p>
+                    <p>
+                      Integer accumsan luctus justo, quis tempor nisl. Donec
+                      elementum, felis nec hendrerit interdum, arcu quam
+                      elementum ante, non pharetra magna orci at mauris.
+                    </p>
+                    <p>
+                      Praesent venenatis magna sed lorem lacinia, eget facilisis
+                      metus ultrices. Nam lobortis, ligula a venenatis placerat,
+                      libero mi volutpat orci, ut hendrerit tortor mauris eget
+                      enim.
+                    </p>
+                    <p>
+                      Sed in libero blandit, aliquet magna nec, lobortis elit.
+                      Ut vel dui ante. Cras eu interdum eros. Nam hendrerit
+                      pulvinar dui, vitae ultrices urna tincidunt at.
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;!-- Scrollable Modal --&gt;
+&lt;button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scrollableModal"&gt;
+  Scrollable modal
+&lt;/button&gt;
+
+&lt;div class="modal fade" id="scrollableModal" tabindex="-1" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog modal-dialog-scrollable"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;h5 class="modal-title"&gt;Scrollable Modal&lt;/h5&gt;
+        &lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;!-- Lots of content here --&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-secondary" data-bs-dismiss="modal"&gt;Close&lt;/button&gt;
+        &lt;button type="button" class="btn btn-primary"&gt;Save changes&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tables section -->
+    <section id="tables" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Tables</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h4>Basic Table</h4>
+          <div class="component-example">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;table class="table"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;#&lt;/th&gt;
+      &lt;th scope="col"&gt;First&lt;/th&gt;
+      &lt;th scope="col"&gt;Last&lt;/th&gt;
+      &lt;th scope="col"&gt;Handle&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;1&lt;/th&gt;
+      &lt;td&gt;Mark&lt;/td&gt;
+      &lt;td&gt;Otto&lt;/td&gt;
+      &lt;td&gt;@mdo&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;2&lt;/th&gt;
+      &lt;td&gt;Jacob&lt;/td&gt;
+      &lt;td&gt;Thornton&lt;/td&gt;
+      &lt;td&gt;@fat&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;3&lt;/th&gt;
+      &lt;td&gt;Larry&lt;/td&gt;
+      &lt;td&gt;the Bird&lt;/td&gt;
+      &lt;td&gt;@twitter&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Striped Table</h4>
+          <div class="component-example">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;table class="table table-striped"&gt;
+  &lt;!-- Same structure as basic table --&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Bordered Table</h4>
+          <div class="component-example">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;table class="table table-bordered"&gt;
+  &lt;!-- Table contents --&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Responsive Table</h4>
+          <div class="component-example">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;div class="table-responsive"&gt;
+  &lt;table class="table"&gt;
+    &lt;!-- Table with many columns --&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Icons section -->
+    <section id="icons" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Icons</h2>
+
+      <div class="row mb-4">
+        <div class="col-12">
+          <h4>Bootstrap Icons</h4>
+          <p>
+            Bootstrap comes with over 1,800 icons that can be used in your
+            project. Here are some examples:
+          </p>
+          <div class="component-example">
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
+              <div class="col text-center">
+                <i class="bi bi-house-door fs-2"></i>
+                <p class="mt-2 small">bi-house-door</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-person-circle fs-2"></i>
+                <p class="mt-2 small">bi-person-circle</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-cart fs-2"></i>
+                <p class="mt-2 small">bi-cart</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-heart fs-2"></i>
+                <p class="mt-2 small">bi-heart</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-envelope fs-2"></i>
+                <p class="mt-2 small">bi-envelope</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-search fs-2"></i>
+                <p class="mt-2 small">bi-search</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-gear fs-2"></i>
+                <p class="mt-2 small">bi-gear</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-bell fs-2"></i>
+                <p class="mt-2 small">bi-bell</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-bookmark fs-2"></i>
+                <p class="mt-2 small">bi-bookmark</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-calendar fs-2"></i>
+                <p class="mt-2 small">bi-calendar</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-chat fs-2"></i>
+                <p class="mt-2 small">bi-chat</p>
+              </div>
+              <div class="col text-center">
+                <i class="bi bi-download fs-2"></i>
+                <p class="mt-2 small">bi-download</p>
+              </div>
+            </div>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;i class="bi bi-house-door"&gt;&lt;/i&gt;
+&lt;i class="bi bi-person-circle"&gt;&lt;/i&gt;
+&lt;i class="bi bi-cart"&gt;&lt;/i&gt;
+&lt;i class="bi bi-heart"&gt;&lt;/i&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Icon Sizes</h4>
+          <div class="component-example">
+            <i class="bi bi-star fs-6 me-3"></i> Small (fs-6)<br />
+            <i class="bi bi-star fs-4 me-3"></i> Medium (fs-4)<br />
+            <i class="bi bi-star fs-2 me-3"></i> Large (fs-2)<br />
+            <i class="bi bi-star fs-1 me-3"></i> Extra Large (fs-1)
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;i class="bi bi-star fs-6"&gt;&lt;/i&gt; Small (fs-6)
+&lt;i class="bi bi-star fs-4"&gt;&lt;/i&gt; Medium (fs-4)
+&lt;i class="bi bi-star fs-2"&gt;&lt;/i&gt; Large (fs-2)
+&lt;i class="bi bi-star fs-1"&gt;&lt;/i&gt; Extra Large (fs-1)</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h4>Icons with Text</h4>
+          <div class="component-example">
+            <button class="btn btn-primary mb-2">
+              <i class="bi bi-cloud-upload me-2"></i> Upload</button
+            ><br />
+            <div class="alert alert-info mb-2">
+              <i class="bi bi-info-circle me-2"></i> This is an info message
+            </div>
+            <h3><i class="bi bi-clipboard-check me-2"></i> Task Completed</h3>
+          </div>
+          <div class="code-example mt-2">
+            <pre><code class="language-html">&lt;button class="btn btn-primary"&gt;
+  &lt;i class="bi bi-cloud-upload me-2"&gt;&lt;/i&gt; Upload
+&lt;/button&gt;
+
+&lt;div class="alert alert-info"&gt;
+  &lt;i class="bi bi-info-circle me-2"&gt;&lt;/i&gt; This is an info message
+&lt;/div&gt;
+
+&lt;h3&gt;&lt;i class="bi bi-clipboard-check me-2"&gt;&lt;/i&gt; Task Completed&lt;/h3&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional sections for other components would be added here -->
+  </div>
+</div>
+
+<!-- Highlight.js for syntax highlighting with dark mode support -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css"
+  integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+  id="light-mode-highlight"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css"
+  integrity="sha384-wH75j6z1lH97ZOpMOInqhgKzFkAInZPPSPlZpYKYTOqsaizPvhQZmAtLcPKXpLyH"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+  id="dark-mode-highlight"
+  disabled
+/>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"
+  integrity="sha384-GdEWAbCjn+ghjX0gLx7/N1hyTVmPAjdC2OvoAA0RyNcAOhqwtT8qnbCxWle2+uJX"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script nonce="static-site-dummy-nonce">
+  document.addEventListener("DOMContentLoaded", (event) => {
+    // Apply syntax highlighting
+    document.querySelectorAll("pre code").forEach((el) => {
+      hljs.highlightElement(el);
+    });
+
+    // Theme-aware highlighting
+    const setHighlightTheme = () => {
+      const isDarkMode =
+        document.documentElement.getAttribute("data-bs-theme") === "dark";
+      document.getElementById("light-mode-highlight").disabled = isDarkMode;
+      document.getElementById("dark-mode-highlight").disabled = !isDarkMode;
+    };
+
+    // Initial setup
+    setHighlightTheme();
+
+    // Listen for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "data-bs-theme") {
+          setHighlightTheme();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-bs-theme"],
+    });
+  });
+</script>
+
+<!-- Page footer section -->
+<div class="page-footer mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <p class="text-muted"><small>Last updated: 1/31/2026</small></p>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-outline-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="bi bi-arrow-up"></i> Back to top
+      </button>
+    </div>
+  </div>
+</div>
+ 
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2026 JsBootSpark. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+            
+            <div class="mt-1">
+              <small class="text-muted">
+                v1.0.1-build.1 | Built: 1/31/2026
+              </small>
+            </div>
+            
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/JsBootSpark/js/dependencies.min.js"></script>
+    <script src="/JsBootSpark/js/service-worker-register.js"></script>
+    <script src="/JsBootSpark/js/theme-toggle.js"></script>
+    <script src="/JsBootSpark/js/theme-demo.js"></script>
+    <script src="/JsBootSpark/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    
+  </body>
+</html>

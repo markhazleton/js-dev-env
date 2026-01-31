@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Advanced Components | JsBootSpark</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Advanced Components | JsBootSpark",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/JsBootSpark/css/styles.css" rel="stylesheet" />
+    <link href="/JsBootSpark/css/dependencies.css" rel="stylesheet" />
+    <link href="/JsBootSpark/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/JsBootSpark/favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/JsBootSpark/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/JsBootSpark/"
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
+            </li>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+       <!-- Page header section -->
+<div class="page-header mb-4">
+  <h1><i class="bi bi-gear-wide-connected"></i> Advanced Bootstrap Components</h1>
+  <p class="lead">Explore advanced Bootstrap components including accordions, carousels, offcanvas, and more interactive elements.</p>
+  
+  <hr>
+</div>
+
+<div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+  <i class="bi bi-info-circle-fill me-2"></i>
+  <div>
+    Looking for basic components like buttons, forms, and cards? 
+    <a href="/JsBootSpark/components" class="alert-link fw-bold">
+      <i class="bi bi-arrow-left"></i> Visit our Basic Components page
+    </a>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <!-- Component navigation sidebar -->
+  <div class="col-md-3">
+    <div class="sticky-top pt-3">
+      <div class="list-group">
+        <a href="#accordion" class="list-group-item list-group-item-action">
+          <i class="bi bi-list-nested"></i> Accordion
+        </a>
+        <a href="#carousel" class="list-group-item list-group-item-action">
+          <i class="bi bi-arrow-left-right"></i> Carousel
+        </a>
+        <a href="#offcanvas" class="list-group-item list-group-item-action">
+          <i class="bi bi-layout-sidebar"></i> Offcanvas
+        </a>
+        <a href="#tabs" class="list-group-item list-group-item-action">
+          <i class="bi bi-folder-fill"></i> Tabs & Pills
+        </a>
+        <a href="#collapse" class="list-group-item list-group-item-action">
+          <i class="bi bi-arrows-collapse"></i> Collapse
+        </a>
+        <a href="#dropdown" class="list-group-item list-group-item-action">
+          <i class="bi bi-chevron-down"></i> Dropdowns
+        </a>
+        <a href="#tooltips" class="list-group-item list-group-item-action">
+          <i class="bi bi-chat-square-dots"></i> Tooltips & Popovers
+        </a>
+        <a href="#progress" class="list-group-item list-group-item-action">
+          <i class="bi bi-bar-chart"></i> Progress Bars
+        </a>
+        <a href="#spinners" class="list-group-item list-group-item-action">
+          <i class="bi bi-arrow-clockwise"></i> Spinners
+        </a>
+        <a href="#badges" class="list-group-item list-group-item-action">
+          <i class="bi bi-award"></i> Badges
+        </a>
+        <a href="#breadcrumb" class="list-group-item list-group-item-action">
+          <i class="bi bi-arrow-right"></i> Breadcrumbs
+        </a>
+        <a href="#pagination" class="list-group-item list-group-item-action">
+          <i class="bi bi-skip-end"></i> Pagination
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Component examples -->
+  <div class="col-md-9">
+    
+    <!-- Accordion section -->
+    <section id="accordion" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Accordion</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Accordion</h4>
+        <div class="component-example">
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="bi bi-gear me-2"></i> Accordion Item #1
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <i class="bi bi-star me-2"></i> Accordion Item #2
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <i class="bi bi-heart me-2"></i> Accordion Item #3
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div class="accordion" id="accordionExample"&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;h2 class="accordion-header"&gt;
+      &lt;button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"&gt;
+        Accordion Item #1
+      &lt;/button&gt;
+    &lt;/h2&gt;
+    &lt;div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample"&gt;
+      &lt;div class="accordion-body"&gt;
+        Content goes here...
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Flush Accordion</h4>
+        <div class="component-example">
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Flush Accordion Item #1
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Flush Accordion Item #2
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div class="accordion accordion-flush" id="accordionFlushExample"&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;h2 class="accordion-header"&gt;
+      &lt;button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"&gt;
+        Flush Accordion Item #1
+      &lt;/button&gt;
+    &lt;/h2&gt;
+    &lt;div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"&gt;
+      &lt;div class="accordion-body"&gt;Content...&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carousel section -->
+    <section id="carousel" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Carousel</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Carousel with Controls</h4>
+        <div class="component-example">
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex align-items-center justify-content-center bg-primary text-white" style="height: 300px;">
+                  <div class="text-center">
+                    <h3><i class="bi bi-1-circle"></i> First Slide</h3>
+                    <p>This is the first slide of the carousel</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center bg-success text-white" style="height: 300px;">
+                  <div class="text-center">
+                    <h3><i class="bi bi-2-circle"></i> Second Slide</h3>
+                    <p>This is the second slide of the carousel</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center bg-info text-white" style="height: 300px;">
+                  <div class="text-center">
+                    <h3><i class="bi bi-3-circle"></i> Third Slide</h3>
+                    <p>This is the third slide of the carousel</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div id="carouselExample" class="carousel slide" data-bs-ride="carousel"&gt;
+  &lt;div class="carousel-inner"&gt;
+    &lt;div class="carousel-item active"&gt;
+      &lt;img src="..." class="d-block w-100" alt="..."&gt;
+    &lt;/div&gt;
+    &lt;div class="carousel-item"&gt;
+      &lt;img src="..." class="d-block w-100" alt="..."&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"&gt;
+    &lt;span class="carousel-control-prev-icon"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"&gt;
+    &lt;span class="carousel-control-next-icon"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Carousel with Indicators</h4>
+        <div class="component-example">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex align-items-center justify-content-center bg-warning text-dark" style="height: 250px;">
+                  <div class="text-center">
+                    <h4><i class="bi bi-sun"></i> Slide One</h4>
+                    <p>Content with indicators</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center bg-danger text-white" style="height: 250px;">
+                  <div class="text-center">
+                    <h4><i class="bi bi-moon"></i> Slide Two</h4>
+                    <p>Second slide content</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 250px;">
+                  <div class="text-center">
+                    <h4><i class="bi bi-stars"></i> Slide Three</h4>
+                    <p>Third slide content</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div id="carouselWithIndicators" class="carousel slide"&gt;
+  &lt;div class="carousel-indicators"&gt;
+    &lt;button type="button" data-bs-target="#carouselWithIndicators" data-bs-slide-to="0" class="active"&gt;&lt;/button&gt;
+    &lt;button type="button" data-bs-target="#carouselWithIndicators" data-bs-slide-to="1"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="carousel-inner"&gt;
+    &lt;div class="carousel-item active"&gt;Content...&lt;/div&gt;
+    &lt;div class="carousel-item"&gt;Content...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Offcanvas section -->
+    <section id="offcanvas" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Offcanvas</h2>
+      
+      <div class="mb-4">
+        <h4>Offcanvas Sidebar</h4>
+        <div class="component-example">
+          <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <i class="bi bi-list"></i> Toggle Offcanvas
+          </button>
+          
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel"><i class="bi bi-menu-app"></i> Offcanvas Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+              </div>
+              <div class="mt-3">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><i class="bi bi-house me-2"></i> Home</li>
+                  <li class="list-group-item"><i class="bi bi-person me-2"></i> Profile</li>
+                  <li class="list-group-item"><i class="bi bi-gear me-2"></i> Settings</li>
+                  <li class="list-group-item"><i class="bi bi-box-arrow-right me-2"></i> Logout</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"&gt;
+  Toggle Offcanvas
+&lt;/button&gt;
+
+&lt;div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"&gt;
+  &lt;div class="offcanvas-header"&gt;
+    &lt;h5 class="offcanvas-title"&gt;Offcanvas Title&lt;/h5&gt;
+    &lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="offcanvas-body"&gt;
+    Content goes here...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs section -->
+    <section id="tabs" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Tabs & Pills</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Tabs</h4>
+        <div class="component-example">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                <i class="bi bi-house"></i> Home
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                <i class="bi bi-person"></i> Profile
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
+                <i class="bi bi-envelope"></i> Contact
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab">
+              <div class="p-3">
+                <h5>Home Content</h5>
+                <p>This is the home tab content. You can add any content here including text, images, forms, or other components.</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="p-3">
+                <h5>Profile Content</h5>
+                <p>This is the profile tab content. Each tab can contain completely different content and layouts.</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab">
+              <div class="p-3">
+                <h5>Contact Content</h5>
+                <p>This is the contact tab content. Tabs are great for organizing related information in a compact space.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;ul class="nav nav-tabs" id="myTab" role="tablist"&gt;
+  &lt;li class="nav-item" role="presentation"&gt;
+    &lt;button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"&gt;
+      Home
+    &lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="tab-content"&gt;
+  &lt;div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"&gt;
+    Content...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Pills Navigation</h4>
+        <div class="component-example">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab">
+                <i class="bi bi-house"></i> Home
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab">
+                <i class="bi bi-person"></i> Profile
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab">
+                <i class="bi bi-envelope"></i> Messages
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+              <div class="p-3 bg-light rounded">
+                <h6>Pills Home</h6>
+                <p class="mb-0">This is the pills-style navigation. It has a more rounded, modern appearance.</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel">
+              <div class="p-3 bg-light rounded">
+                <h6>Pills Profile</h6>
+                <p class="mb-0">Profile content in pills format.</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel">
+              <div class="p-3 bg-light rounded">
+                <h6>Pills Messages</h6>
+                <p class="mb-0">Messages content in pills format.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;ul class="nav nav-pills" id="pills-tab" role="tablist"&gt;
+  &lt;li class="nav-item" role="presentation"&gt;
+    &lt;button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"&gt;
+      Home
+    &lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="tab-content"&gt;
+  &lt;div class="tab-pane fade show active" id="pills-home" role="tabpanel"&gt;
+    Content...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collapse section -->
+    <section id="collapse" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Collapse</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Collapse</h4>
+        <div class="component-example">
+          <p>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="bi bi-chevron-down"></i> Toggle Collapse
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              <h5>Collapsed Content</h5>
+              <p>This content was hidden and is now visible! The collapse component is perfect for showing/hiding content, creating expandable sections, or building FAQ pages.</p>
+              <p class="mb-0">You can include any content here: text, images, forms, or even other Bootstrap components.</p>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"&gt;
+  Toggle Collapse
+&lt;/button&gt;
+&lt;div class="collapse" id="collapseExample"&gt;
+  &lt;div class="card card-body"&gt;
+    Content to be collapsed...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Multiple Collapse Targets</h4>
+        <div class="component-example">
+          <p>
+            <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false">
+              <i class="bi bi-1-circle"></i> Toggle First
+            </button>
+            <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false">
+              <i class="bi bi-2-circle"></i> Toggle Second
+            </button>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false">
+              <i class="bi bi-arrows-expand"></i> Toggle Both
+            </button>
+          </p>
+          <div class="row">
+            <div class="col">
+              <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body">
+                  <h6>First Collapse</h6>
+                  <p class="mb-0">This is the first collapsible content area.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="collapse multi-collapse" id="multiCollapseExample2">
+                <div class="card card-body">
+                  <h6>Second Collapse</h6>
+                  <p class="mb-0">This is the second collapsible content area.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dropdown section -->
+    <section id="dropdown" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Dropdowns</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Dropdowns</h4>
+        <div class="component-example">
+          <div class="dropdown d-inline-block me-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <i class="bi bi-chevron-down"></i> Dropdown
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-house me-2"></i>Home</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign out</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="bi bi-lightning"></i> Actions
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div class="dropdown"&gt;
+  &lt;button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"&gt;
+    Dropdown
+  &lt;/button&gt;
+  &lt;ul class="dropdown-menu"&gt;
+    &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;Action&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;Another action&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;Something else&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Split Button Dropdowns</h4>
+        <div class="component-example">
+          <div class="btn-group me-3">
+            <button type="button" class="btn btn-success">
+              <i class="bi bi-download"></i> Download
+            </button>
+            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-file-pdf me-2"></i>Download as PDF</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-file-word me-2"></i>Download as Word</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-file-excel me-2"></i>Download as Excel</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-share"></i> Share
+            </button>
+            <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-facebook me-2"></i>Facebook</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-twitter me-2"></i>Twitter</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-linkedin me-2"></i>LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tooltips and Popovers section -->
+    <section id="tooltips" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Tooltips & Popovers</h2>
+      
+      <div class="mb-4">
+        <h4>Tooltips</h4>
+        <div class="component-example">
+          <button type="button" class="btn btn-secondary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+            Tooltip on top
+          </button>
+          <button type="button" class="btn btn-secondary me-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">
+            Tooltip on right
+          </button>
+          <button type="button" class="btn btn-secondary me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+            Tooltip on bottom
+          </button>
+          <button type="button" class="btn btn-secondary me-2" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">
+            Tooltip on left
+          </button>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip text"&gt;
+  Tooltip on top
+&lt;/button&gt;
+
+&lt;script&gt;
+// Initialize tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Popovers</h4>
+        <div class="component-example">
+          <button type="button" class="btn btn-primary me-2" data-bs-toggle="popover" data-bs-placement="top" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">
+            Popover on top
+          </button>
+          <button type="button" class="btn btn-primary me-2" data-bs-toggle="popover" data-bs-placement="right" title="Popover title" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+            Popover on right
+          </button>
+          <button type="button" class="btn btn-primary me-2" data-bs-toggle="popover" data-bs-placement="bottom" title="Popover title" data-bs-content="Sed posuere consectetur est at lobortis. Aenean eu leo quam.">
+            Popover on bottom
+          </button>
+          <button type="button" class="btn btn-primary me-2" data-bs-toggle="popover" data-bs-placement="left" title="Popover title" data-bs-content="Maecenas sed diam eget risus varius blandit sit amet non magna.">
+            Popover on left
+          </button>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;button type="button" class="btn btn-primary" data-bs-toggle="popover" 
+        title="Popover title" data-bs-content="Popover content goes here"&gt;
+  Click to toggle popover
+&lt;/button&gt;
+
+&lt;script&gt;
+// Initialize popovers
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Bars section -->
+    <section id="progress" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Progress Bars</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Progress Bars</h4>
+        <div class="component-example">
+          <div class="mb-3">
+            <label class="form-label">Basic Progress (25%)</label>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">With Label (50%)</label>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Success Progress (75%)</label>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+            </div>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div class="progress"&gt;
+  &lt;div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="progress"&gt;
+  &lt;div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;50%&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Striped and Animated Progress</h4>
+        <div class="component-example">
+          <div class="mb-3">
+            <label class="form-label">Striped Progress</label>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Animated Striped Progress</label>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Multiple Progress Bars</label>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spinners section -->
+    <section id="spinners" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Spinners</h2>
+      
+      <div class="mb-4">
+        <h4>Border Spinners</h4>
+        <div class="component-example">
+          <div class="spinner-border text-primary me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-secondary me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-success me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-danger me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-warning me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div class="spinner-border text-primary" role="status"&gt;
+  &lt;span class="visually-hidden"&gt;Loading...&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Growing Spinners</h4>
+        <div class="component-example">
+          <div class="spinner-grow text-primary me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;div class="spinner-grow text-primary" role="status"&gt;
+  &lt;span class="visually-hidden"&gt;Loading...&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Spinner Sizes</h4>
+        <div class="component-example">
+          <div class="spinner-border spinner-border-sm me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow spinner-grow-sm me-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges section -->
+    <section id="badges" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Badges</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Badges</h4>
+        <div class="component-example">
+          <h5>Example heading <span class="badge bg-secondary">New</span></h5>
+          <h6>Another heading <span class="badge bg-primary">Featured</span></h6>
+          
+          <p class="mt-3">
+            <span class="badge bg-primary me-2">Primary</span>
+            <span class="badge bg-secondary me-2">Secondary</span>
+            <span class="badge bg-success me-2">Success</span>
+            <span class="badge bg-danger me-2">Danger</span>
+            <span class="badge bg-warning text-dark me-2">Warning</span>
+            <span class="badge bg-info text-dark me-2">Info</span>
+            <span class="badge bg-light text-dark me-2">Light</span>
+            <span class="badge bg-dark">Dark</span>
+          </p>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;h5&gt;Example heading &lt;span class="badge bg-secondary"&gt;New&lt;/span&gt;&lt;/h5&gt;
+
+&lt;span class="badge bg-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge bg-success"&gt;Success&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Pill Badges</h4>
+        <div class="component-example">
+          <span class="badge rounded-pill bg-primary me-2">Primary</span>
+          <span class="badge rounded-pill bg-secondary me-2">Secondary</span>
+          <span class="badge rounded-pill bg-success me-2">Success</span>
+          <span class="badge rounded-pill bg-danger me-2">Danger</span>
+          <span class="badge rounded-pill bg-warning text-dark me-2">Warning</span>
+          <span class="badge rounded-pill bg-info text-dark me-2">Info</span>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;span class="badge rounded-pill bg-primary"&gt;Primary&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Notification Badges</h4>
+        <div class="component-example">
+          <button type="button" class="btn btn-primary position-relative me-3">
+            <i class="bi bi-envelope"></i> Messages
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              99+
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </button>
+          
+          <button type="button" class="btn btn-outline-secondary position-relative">
+            <i class="bi bi-bell"></i> Notifications
+            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+              <span class="visually-hidden">New alerts</span>
+            </span>
+          </button>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;button type="button" class="btn btn-primary position-relative"&gt;
+  Messages
+  &lt;span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"&gt;
+    99+
+  &lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Breadcrumb section -->
+    <section id="breadcrumb" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Breadcrumbs</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Breadcrumb</h4>
+        <div class="component-example">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#"><i class="bi bi-house me-1"></i>Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Library</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;nav aria-label="breadcrumb"&gt;
+  &lt;ol class="breadcrumb"&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Library&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="breadcrumb-item active" aria-current="page"&gt;Data&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Custom Breadcrumb Dividers</h4>
+        <div class="component-example">
+          <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Components</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Advanced</li>
+            </ol>
+          </nav>
+          
+          <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='m2.5 0l3 3l-3 3l-1.5-1.5l1.5-1.5l-1.5-1.5z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Library</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pagination section -->
+    <section id="pagination" class="component-section mb-5">
+      <h2 class="border-bottom pb-2 mb-4">Pagination</h2>
+      
+      <div class="mb-4">
+        <h4>Basic Pagination</h4>
+        <div class="component-example">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;nav aria-label="Page navigation"&gt;
+  &lt;ul class="pagination"&gt;
+    &lt;li class="page-item"&gt;
+      &lt;a class="page-link" href="#" aria-label="Previous"&gt;
+        &lt;span aria-hidden="true"&gt;&amp;laquo;&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="page-item"&gt;&lt;a class="page-link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="page-item active"&gt;&lt;a class="page-link" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="page-item"&gt;&lt;a class="page-link" href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <h4>Pagination Sizes</h4>
+        <div class="component-example">
+          <nav aria-label="Large pagination">
+            <ul class="pagination pagination-lg">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+          
+          <nav aria-label="Small pagination" class="mt-3">
+            <ul class="pagination pagination-sm">
+              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="code-example mt-2">
+          <pre><code class="language-html">&lt;!-- Large pagination --&gt;
+&lt;ul class="pagination pagination-lg"&gt;...&lt;/ul&gt;
+
+&lt;!-- Small pagination --&gt;
+&lt;ul class="pagination pagination-sm"&gt;...&lt;/ul&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- Initialize Bootstrap JavaScript components -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  // Initialize popovers
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+  popoverTriggerList.forEach(function (popoverTriggerEl) {
+    new bootstrap.Popover(popoverTriggerEl);
+  });
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Update active navigation item based on scroll position
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -80% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const navLink = document.querySelector(`a[href="#${id}"]`);
+        if (navLink) {
+          document.querySelectorAll('.list-group-item-action').forEach(link => {
+            link.classList.remove('active');
+          });
+          navLink.classList.add('active');
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Observe all sections
+  document.querySelectorAll('section[id]').forEach(section => {
+    observer.observe(section);
+  });
+});
+</script>
+
+<style>
+.component-example {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  background-color: #f8f9fa;
+}
+
+.code-example {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 0;
+}
+
+.code-example pre {
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.component-section {
+  scroll-margin-top: 2rem;
+}
+
+.list-group-item-action.active {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: white;
+}
+
+.sticky-top {
+  top: 2rem !important;
+}
+
+@media (max-width: 768px) {
+  .sticky-top {
+    position: relative !important;
+    top: auto !important;
+  }
+}
+</style>
+
+<!-- Page footer section -->
+<div class="page-footer mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <p class="text-muted"><small>Last updated: 1/31/2026</small></p>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-outline-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="bi bi-arrow-up"></i> Back to top
+      </button>
+    </div>
+  </div>
+</div>
+ 
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2026 JsBootSpark. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+            
+            <div class="mt-1">
+              <small class="text-muted">
+                v1.0.1-build.1 | Built: 1/31/2026
+              </small>
+            </div>
+            
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/JsBootSpark/js/dependencies.min.js"></script>
+    <script src="/JsBootSpark/js/service-worker-register.js"></script>
+    <script src="/JsBootSpark/js/theme-toggle.js"></script>
+    <script src="/JsBootSpark/js/theme-demo.js"></script>
+    <script src="/JsBootSpark/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    
+  </body>
+</html>

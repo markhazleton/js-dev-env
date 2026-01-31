@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Ed Sheeran - Sapphire (Official Music Video) - Song #8 | JsBootSpark</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Ed Sheeran - Sapphire (Official Music Video) - Song #8 | JsBootSpark",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/JsBootSpark/css/styles.css" rel="stylesheet" />
+    <link href="/JsBootSpark/css/dependencies.css" rel="stylesheet" />
+    <link href="/JsBootSpark/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/JsBootSpark/favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/JsBootSpark/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/JsBootSpark/"
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
+            </li>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+       <!-- Page header section -->
+<div class="page-header mb-4">
+  <h1><i class="bi bi-music-note-beamed"></i> Song Details</h1>
+  <p class="lead">Detailed information about song #8 from YouTube Top 100</p>
+  
+  <hr>
+</div>
+
+<!-- Loading State -->
+<div id="loading-container" class="text-center py-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <p class="mt-3">Loading song details...</p>
+</div>
+
+<!-- Error State -->
+<div id="error-container" class="alert alert-danger d-none" role="alert">
+  <h4 class="alert-heading">
+    <i class="bi bi-exclamation-triangle"></i> Error
+  </h4>
+  <p id="error-message">Failed to load song details.</p>
+  <hr />
+  <a href="/JsBootSpark/data-tables" class="btn btn-outline-danger">
+    <i class="bi bi-arrow-left"></i> Back to Songs List
+  </a>
+</div>
+
+<!-- Song Detail Content -->
+<div id="song-container" class="d-none">
+  <!-- Hero Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-lg bg-gradient">
+        <div class="card-body p-4 p-md-5">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <div class="badge bg-primary mb-3" id="song-rank">
+                <i class="bi bi-trophy"></i> Rank #<span
+                  id="rank-number"
+                ></span>
+              </div>
+              <h1 class="display-4 fw-bold mb-3" id="song-title"></h1>
+              <h3 class="text-muted mb-4" id="song-channel">
+                <i class="bi bi-person-circle me-2"></i>
+                <span id="channel-name"></span>
+              </h3>
+              <div class="row g-3">
+                <div class="col-auto">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-eye-fill text-primary me-2"></i>
+                    <strong id="song-views"></strong>
+                    <small class="text-muted ms-1">views</small>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-clock-fill text-success me-2"></i>
+                    <strong id="song-duration"></strong>
+                    <small class="text-muted ms-1">duration</small>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-people-fill text-warning me-2"></i>
+                    <strong id="song-followers"></strong>
+                    <small class="text-muted ms-1">followers</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div id="thumbnail-container" class="d-none">
+                <img
+                  id="song-thumbnail"
+                  class="img-fluid rounded-3 shadow"
+                  alt="Song thumbnail"
+                  style="max-height: 200px"
+                />
+              </div>
+              <div id="no-thumbnail" class="p-4 bg-light rounded-3">
+                <i class="bi bi-music-note-beamed display-1 text-muted"></i>
+                <p class="text-muted mb-0">No thumbnail available</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="row">
+    <!-- Left Column - Main Info -->
+    <div class="col-lg-8">
+      <!-- Song Information -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">
+            <i class="bi bi-info-circle me-2"></i>Song Information
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <h5><i class="bi bi-music-note me-2"></i>Full Title</h5>
+              <p id="song-full-title" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-tag me-2"></i>Category</h5>
+              <p id="song-category">
+                <span class="badge bg-secondary" id="category-badge"></span>
+              </p>
+            </div>
+            <div class="col-md-6" id="channel-url-container">
+              <h5><i class="bi bi-link-45deg me-2"></i>Channel</h5>
+              <a
+                id="channel-link"
+                href="#"
+                target="_blank"
+                class="btn btn-outline-primary btn-sm"
+              >
+                <i class="bi bi-box-arrow-up-right me-1"></i>Visit Channel
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="card mb-4" id="description-card">
+        <div class="card-header bg-info text-white">
+          <h3 class="mb-0"><i class="bi bi-card-text me-2"></i>Description</h3>
+        </div>
+        <div class="card-body">
+          <div id="song-description" class="description-content"></div>
+          <button
+            id="toggle-description"
+            class="btn btn-outline-info btn-sm mt-3 d-none"
+          >
+            <i class="bi bi-chevron-down me-1"></i>Show More
+          </button>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="card mb-4" id="tags-card">
+        <div class="card-header bg-secondary text-white">
+          <h3 class="mb-0"><i class="bi bi-tags me-2"></i>Tags</h3>
+        </div>
+        <div class="card-body">
+          <div id="song-tags" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Stats -->
+    <div class="col-lg-4">
+      <!-- Quick Stats -->
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0"><i class="bi bi-graph-up me-2"></i>Statistics</h4>
+        </div>
+        <div class="card-body">
+          <div class="row g-3 text-center">
+            <div class="col-12">
+              <div class="p-3 bg-light rounded">
+                <h2 class="display-6 text-primary mb-0" id="views-large"></h2>
+                <small class="text-muted">Total Views</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-2 bg-light rounded">
+                <h4 class="text-success mb-0" id="duration-large"></h4>
+                <small class="text-muted">Duration</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-2 bg-light rounded">
+                <h4 class="text-warning mb-0" id="followers-large"></h4>
+                <small class="text-muted">Followers</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to List -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center py-4">
+          <h5 class="mb-3">Explore More Songs</h5>
+          <div class="btn-group" role="group">
+            <a href="/JsBootSpark/data-tables" class="btn btn-primary">
+              <i class="bi bi-arrow-left me-2"></i>Back to All Songs
+            </a>
+            <button
+              id="prev-song"
+              class="btn btn-outline-secondary"
+              title="Previous Song"
+            >
+              <i class="bi bi-chevron-left"></i> Previous
+            </button>
+            <button
+              id="next-song"
+              class="btn btn-outline-secondary"
+              title="Next Song"
+            >
+              Next <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for this page is loaded in the layout when songId is present -->
+
+<!-- Page footer section -->
+<div class="page-footer mt-5">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <p class="text-muted"><small>Last updated: 1/31/2026</small></p>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-outline-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="bi bi-arrow-up"></i> Back to top
+      </button>
+    </div>
+  </div>
+</div>
+ 
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2026 JsBootSpark. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+            
+            <div class="mt-1">
+              <small class="text-muted">
+                v1.0.1-build.1 | Built: 1/31/2026
+              </small>
+            </div>
+            
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/JsBootSpark/js/dependencies.min.js"></script>
+    <script src="/JsBootSpark/js/service-worker-register.js"></script>
+    <script src="/JsBootSpark/js/theme-toggle.js"></script>
+    <script src="/JsBootSpark/js/theme-demo.js"></script>
+    <script src="/JsBootSpark/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    
+    <!-- Song Detail Page JavaScript -->
+    <script nonce="static-site-dummy-nonce">
+    console.log('Song detail page loading for songId:', '8');
+    
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const songId = '8';
+      
+      // Get container elements
+      const loadingContainer = document.getElementById('loading-container');
+      const songContainer = document.getElementById('song-container');
+      
+      fetch('/api/song/' + songId)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          console.log('Song data loaded:', data.title);
+          
+          // Show content container first
+          if (loadingContainer) loadingContainer.classList.add('d-none');
+          if (songContainer) songContainer.classList.remove('d-none');
+          
+          // Populate all text elements
+          const elements = [
+            { id: 'song-title', value: data.title || 'Unknown Title' },
+            { id: 'rank-number', value: data.rank || 'N/A' },
+            { id: 'channel-name', value: data.channel || 'Unknown Channel' },
+            { id: 'song-views', value: data.views || 'N/A' },
+            { id: 'song-duration', value: data.duration || 'N/A' },
+            { id: 'song-followers', value: data.followers || 'N/A' },
+            { id: 'views-large', value: data.views || 'N/A' },
+            { id: 'duration-large', value: data.duration || 'N/A' },
+            { id: 'followers-large', value: data.followers || 'N/A' },
+            { id: 'song-full-title', value: data.fullTitle || data.title || 'Unknown Title' },
+            { id: 'category-badge', value: data.category || 'Music' }
+          ];
+          
+          elements.forEach(function(item) {
+            const element = document.getElementById(item.id);
+            if (element) {
+              element.textContent = item.value;
+            }
+          });
+          
+          // Handle channel link
+          const channelLink = document.getElementById('channel-link');
+          const channelUrlContainer = document.getElementById('channel-url-container');
+          if (channelLink && data.channelUrl) {
+            channelLink.href = data.channelUrl;
+            if (channelUrlContainer) channelUrlContainer.classList.remove('d-none');
+          } else if (channelUrlContainer) {
+            channelUrlContainer.classList.add('d-none');
+          }
+          
+          // Handle thumbnail
+          const thumbnailImg = document.getElementById('song-thumbnail');
+          const thumbnailContainer = document.getElementById('thumbnail-container');
+          const noThumbnail = document.getElementById('no-thumbnail');
+          if (thumbnailImg && data.thumbnail) {
+            thumbnailImg.src = data.thumbnail;
+            thumbnailImg.alt = data.title + ' thumbnail';
+            if (thumbnailContainer) thumbnailContainer.classList.remove('d-none');
+            if (noThumbnail) noThumbnail.classList.add('d-none');
+          } else {
+            if (thumbnailContainer) thumbnailContainer.classList.add('d-none');
+            if (noThumbnail) noThumbnail.classList.remove('d-none');
+          }
+          
+          // Helper function to escape HTML (defined once to prevent conflicts)
+          function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+          }
+          
+          // Handle description
+          const descContainer = document.getElementById('song-description');
+          const descCard = document.getElementById('description-card');
+          if (descContainer && data.description) {
+            // Format description with line breaks and links
+            const escapedDesc = escapeHtml(data.description);
+            const formattedDesc = escapedDesc
+              .replace(/\n/g, '<br>')
+              .replace(/https?:\/\/[^\s\n]+/g, function(url) {
+                var safeUrl = url.replace(/"/g, '&quot;');
+                return '<a href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none">' + escapeHtml(url) + ' <i class="bi bi-box-arrow-up-right small"></i></a>';
+              });
+            descContainer.innerHTML = formattedDesc;
+            if (descCard) descCard.classList.remove('d-none');
+          } else if (descCard) {
+            descCard.classList.add('d-none');
+          }
+          
+          // Handle tags
+          const tagsContainer = document.getElementById('song-tags');
+          const tagsCard = document.getElementById('tags-card');
+          if (tagsContainer && data.tags) {
+            const tagList = data.tags.split(/[;,]/).map(function(tag) { return tag.trim(); }).filter(function(tag) { return tag; });
+            if (tagList.length > 0) {
+              tagsContainer.innerHTML = tagList.map(function(tag) {
+                return '<span class="badge bg-light text-dark border">' + escapeHtml(tag) + '</span>';
+              }).join(' ');
+              if (tagsCard) tagsCard.classList.remove('d-none');
+            } else if (tagsCard) {
+              tagsCard.classList.add('d-none');
+            }
+          } else if (tagsCard) {
+            tagsCard.classList.add('d-none');
+          }
+          
+          // Setup navigation
+          const prevBtn = document.getElementById('prev-song');
+          const nextBtn = document.getElementById('next-song');
+          const currentRank = parseInt(data.rank) || 1;
+          
+          if (prevBtn) {
+            if (currentRank > 1) {
+              prevBtn.onclick = function() { window.location.href = '/song/' + (currentRank - 1); };
+              prevBtn.disabled = false;
+            } else {
+              prevBtn.disabled = true;
+            }
+          }
+          
+          if (nextBtn) {
+            if (currentRank < 100) {
+              nextBtn.onclick = function() { window.location.href = '/song/' + (currentRank + 1); };
+              nextBtn.disabled = false;
+            } else {
+              nextBtn.disabled = true;
+            }
+          }
+          
+          // Update page title
+          document.title = (data.title || 'Unknown') + ' - ' + (data.channel || 'Unknown') + ' | Song Details';
+        })
+        .catch(function(error) {
+          console.error('API Error:', error);
+        });
+    });
+    </script>
+    
+  </body>
+</html>

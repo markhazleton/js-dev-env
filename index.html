@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple CMS built with Bootstrap 5 and EJS"
+    />
+    <title>Home | JsBootSpark</title>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json" nonce="static-site-dummy-nonce">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Home | JsBootSpark",
+        "url": "https://yourwebsite.com",
+        "description": "A simple CMS built with Bootstrap 5 and EJS"
+      }
+    </script>
+
+    <link href="/JsBootSpark/css/styles.css" rel="stylesheet" />
+    <link href="/JsBootSpark/css/dependencies.css" rel="stylesheet" />
+    <link href="/JsBootSpark/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/JsBootSpark/favicon.svg" type="image/svg+xml" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/JsBootSpark/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body class="flex-layout">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/JsBootSpark/"
+          ><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <!-- Documentation Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-book"></i> Documentation
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/getting-started"><i class="bi bi-play-circle me-2"></i>Getting Started</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/github-pages"><i class="bi bi-github me-2"></i>GitHub Pages</a></li>
+              </ul>
+            </li>
+
+            <!-- Components Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid-3x3-gap"></i> Components
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/components"><i class="bi bi-puzzle me-2"></i>Basic Components</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/advanced-components"><i class="bi bi-gear-wide-connected me-2"></i>Advanced Components</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/data-tables"><i class="bi bi-table me-2"></i>Data Tables</a></li>
+              </ul>
+            </li>
+
+            <!-- Site Demos Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-window-desktop"></i> Site Demos
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-saas-dashboard"><i class="bi bi-speedometer2 me-2"></i>SaaS Dashboard</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-team-collaboration"><i class="bi bi-people-fill me-2"></i>Team Collaboration</a></li>
+                <li><a class="dropdown-item" href="/JsBootSpark/demo-catalog"><i class="bi bi-shop me-2"></i>Product Catalog</a></li>
+              </ul>
+            </li>
+
+            <!-- Community Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-people"></i> Community
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/JsBootSpark/community"><i class="bi bi-heart me-2"></i>Community & Contributing</a></li>
+              </ul>
+            </li>
+
+            <!-- Dark mode toggle -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="darkModeToggle"
+                />
+                <label class="form-check-label" for="darkModeToggle"
+                  ><i class="bi bi-sun-fill"></i
+                ></label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="container my-5 pt-3 pb-5 flex-main">
+      
+      <h1 class="mb-4"><i class="bi bi-lightning-charge-fill"></i> JsBootSpark</h1>
+      <p class="lead">A modern, feature-rich foundation for your web projects</p>
+      <div class="content-body"><div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-md-8 offset-md-2">
+      <div class="p-4 p-md-5 mb-4 text-bg-primary rounded">
+        <div class="col-md-10">
+          <h2 class="display-5 fw-bold"><i class="bi bi-rocket"></i> Launch Your Web Projects Faster</h2>
+          <p class="lead my-3">Build modern, responsive web applications with JsBootSpark, combining Express.js, Bootstrap 5, EJS templates, and many more features.</p>
+          <p><a href="/JsBootSpark/getting-started" class="btn btn-lg btn-outline-light fw-bold">Get Started <i class="bi bi-arrow-right"></i></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 py-3 mb-4">
+    <div class="col-md-4">
+      <div class="h-100 p-4 border rounded">
+        <h2><i class="bi bi-moon-stars"></i> Dark Mode Support</h2>
+        <p>Toggle between light and dark themes with our built-in theme switcher. Your preference is automatically saved and respects system preferences.</p>
+        <button class="btn btn-outline-primary" id="theme-demo-toggle">Try Dark Mode</button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="h-100 p-4 border rounded">
+        <h2><i class="bi bi-speedometer2"></i> Performance Optimized</h2>
+        <p>Enjoy faster page loads with built-in compression, caching system, and optimized assets for a smoother user experience.</p>
+        <a href="/JsBootSpark/components" class="btn btn-outline-primary">Explore Components</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="h-100 p-4 border rounded">
+        <h2><i class="bi bi-phone"></i> PWA Ready</h2>
+        <p>Progressive Web App support with service workers for offline functionality and a web app manifest for installable experience.</p>
+        <button class="btn btn-outline-primary" disabled>Install App (Demo)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h3 class="card-title"><i class="bi bi-shield-check"></i> Enhanced Security</h3>
+          <p class="card-text">Integrated with Helmet.js for robust security headers and protection against common web vulnerabilities.</p>
+          <h3 class="card-title"><i class="bi bi-search"></i> SEO Ready</h3>
+          <p class="card-text">Built-in structured data and optimized metadata to improve search engine visibility.</p>
+          <h3 class="card-title"><i class="bi bi-file-earmark-code"></i> Form Validation</h3>
+          <p class="card-text">Client-side form validation utilities with custom feedback for a better user experience.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body">
+          <h3 class="card-title"><i class="bi bi-arrow-repeat"></i> Live Reload</h3>
+          <p class="card-text">Automatically refresh your browser on code changes for a smoother development workflow.</p>
+          <h3 class="card-title"><i class="bi bi-layers"></i> Environment Configuration</h3>
+          <p class="card-text">Easily configure your application for different environments with built-in dotenv support.</p>
+          <h3 class="card-title"><i class="bi bi-grid-3x3-gap"></i> Component Library</h3>
+          <p class="card-text">Comprehensive collection of pre-built components with copy-paste examples.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h3 class="h5 mb-0"><i class="bi bi-code-square"></i> Easy Content Management</h3>
+    </div>
+    <div class="card-body">
+      <p>Add new pages with simple JSON configuration – no database required:</p>
+      <pre class="bg-light p-3 rounded"><code>{
+  "title": "Your Page Title",
+  "url": "/your-page-url",
+  "template": "page",
+  "content": {
+    "heading": "Your Page Heading",
+    "text": "Your page description",
+    "body": "Your page content in HTML format"
+  }
+}</code></pre>
+      <p class="mt-3">The server automatically creates routes for all pages defined in the pages.json file.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h3>Ready to explore all the features?</h3>
+          <p class="mb-0">Check out our component library to see what's available and how to use it in your projects.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <a href="/JsBootSpark/components" class="btn btn-primary btn-lg"><i class="bi bi-grid-3x3-gap me-2"></i>View Component Library</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+      
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-3 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="text-muted"
+              >© 2026 JsBootSpark. All rights
+              reserved.</span
+            >
+            <span class="text-muted ms-2">|</span>
+            <a
+              href="https://markhazleton.com"
+              class="text-muted ms-2"
+              target="_blank"
+            >
+              Created by Mark Hazleton
+              <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+            
+            <div class="mt-1">
+              <small class="text-muted">
+                v1.0.1-build.1 | Built: 1/31/2026
+              </small>
+            </div>
+            
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="https://github.com/markhazleton" class="text-muted me-2"
+              ><i class="bi bi-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/markhazleton/"
+              class="text-muted"
+              ><i class="bi bi-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/JsBootSpark/js/dependencies.min.js"></script>
+    <script src="/JsBootSpark/js/service-worker-register.js"></script>
+    <script src="/JsBootSpark/js/theme-toggle.js"></script>
+    <script src="/JsBootSpark/js/theme-demo.js"></script>
+    <script src="/JsBootSpark/js/component-library.js"></script>
+    
+    <!-- Conditional scripts based on page -->
+    
+  </body>
+</html>
