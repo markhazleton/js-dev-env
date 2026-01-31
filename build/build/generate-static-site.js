@@ -42,7 +42,7 @@ function convertPathsForGitHubPages(html) {
   // Handle home page link
   convertedHtml = convertedHtml.replace(/href="\/"(?=[\s>])/g, `href="${basePath}"`);
   
-  // Handle other page links (e.g., /getting-started -> /js-dev-env/getting-started)
+  // Handle other page links (e.g., /getting-started -> /JsBootSpark/getting-started)
   convertedHtml = convertedHtml.replace(/href="\/([^"/]+)"(?=[\s>])/g, (match, pageName) => {
     return `href="${basePath}${pageName}"`;
   });
