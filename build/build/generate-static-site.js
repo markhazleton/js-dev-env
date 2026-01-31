@@ -20,9 +20,9 @@ if (!fs.existsSync(docsDir)) {
 
 // Function to convert absolute paths for GitHub Pages subdirectory deployment
 function convertPathsForGitHubPages(html) {
-  // For GitHub Pages subdirectory (e.g., /js-dev-env/), keep absolute paths
-  // The paths should start with /js-dev-env/ for proper resolution
-  const basePath = '/js-dev-env/';
+  // For GitHub Pages subdirectory (e.g., /JsBootSpark/), keep absolute paths
+  // The paths should start with /JsBootSpark/ for proper resolution
+  const basePath = '/JsBootSpark/';
   
   // Convert absolute root paths to include GitHub Pages base path
   let convertedHtml = html
@@ -70,7 +70,7 @@ async function renderPage(pageData, isHomePage = false) {
     // Add a dummy cspNonce for static site generation
     cspNonce: 'static-site-dummy-nonce',
     // Add base path prefix for GitHub Pages
-    basePathPrefix: '/js-dev-env'
+    basePathPrefix: '/JsBootSpark'
   };
 
   try {

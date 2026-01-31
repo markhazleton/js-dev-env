@@ -39,7 +39,7 @@ console.log('External song-detail.js loaded!');
       console.log('loadSongDetails called with songId:', songId);
       
       // Load from static JSON file (GitHub Pages static site)
-      const staticDataUrl = '/js-dev-env/data/youtube-top-100-songs-2025.json';
+      const staticDataUrl = '/JsBootSpark/data/youtube-top-100-songs-2025.json';
       
       console.log('Attempting to load from static data:', staticDataUrl);
       

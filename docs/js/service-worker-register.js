@@ -8,17 +8,17 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     // Calculate the path to the root of the site
-    // pathname looks like: /js-dev-env/getting-started/ or /js-dev-env/
+    // pathname looks like: /JsBootSpark/getting-started/ or /JsBootSpark/
     // or on dev server: /data-tables/ or just /
     const pathname = window.location.pathname;
     
-    // Detect if we're on GitHub Pages (has js-dev-env in path)
-    const isGitHubPages = pathname.includes('/js-dev-env/');
+    // Detect if we're on GitHub Pages (has JsBootSpark in path)
+    const isGitHubPages = pathname.includes('/JsBootSpark/');
     
     let rootPath;
     if (isGitHubPages) {
-      // For GitHub Pages: /js-dev-env/... -> /js-dev-env/
-      rootPath = '/js-dev-env/';
+      // For GitHub Pages: /JsBootSpark/... -> /JsBootSpark/
+      rootPath = '/JsBootSpark/';
     } else {
       // For local dev server: always use root /
       rootPath = '/';

@@ -27,7 +27,7 @@ const docsDir = path.join(__dirname, '..', '..', 'docs');
 
 // Function to convert absolute paths for GitHub Pages subdirectory deployment
 function convertPathsForGitHubPages(html) {
-  const basePath = '/js-dev-env/';
+  const basePath = '/JsBootSpark/';
   
   let convertedHtml = html
     // CSS and other assets
@@ -72,7 +72,7 @@ async function renderSongPage(songIndex) {
     },
     buildInfo: buildInfo.getBuildInfo(),
     cspNonce: 'static-site-dummy-nonce',
-    basePathPrefix: '/js-dev-env'
+    basePathPrefix: '/JsBootSpark'
   };
 
   try {

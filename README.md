@@ -2,21 +2,21 @@
 
 <div align="center">
 
-[![GitHub Stars](https://img.shields.io/github/stars/markhazleton/js-dev-env?style=for-the-badge&logo=github)](https://github.com/markhazleton/js-dev-env/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/markhazleton/js-dev-env?style=for-the-badge&logo=github)](https://github.com/markhazleton/js-dev-env/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/markhazleton/js-dev-env?style=for-the-badge&logo=github)](https://github.com/markhazleton/js-dev-env/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/markhazleton/JsBootSpark?style=for-the-badge&logo=github)](https://github.com/markhazleton/JsBootSpark/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/markhazleton/JsBootSpark?style=for-the-badge&logo=github)](https://github.com/markhazleton/JsBootSpark/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/markhazleton/JsBootSpark?style=for-the-badge&logo=github)](https://github.com/markhazleton/JsBootSpark/issues)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 [![Node.js Version](https://img.shields.io/badge/Node.js-18%2B-green?style=for-the-badge&logo=node.js)](https://nodejs.org/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.7-purple?style=for-the-badge&logo=bootstrap)](https://getbootstrap.com/)
 [![Express](https://img.shields.io/badge/Express-5.1.0-blue?style=for-the-badge&logo=express)](https://expressjs.com/)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=for-the-badge&logo=github)](https://markhazleton.github.io/js-dev-env/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=for-the-badge&logo=github)](https://markhazleton.github.io/JsBootSpark/)
 
 **JsBootSpark is a production-ready, feature-rich starter kit for building modern, responsive web applications**
 
-🌐 **[Live Demo](https://markhazleton.github.io/js-dev-env/)** | 📚 **[Documentation](https://github.com/markhazleton/js-dev-env/wiki)** | 🚀 **[Quick Start](#-quick-start)**
+🌐 **[Live Demo](https://markhazleton.github.io/JsBootSpark/)** | 📚 **[Documentation](https://github.com/markhazleton/JsBootSpark/wiki)** | 🚀 **[Quick Start](#-quick-start)**
 
-![Hero Image](https://raw.githubusercontent.com/markhazleton/js-dev-env/main/docs/images/hero-banner.svg)
+![Hero Image](https://raw.githubusercontent.com/markhazleton/JsBootSpark/main/docs/images/hero-banner.svg)
 
 </div>
 
@@ -110,15 +110,15 @@
 
 ```bash
 # Clone and setup in one go
-npx degit markhazleton/js-dev-env my-awesome-project && cd my-awesome-project && npm install && npm run start:dev
+npx degit markhazleton/JsBootSpark my-awesome-project && cd my-awesome-project && npm install && npm run start:dev
 ```
 
 ### 📋 Step-by-Step Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/markhazleton/js-dev-env.git
-cd js-dev-env
+git clone https://github.com/markhazleton/JsBootSpark.git
+cd JsBootSpark
 
 # 2. Install dependencies
 npm install
@@ -137,8 +137,8 @@ open http://localhost:3000
 docker-compose up --build
 
 # Or using Docker directly
-docker build -t js-dev-env .
-docker run -p 3000:3000 js-dev-env
+docker build -t jsbootspark .
+docker run -p 3000:3000 jsbootspark
 ```
 
 ## 📚 Documentation
@@ -179,7 +179,7 @@ Comprehensive documentation organized by audience and purpose:
 ## 🏗️ Project Structure
 
 ```
-js-dev-env/
+JsBootSpark/
 ├── 📁 .github/                    # GitHub workflows and templates
 │   ├── workflows/
 │   │   ├── ci.yml                 # Continuous Integration
@@ -710,8 +710,8 @@ Look for issues labeled:
 
 ### 💬 **Community**
 
-- 🐛 **Report bugs** via [GitHub Issues](https://github.com/markhazleton/js-dev-env/issues)
-- 💡 **Suggest features** via [GitHub Discussions](https://github.com/markhazleton/js-dev-env/discussions)
+- 🐛 **Report bugs** via [GitHub Issues](https://github.com/markhazleton/JsBootSpark/issues)
+- 💡 **Suggest features** via [GitHub Discussions](https://github.com/markhazleton/JsBootSpark/discussions)
 - 🗨️ **Ask questions** in the community forum
 - 📢 **Follow updates** on releases and announcements
 
@@ -719,10 +719,10 @@ Look for issues labeled:
 
 <div align="center">
 
-![GitHub repo size](https://img.shields.io/github/repo-size/markhazleton/js-dev-env?style=for-the-badge)
-![GitHub code size](https://img.shields.io/github/languages/code-size/markhazleton/js-dev-env?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/markhazleton/js-dev-env?style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/markhazleton/js-dev-env?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/markhazleton/JsBootSpark?style=for-the-badge)
+![GitHub code size](https://img.shields.io/github/languages/code-size/markhazleton/JsBootSpark?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/markhazleton/JsBootSpark?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/markhazleton/JsBootSpark?style=for-the-badge)
 
 </div>
 

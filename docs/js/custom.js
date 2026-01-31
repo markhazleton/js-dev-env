@@ -1,4 +1,4 @@
-/* Custom JS Bundle - Generated 2026-01-30T19:35:20.261Z */
+/* Custom JS Bundle - Generated 2026-01-31T03:09:10.615Z */
 
 /* song-detail.js */
 // Song detail page JavaScript
@@ -42,7 +42,7 @@ console.log('External song-detail.js loaded!');
       console.log('loadSongDetails called with songId:', songId);
       
       // Load from static JSON file (GitHub Pages static site)
-      const staticDataUrl = '/js-dev-env/data/youtube-top-100-songs-2025.json';
+      const staticDataUrl = '/JsBootSpark/data/youtube-top-100-songs-2025.json';
       
       console.log('Attempting to load from static data:', staticDataUrl);
       
@@ -589,17 +589,17 @@ console.log('Custom JavaScript loaded!');
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     // Calculate the path to the root of the site
-    // pathname looks like: /js-dev-env/getting-started/ or /js-dev-env/
+    // pathname looks like: /JsBootSpark/getting-started/ or /JsBootSpark/
     // or on dev server: /data-tables/ or just /
     const pathname = window.location.pathname;
     
-    // Detect if we're on GitHub Pages (has js-dev-env in path)
-    const isGitHubPages = pathname.includes('/js-dev-env/');
+    // Detect if we're on GitHub Pages (has JsBootSpark in path)
+    const isGitHubPages = pathname.includes('/JsBootSpark/');
     
     let rootPath;
     if (isGitHubPages) {
-      // For GitHub Pages: /js-dev-env/... -> /js-dev-env/
-      rootPath = '/js-dev-env/';
+      // For GitHub Pages: /JsBootSpark/... -> /JsBootSpark/
+      rootPath = '/JsBootSpark/';
     } else {
       // For local dev server: always use root /
       rootPath = '/';

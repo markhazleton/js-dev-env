@@ -192,7 +192,7 @@ This project uses a sophisticated build system to convert a dynamic Express.js a
 
 1. **Template Conversion**: EJS templates are rendered to static HTML with proper path resolution
 2. **Custom Template Support**: The generator dynamically detects and uses custom templates from `/src/views/`
-3. **Path Conversion**: Absolute paths are converted to GitHub Pages subdirectory format (`/js-dev-env/`)
+3. **Path Conversion**: Absolute paths are converted to GitHub Pages subdirectory format (`/JsBootSpark/`)
 4. **Data File Generation**: CSV data is converted to JSON for client-side loading
 
 #### Key Components
@@ -216,7 +216,7 @@ This project uses a sophisticated build system to convert a dynamic Express.js a
 
 **PRODUCTION (GitHub Pages - PRIMARY DEPLOYMENT):**
 - ✅ Data loaded from `/docs/data/youtube-top-100-songs-2025.json`
-- ✅ Bootstrap Table configured with `data-url="/js-dev-env/data/..."`
+- ✅ Bootstrap Table configured with `data-url="/JsBootSpark/data/..."`
 - ✅ Song detail JavaScript loads from static JSON array
 - ✅ 100 pre-generated HTML pages at `/docs/song/{1-100}/`
 - ✅ No server required, pure client-side rendering
@@ -235,11 +235,11 @@ This project uses a sophisticated build system to convert a dynamic Express.js a
 
 #### Path Resolution Rules
 
-1. **Navigation Links**: `/` → `/js-dev-env/`, `/page` → `/js-dev-env/page`
-2. **CSS/JS Assets**: `/css/styles.css` → `/js-dev-env/css/styles.css`
-3. **Fonts**: `/fonts/bootstrap-icons/` → `/js-dev-env/fonts/bootstrap-icons/`
-4. **Images**: `/images/` → `/js-dev-env/images/`, `/img/` → `/js-dev-env/img/`
-5. **Manifest/Favicon**: `/manifest.json` → `/js-dev-env/manifest.json`
+1. **Navigation Links**: `/` → `/JsBootSpark/`, `/page` → `/JsBootSpark/page`
+2. **CSS/JS Assets**: `/css/styles.css` → `/JsBootSpark/css/styles.css`
+3. **Fonts**: `/fonts/bootstrap-icons/` → `/JsBootSpark/fonts/bootstrap-icons/`
+4. **Images**: `/images/` → `/JsBootSpark/images/`, `/img/` → `/JsBootSpark/img/`
+5. **Manifest/Favicon**: `/manifest.json` → `/JsBootSpark/manifest.json`
 
 #### Build Pipeline for GitHub Pages
 
@@ -261,13 +261,13 @@ npm run build  # Executes in order:
 - **Branch**: main
 - **Folder**: /docs
 - **URL Pattern**: `https://username.github.io/repository-name/`
-- **Base Path**: `/js-dev-env/` (handled automatically by build)
+- **Base Path**: `/JsBootSpark/` (handled automatically by build)
 
 #### URL Parsing for Static Sites
 
 **CRITICAL for GitHub Pages URLs:**
 
-GitHub Pages URLs end with trailing slashes (e.g., `/js-dev-env/song/1/`), which requires robust URL parsing:
+GitHub Pages URLs end with trailing slashes (e.g., `/JsBootSpark/song/1/`), which requires robust URL parsing:
 
 ```javascript
 // ❌ WRONG - Fails with trailing slashes
@@ -289,7 +289,7 @@ const songId = pathParts[songIndex + 1]; // Returns "1" for both /song/1 and /so
 #### Troubleshooting Static Sites
 
 **404 Errors on Resources:**
-- Ensure all paths use the base path prefix (`/js-dev-env/`)
+- Ensure all paths use the base path prefix (`/JsBootSpark/`)
 - Check that static site generation completed successfully
 - Verify files exist in `/docs/` directory structure
 - Use absolute paths with base prefix, NOT relative paths
@@ -310,7 +310,7 @@ const songId = pathParts[songIndex + 1]; // Returns "1" for both /song/1 and /so
 - Static sites cannot call Express API endpoints
 - All data must be pre-converted to JSON files
 - JavaScript must try static JSON first, fall back to API for local dev
-- Verify fetch URLs point to `/js-dev-env/data/` not `/api/`
+- Verify fetch URLs point to `/JsBootSpark/data/` not `/api/`
 
 **Service Worker Issues:**
 - Service worker registration uses dynamic base path detection
@@ -375,7 +375,7 @@ const outputPath = path.join(__dirname, '..', '..', 'docs', 'data', 'output.json
 fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
 
 // In template/JavaScript
-const dataUrl = '/js-dev-env/data/output.json';
+const dataUrl = '/JsBootSpark/data/output.json';
 fetch(dataUrl).then(res => res.json()).then(data => { /* use data */ });
 ```
 
@@ -418,7 +418,7 @@ All generated HTML must use the correct path format for GitHub Pages subdirector
 
 ```javascript
 function convertPathsForGitHubPages(html) {
-  const basePath = '/js-dev-env/';
+  const basePath = '/JsBootSpark/';
   
   return html
     // Assets
@@ -446,7 +446,7 @@ When writing JavaScript that needs to work on both static sites and dynamic serv
 
 ```javascript
 // ALWAYS try static data first, fall back to API for local development
-const staticDataUrl = '/js-dev-env/data/data.json';
+const staticDataUrl = '/JsBootSpark/data/data.json';
 const apiUrl = '/api/data';
 
 fetch(staticDataUrl)
@@ -599,7 +599,7 @@ Before implementing any feature, verify:
 
 - [ ] Works without Node.js/Express server
 - [ ] Uses static JSON files, not API endpoints
-- [ ] All paths include GitHub Pages base path (`/js-dev-env/`)
+- [ ] All paths include GitHub Pages base path (`/JsBootSpark/`)
 - [ ] URL parsing handles trailing slashes correctly
 - [ ] No server-side rendering required
 - [ ] Can be pre-generated during build process
@@ -620,7 +620,7 @@ Before implementing any feature, verify:
 - Pre-generate all HTML pages during build
 - Parse URLs with `.split('/').filter(p => p)` to handle trailing slashes
 - Convert all data sources to static JSON files
-- Use absolute paths with base prefix (e.g., `/js-dev-env/css/styles.css`)
+- Use absolute paths with base prefix (e.g., `/JsBootSpark/css/styles.css`)
 - Generate directory structure with `index.html` files
 - Test on GitHub Pages with full subdirectory path
 

@@ -74,7 +74,7 @@ After pushing:
 If some alerts remain open after the scan:
 
 1. **Navigate to Security Tab**
-   - Go to: https://github.com/markhazleton/js-dev-env/security/code-scanning
+   - Go to: https://github.com/markhazleton/JsBootSpark/security/code-scanning
 
 2. **Review Each Alert**
    - Click on each alert to view details
@@ -196,4 +196,4 @@ You're done when:
 ---
 
 **Created**: 2026-01-30
-**Repository**: https://github.com/markhazleton/js-dev-env
+**Repository**: https://github.com/markhazleton/JsBootSpark

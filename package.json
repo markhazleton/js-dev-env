@@ -1,6 +1,6 @@
 {
-  "name": "js-dev-env",
-  "version": "1.0.1-build.144",
+  "name": "jsbootspark",
+  "version": "1.0.1-build.3",
   "main": "src/index.js",
   "engines": {
     "node": ">=18.0.0",
@@ -45,8 +45,8 @@
     "version:major": "node build/maintenance/version.js increment major",
     "version:clean": "node build/maintenance/version.js clean",
     "// Docker": "# Container commands",
-    "docker:build": "docker build -t js-dev-env .",
-    "docker:run": "docker run -p 3000:3000 js-dev-env",
+    "docker:build": "docker build -t jsbootspark .",
+    "docker:run": "docker run -p 3000:3000 jsbootspark",
     "docker:dev": "docker-compose up --build",
     "// Setup & Configuration": "# Project setup helpers",
     "setup:minimal": "node build/maintenance/minimal-setup.js",
